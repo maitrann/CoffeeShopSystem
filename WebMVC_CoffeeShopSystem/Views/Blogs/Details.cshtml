@@ -1,0 +1,1118 @@
+﻿
+@{
+    ViewBag.Title = "Blog Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    WebAPI_CoffeeShop.Models.ModelView.BlogView detailsBlog = ViewBag.detailsBlog;
+}
+<style>
+    :root {
+        --primary-color: #c7a17a;
+    }
+
+    input[type="search"]::-webkit-search-decoration,
+    input[type="search"]::-webkit-search-cancel-button,
+    input[type="search"]::-webkit-search-results-button,
+    input[type="search"]::-webkit-search-results-decoration {
+        display: none;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .menu-wrapper {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+        .menu-wrapper .main-menu {
+            width: calc(100% - 200px);
+        }
+
+    li.logo-middle a {
+        padding: 0 0px !important;
+    }
+
+    li.logo-middle {
+        margin: 0 153px !important;
+        margin-left: 130px !important;
+    }
+
+        li.logo-middle .logo {
+            padding: 0;
+            margin-right: 0;
+        }
+
+    .main-menu nav > ul {
+        align-items: center;
+    }
+
+    .logo-middle a::after {
+        display: none;
+    }
+
+    .hamburger-trigger.mm-only {
+        display: none;
+    }
+
+    .wrapper.mm-only {
+        display: none;
+        width: 0;
+    }
+
+    .menu-wrapper .main-menu.header-right-off {
+        width: 100%;
+        text-align: left;
+    }
+
+    .no-menu {
+        justify-content: center;
+        display: flex;
+    }
+
+        .no-menu .navbar-brand {
+            justify-content: center;
+        }
+
+        .no-menu .container-fluid.custom-width.custom-width__2 {
+            display: none;
+        }
+
+    .footer__menu ul li a {
+        padding: 0px;
+    }
+
+    .gallery_post_active .owl-nav div {
+        font-size: 14px;
+        line-height: 50px;
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        color: #1e1d23;
+        background-color: #fff;
+        transform: translateY(-50%);
+        -webkit-transform: translateY(-50%);
+        -moz-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        -o-transform: translateY(-50%);
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+    }
+
+    .gallery_post_active .owl-nav .owl-next {
+        right: 10px;
+        left: auto;
+    }
+
+    .blog__post .thumb .video-btn {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .blog__post .thumb {
+        position: relative;
+    }
+
+    .postbox__audio iframe {
+        width: 100%;
+    }
+
+    .blog__wrapper--single {
+        border: 1px solid #e2dfdd;
+        padding: 30px 35px;
+        padding-bottom: 40px;
+        border-radius: 10px;
+        background-color: #ffffff;
+    }
+
+        .blog__wrapper--single .blog__post {
+            border: none;
+            padding: 0px;
+            border-radius: 0px;
+            background: transparent;
+        }
+
+    button.reply {
+        background: transparent;
+    }
+
+    .latest__comments .comments-text p:last-child {
+        margin-bottom: 0;
+    }
+
+    .blog__wrapper--single a {
+        color: #000;
+        text-decoration: none;
+    }
+
+    p.logged-in-as {
+        margin-bottom: 20px;
+    }
+
+    .blog__wrapper.blog__wrapper--single {
+        margin-right: 5px;
+    }
+
+    .blog__sidebar .widget_categories ul li a {
+        line-height: 29px;
+    }
+
+    .go-top {
+        background: transparent;
+    }
+
+    .pp__action--2 div a {
+        width: 35px !important;
+        height: 35px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 0px !important;
+        background: #fff !important;
+    }
+
+    .wishlist,
+    .wishlist div {
+        border: none !important;
+    }
+
+        .wishlist div {
+            margin-top: 0px;
+        }
+
+        .wishlist i {
+            margin: 0px !important;
+        }
+
+    .yith-wcwl-add-button.wishlist {
+        margin-right: 0px !important;
+    }
+
+    .pp__action--2 .wishlist a {
+        border: 1px solid #e2dfdd;
+        border-radius: 5px;
+    }
+
+    .pp__action .yith-wcwl-add-to-wishlist {
+        margin-right: 8px !important;
+    }
+
+    .pp__item .pp__action .cart {
+        margin-right: 8px !important;
+        margin-left: 0px;
+    }
+
+    .shop-filter-wrapper .sf-right select {
+        background-position: calc(100% - 10px) 9px !important;
+        background-size: 16px !important;
+    }
+
+    .sort-wrapper .woocommerce-ordering {
+        margin: 0;
+    }
+
+    .footer_top_padding {
+        padding-bottom: 95px;
+        margin-top: -30px;
+    }
+
+    .blog__wrapper {
+        padding-right: 5px;
+    }
+
+    .home_front_page .cafena-breadcrumb {
+        display: none;
+    }
+
+    .blog__wrapper.blog__wrapper--single {
+        padding-right: 35px;
+    }
+
+    .blog__wrapper--single .meta {
+        margin-bottom: 1rem;
+    }
+
+    .single-post-main-content p:last-child {
+        margin-bottom: 0px;
+    }
+
+    .single-post-main-content {
+        overflow: hidden;
+        margin-bottom: 50px;
+    }
+
+    .content .wp-block-cover p {
+        font-size: 2em;
+    }
+
+    .single-post-main-content ol:last-child,
+    .single-post-main-content ul:last-child {
+        margin-bottom: 0px;
+    }
+
+    .single-post-main-content .wp-block-button.alignleft {
+        margin-bottom: 0;
+    }
+
+    .blog__wrapper--single h3 {
+        margin-top: 0;
+        margin-bottom: 0px !important;
+    }
+
+    .single-post-main-content > h6 {
+        margin-bottom: 20px;
+    }
+
+    select {
+        cursor: pointer;
+    }
+
+    .single-post-main-content .wp-block-tag-cloud {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: -5px;
+    }
+
+    .single-post-main-content .wp-block-rss {
+        list-style: disc;
+    }
+
+    .blog__post .meta {
+        margin-bottom: 1rem;
+    }
+
+    .blog__post--single .thumb img {
+        width: auto;
+    }
+
+    .blog__post--single:hover > .thumb img {
+        transform: scale(1);
+    }
+
+    .latest__comments li,
+    .latest__comments p {
+        color: #6c6c6c;
+    }
+
+    .format_quote blockquote {
+        margin-bottom: 0;
+    }
+
+        .format_quote blockquote p {
+            font-size: 32px !important;
+            line-height: 125%;
+            color: #010103 !important;
+            margin-bottom: -20px;
+            font-family: "Bebas Neue", cursive;
+        }
+
+        .format_quote blockquote cite {
+            font-size: 16px;
+        }
+
+    .cafena-breadcrumb-wrapper {
+        flex-wrap: wrap;
+    }
+
+    .footer__widget ul li ul {
+        border-top: 1px solid #efefef;
+        margin-top: 15px;
+    }
+
+    .body_wrap {
+        position: inherit;
+    }
+
+    .about__left--2 .big {
+        max-width: 528px;
+    }
+
+    .reservation__form .wpcf7-response-output {
+        color: #fff;
+    }
+
+    .blog__item .thumb .img-2 img {
+        max-height: 238px;
+    }
+
+    .no-menu .logo {
+        margin-right: 0;
+    }
+
+    .no-menu .menu-area {
+        width: 100% !important;
+    }
+
+    .cafena-page-content .post-entry dd a,
+    .cafena-page-content .post-entry p,
+    .cafena-page-content .post-entry li,
+    .cafena-page-content .post-entry li a,
+    .cafena-page-content .post-entry p a,
+    .single-post-main-content li a,
+    .single-post-main-content li {
+        color: #6c6c6c;
+    }
+
+    .cafena-page-content ol:last-child,
+    .cafena-page-content ol li:last-child {
+        margin-bottom: 0px;
+    }
+
+    .cafena-page-content .comments__form {
+        clear: both;
+        overflow: hidden;
+    }
+
+    .cafena-page-content .post-entry .page-links {
+        padding-top: 30px;
+    }
+
+    .cafena-page-content .latest__comments li {
+        margin-bottom: 0px;
+    }
+
+    .side-info-logo img {
+        max-width: 85px;
+    }
+
+    .plus-btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: var(--primary-color);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #fff;
+        transition: 0.3s;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+        .plus-btn:hover {
+            color: #fff;
+            background-color: var(--primary-color);
+        }
+
+    .popular-menu__item:hover .plus-btn {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    div#lightcase-content img {
+        border-radius: 12px;
+    }
+
+    .site-footer .wpcf7-response-output {
+        color: #a7a7a7;
+    }
+
+    .footer__logo--content img {
+        max-width: 95px;
+    }
+
+    .thumb .video-btn__2 i {
+        color: #fff;
+    }
+
+    .cafena-pagination ul {
+        margin-top: 60px;
+    }
+
+    .best-coffe__bg {
+        max-height: 655px;
+    }
+
+    .header-unit-default .logo.navbar-brand.d-none.d-xl-flex.d-lg-flex {
+        display: none !important;
+    }
+
+    .header-unit-default .logo.d-xl-none.d-lg-none.d-md-flex {
+        display: inline-block !important;
+    }
+
+    .header-unit-default .header-right-off {
+        width: auto !important;
+    }
+
+    .header-unit-default .wrapper.wrapper__2 {
+        display: none !important;
+    }
+
+    .header-unit-default .menu-wrapper {
+        justify-content: space-between !important;
+    }
+
+    .no-menu .logo.navbar-brand.d-none.d-xl-flex.d-lg-flex {
+        display: flex !important;
+    }
+
+    .page-links.mb-55 {
+        margin-bottom: 55px;
+    }
+
+    .main-menu__4 ul li a:focus {
+        color: var(--primary-color);
+    }
+
+    .post-comments .title a {
+        color: inherit;
+    }
+
+    .testimonial__item .quote {
+        font-size: 50px;
+    }
+
+    .nav-link:focus,
+    .nav-link:hover {
+        color: var(--primary-color);
+    }
+
+    .cart-bar__subtotal span strong {
+        font-weight: 600;
+    }
+
+    @@media (max-width: 1360px) {
+        li.logo-middle {
+            margin: 0 120px !important;
+            margin-left: 107px !important;
+        }
+    }
+
+    @@media (max-width: 1290px) {
+        li.logo-middle {
+            margin: 0 30px !important;
+            margin-left: 0px !important;
+            margin-right: 0px !important;
+        }
+
+        .menu-wrapper .main-menu.header-right-off {
+            text-align: center;
+        }
+    }
+
+    @@media (max-width: 1050px) {
+        .main-menu__3 ul li:not(:last-child) {
+            margin-right: 0;
+        }
+
+        .site-header__3 .wrapper {
+            width: 150px;
+        }
+
+        .main-menu__3 ul li a {
+            padding: 35px 15px;
+        }
+    }
+
+    @@media (max-width: 991px) {
+        .menu-wrapper .main-menu.header-right-off {
+            width: calc(100% - 200px);
+            text-align: left;
+        }
+
+        .menu-wrapper.justify-content-center {
+            justify-content: space-between !important;
+        }
+
+        .hamburger-trigger.mm-only {
+            display: inline-block;
+        }
+
+        .blog__wrapper.blog__wrapper--single {
+            margin-right: 0px;
+        }
+
+        .blog__wrapper {
+            padding-right: 0px;
+        }
+
+        .blog__sidebar {
+            margin-top: 60px;
+        }
+
+        .header-unit-default .wrapper.wrapper__2 {
+            display: inline-block !important;
+            width: auto;
+        }
+    }
+
+    @@media (max-width: 475px) {
+        .blog__post--single .latest__comments ul {
+            padding-left: 10px;
+        }
+
+        .blog__post--single .latest__comments li .comments-avatar {
+            float: none;
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+
+        .blog__post--single .latest__comments ul.children {
+            padding-left: 10px;
+        }
+
+        .side-info-wrapper {
+            width: 300px;
+            right: -330px;
+        }
+
+        .side-info__wrapper {
+            padding: 25px;
+        }
+
+        .side-info {
+            padding-left: 25px;
+            padding-right: 25px;
+        }
+    }
+
+    .comment {
+        position: relative;
+        margin: 20px auto;
+    }
+
+    .comment-heading {
+        display: flex;
+        align-items: center;
+        height: 50px;
+        font-size: 14px;
+        margin-left: -10px;
+    }
+
+    .comment-voting button {
+        display: block;
+        width: 100%;
+        height: 50%;
+        padding: 0;
+        border: 0;
+        font-size: 10px;
+    }
+
+    .comment-info {
+        color: rgba(0, 0, 0, 0.5);
+        margin-left: 10px;
+    }
+
+    .comment-author {
+        color: rgba(0, 0, 0, 0.85);
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+        .comment-author:hover {
+            text-decoration: underline;
+        }
+
+    .replies {
+        margin-left: 20px;
+    }
+
+    .comment-thread {
+        max-width: 100%;
+        margin: auto;
+        padding: 0 30px;
+        background-color: #fff;
+        border: 1px solid transparent;
+        /* Removes margin collapse */
+    }
+
+    .m-0 {
+        margin: 0;
+    }
+
+    .sr-only {
+        position: absolute;
+        left: -10000px;
+        top: auto;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+    }
+
+    .replyButton {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+        font-size: 14px;
+        padding: 4px 8px;
+        color: rgba(0, 0, 0, 0.85);
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        line-height: 1.4;
+    }
+
+        .replyButton:hover,
+        .replyButton.focus,
+        .replyButton.active {
+            cursor: pointer;
+            background-color: #ecf0f1;
+        }
+
+    .editButton {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+        font-size: 14px;
+        padding: 4px 8px;
+        color: rgba(0, 0, 0, 0.85);
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        line-height: 1.4;
+        width: 50px;
+        margin-left: 4px;
+    }
+
+        .editButton:hover,
+        .editButton.focus,
+        .editButton.active {
+            cursor: pointer;
+            background-color: #ecf0f1;
+        }
+
+    .cancelButton {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+        font-size: 14px;
+        padding: 4px 8px;
+        color: rgba(0, 0, 0, 0.85);
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        line-height: 1.4;
+    }
+
+        .cancelButton:hover,
+        .cancelButton.focus,
+        .cancelButton.active {
+            cursor: pointer;
+            background-color: #ecf0f1;
+        }
+
+    .submitReply {
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        appearance: none;
+        font-size: 14px;
+        padding: 4px 8px;
+        color: rgba(0, 0, 0, 0.85);
+        background-color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        line-height: 1.4;
+    }
+
+        .submitReply:hover,
+        .submitReply.focus,
+        .submitReply.active {
+            cursor: pointer;
+            background-color: #ecf0f1;
+        }
+
+    .txtComment {
+        margin-bottom: 2px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        color: black
+    }
+
+    .comment-border-link {
+        display: block;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 12px;
+        height: calc(100% - 50px);
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        background-color: rgba(0, 0, 0, 0.1);
+        background-clip: padding-box;
+    }
+
+        .comment-border-link:hover {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+    .comment-body {
+        padding: 0 20px;
+        padding-left: 28px;
+    }
+
+    .replies {
+        margin-left: 28px;
+    }
+
+    /* Adjustments for toggleable comments */
+
+    details.comment summary {
+        position: relative;
+        list-style: none;
+        cursor: pointer;
+    }
+
+        details.comment summary::-webkit-details-marker {
+            display: none;
+        }
+
+    details.comment:not([open]) .comment-heading {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .comment-heading::after {
+        display: inline-block;
+        position: absolute;
+        right: 5px;
+        align-self: center;
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.55);
+    }
+
+    details.comment[open] .comment-heading::after {
+        content: "Click to hide";
+    }
+
+    details.comment:not([open]) .comment-heading::after {
+        content: "Click to show";
+    }
+
+    /* Adjustment for Internet Explorer */
+
+    @@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+        /* Resets cursor, and removes prompt text on Internet Explorer */
+        .comment-heading {
+            cursor: default;
+        }
+
+        details.comment[open] .comment-heading::after,
+        details.comment:not([open]) .comment-heading::after {
+            content: " ";
+        }
+    }
+
+    .reply-form textarea {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: 16px;
+        width: 100%;
+        max-width: 100%;
+        margin-top: 15px;
+        margin-bottom: 5px;
+    }
+
+    .d-none {
+        display: none;
+    }
+
+    .contentComment {
+        border: none;
+        height: 150px;
+        margin-bottom: 10px;
+        padding: 30px;
+        width: 100%;
+        color: #6c6c6c;
+        font-size: 14px;
+        background: #ffffff;
+        border-radius: 0px;
+        border: 1px solid #e2dfdd;
+    }
+
+    .submitComment {
+        background-color: #C7A17A;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        margin-right: 10px;
+        font-size: 15px;
+        line-height: 28px;
+        width: 70px;
+        border-radius: 4px;
+        color: white;
+    }
+
+    .clearComment {
+        background-color: #C7A17A;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        margin-right: 18px;
+        font-size: 15px;
+        line-height: 28px;
+        width: 70px;
+        border-radius: 4px;
+        color: white;
+    }
+
+        .submitComment:hover,
+        .clearComment:hover {
+            cursor: pointer;
+            background-color: #010103;
+        }
+
+    .replyComment {
+        display: none;
+    }
+</style>
+<main>
+    <!-- breadcrumb area start -->
+    <section class="breadcrumb-area pt-140 pb-140 bg_img" data-background="assets/images/bg/breadcrumb-bg-1.jpeg" data-overlay="dark" data-opacity="5">
+        <div class="shape shape__1"><img src="~/Content/assets/images/shape/breadcrumb-shape-1.png" alt=""></div>
+        <div class="shape shape__2"><img src="~/Content/assets/images/shape/breadcrumb-shape-2.png" alt=""></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12 text-center">
+                    <h2 class="page-title">Blog Details</h2>
+                    <div class="cafena-breadcrumb breadcrumbs">
+                        <ul class="list-unstyled d-flex align-items-center justify-content-center">
+                            <li class="cafenabcrumb-item duxinbcrumb-begin">
+                                <a href="/"><span>Home</span></a>
+                            </li>
+                            <li class="cafenabcrumb-item duxinbcrumb-end">
+                                <span>/Blogs/Details</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb area end -->
+    <!-- blog area start -->
+    <div class="blog-area pt-120 pb-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12">
+                    <div class="blog__wrapper blog__wrapper--single">
+
+                        <article class="blog__post blog__post--single format format-image">
+                            <div class="thumb">
+                                <img src="@detailsBlog.image" alt="" style="min-width:100%">
+                            </div>
+                            <ul class="meta mt-20 list-unstyled d-flex align-items-center">
+                                <li><a href="#0"><i class="fal fa-file"></i> Coffee</a></li>
+                                <li><a href="#0"><i class="fal fa-comments"></i> @detailsBlog.countCmt Comments</a></li>
+                                <li><a href="#0"><i class="fal fa-calendar-alt"></i> @detailsBlog.createDate</a></li>
+                            </ul>
+                            <div class="content mt-10">
+                                <h2 class="title mb-10">@detailsBlog.title</h2>
+                                @*<div class="mt-10">
+                                        <p>For those of us who want to say thank you to our moms, it’s not always easy to put those big feelings in words. Which is where Dribbble comes in.</p>
+                                    </div>*@
+                                <div class="mt-20">
+                                    <p>@detailsBlog.description</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="navigation-border pt-45 mt-45"></div>
+                                </div>
+                                <div class="col-xl-5 col-md-5">
+                                    <div class="cafena-navigation b-next-post text-start">
+                                        <a href="#0"><span>Prev Post</span></a>
+                                        <h4><a href="#0">Tips On Minimalist</a></h4>
+                                    </div>
+                                </div>
+                                <div class="col-xl-2 col-md-2 my-auto">
+                                    <div class="blog-filter text-left text-md-center">
+                                        <a href="#0"><img src="assets/images/icons/filter.png" alt=""></a>
+                                    </div>
+                                </div>
+                                <div class="col-xl-5 col-md-5">
+                                    <div class="cafena-navigation b-next-post text-end">
+                                        <a href="#0"><span>Next Post</span></a>
+                                        <h4><a href="#0">Less Is More</a></h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="navigation-border pt-45 mt-45"></div>
+                                </div>
+                                <div class="col-xl-12">
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            <h2 class="releted-post-heading mb-40">Releted Post</h2>
+                                        </div>
+                                    </div>
+                                    <div class="row releted-post mt-none-30">
+                                        <div class="col-xl-6">
+                                            <article class="blog__post blog__post--releted border-0 p-0 format format-image mt-30">
+                                                <div class="thumb border-0">
+                                                    <img src="assets/images/blog/r-post-1.jpg" alt="">
+                                                </div>
+                                                <div class="content">
+                                                    <ul class="meta list-unstyled d-flex align-items-center">
+                                                        <li><a href="#0"><i class="fal fa-calendar-alt"></i> 04th March 2019</a></li>
+                                                    </ul>
+                                                    <h2 class="title border-effect mb-15">
+                                                        <a href="blog-details.html">
+                                                            Watch: 10 Days Later: What
+                                                            Italians Wish They Had Known
+                                                        </a>
+                                                    </h2>
+                                                    <p>
+                                                        A supermarket worker was spat at by a customer to stockpile..
+                                                    </p>
+                                                </div>
+                                            </article>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <article class="blog__post blog__post--releted border-0 p-0 format format-image mt-30">
+                                                <div class="thumb border-0">
+                                                    <img src="~/Content/assets/images/blog/r-post-2.jpg" alt="">
+                                                </div>
+                                                <div class="content">
+                                                    <ul class="meta list-unstyled d-flex align-items-center">
+                                                        <li><a href="blog-details.html"><i class="fal fa-calendar-alt"></i> 04th March 2019</a></li>
+                                                    </ul>
+                                                    <h2 class="title border-effect mb-15">
+                                                        <a href="blog-details.html">
+                                                            See all the best advice of
+                                                            Bangladeshy.
+                                                        </a>
+                                                    </h2>
+                                                    <p>
+                                                        A supermarket worker was spat at by a customer to stockpile..
+                                                    </p>
+                                                </div>
+                                            </article>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="author-box mt-50 mb-40 d-flex align-items-center justify-content-center">
+                                <div class="ath-content">
+                                    <span>Written by</span>
+                                    <h3 class="name">@detailsBlog.titleUserCreate</h3>
+                                </div>
+                            </div>
+                            <div class="post-comments">
+                                <h2 class="title mb-25">@detailsBlog.countCmt Comments</h2>
+                                <div class="comments__form">
+                                    <div class="flex flex-column">
+                                        <div>
+                                            <h2 class="title">Leave a Reply </h2>
+                                        </div>
+                                        <div class="contact-icon contacts-message">
+                                            <textarea id="comment" name="comment" cols="60" rows="4"
+                                                      placeholder="Type your comments..." aria-required="true"
+                                                      class="contentComment"></textarea>
+                                        </div>
+                                        <div>
+                                            <button class="submitComment" id="btnSubmit">Submit</button>
+                                            <button class="clearComment" id="btnClear">Clear</button>
+                                        </div>
+                                    </div>
+                                    <div id="contentComment">
+
+                                    </div>
+                                </div>
+                                @*<div class="latest__comments">
+                                        <ul class="list-unstyled mb-0">
+                                            <li>
+                                                <div class="comments-box">
+                                                    <div class="comments-avatar">
+                                                        <img src="~/Content/assets/images/author/c-author-1.png" alt="">
+                                                    </div>
+                                                    <div class="comments-text">
+                                                        <div class="avatar-name">
+                                                            <h5>Rosalina Kelian</h5>
+                                                            <span><i class="fal fa-calendar-alt"></i> 19th May 2018</span>
+                                                            <a class="reply" href="#0"><i class="fal fa-reply"></i>Reply</a>
+                                                        </div>
+                                                        <p>
+                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                            tempor incididunt
+                                                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                                            exercitation
+                                                            ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li class="children">
+                                                <div class="comments-box">
+                                                    <div class="comments-avatar">
+                                                        <img src="~/Content/assets/images/author/c-author-2.png" alt="">
+                                                    </div>
+                                                    <div class="comments-text">
+                                                        <div class="avatar-name">
+                                                            <h5>Rosalina Kelian</h5>
+                                                            <span><i class="fal fa-calendar-alt"></i> 19th May 2018</span>
+                                                            <a class="reply" href="#0"><i class="fal fa-reply"></i>Reply</a>
+                                                        </div>
+                                                        <p>
+                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                            tempor incididunt
+                                                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                                            exercitation
+                                                            ullamco laboris nisi ut aliquip.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="comments-box">
+                                                    <div class="comments-avatar">
+                                                        <img src="assets/images/author/c-author-3.png" alt="">
+                                                    </div>
+                                                    <div class="comments-text">
+                                                        <div class="avatar-name">
+                                                            <h5>Arista Williamson</h5>
+                                                            <span><i class="fal fa-calendar-alt"></i> 19th May 2018</span>
+                                                            <a class="reply" href="#0"><i class="fal fa-reply"></i>Reply</a>
+                                                        </div>
+                                                        <p>
+                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                                            tempor incididunt
+                                                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                                            exercitation
+                                                            ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>*@
+
+                            </div>
+                        </article>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- blog area end -->
+</main>
+<script src="~/Content/assets/js/jquery-2.2.4.min.js"></script>
+<script>
+    var idBlog = @ViewBag.idBlog;
+    function onloadCommentBlog(id) {
+        $.ajax({
+            type: "get",
+            url: "/Blogs/GetCommentBlogById",
+            data: {
+                id: id
+            },
+            success: function (res) {
+                $('#contentComment').html(res);
+            },
+            error: function (response) {
+                console.log(response.responseText);
+            }
+        });
+    }
+    onloadCommentBlog(idBlog);
+</script>

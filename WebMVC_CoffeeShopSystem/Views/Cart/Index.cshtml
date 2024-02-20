@@ -1,0 +1,1387 @@
+﻿
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<WebAPI_CoffeeShop.Models.ModelView.CartView> lstCart = ViewBag.lstCart;
+}
+<style>
+    .vc_shop-voucher_pc {
+        --vc-logo-size: 3.5rem;
+        --vc-expiry-font-size: 0.75rem;
+        --vc-expiry-line-height: 0.875rem;
+        --vc-expiry-margin-top: 0.25rem;
+        --vc-main-title-font-size: 1rem;
+        --vc-main-title-line-height: 1.25rem;
+        --vc-subtitle-font-size: 0.875rem;
+        --vc-subtitle-line-height: 1rem;
+        --vc-product-scope-font-size: 0.75rem;
+        --vc-product-scope-line-height: 0.875rem;
+        --vc-product-scope-padding: 0.0625rem 0.25rem;
+        --vc-icon-text-font-size: 0.75rem;
+        --vc-icon-text-line-height: 0.875rem;
+        --vc-icon-text-max-height: 1.75rem;
+        --vc-icon-text-margin-top: 0.25rem;
+        --vc-radio-button-border: 0.0625rem solid rgba(0,0,0,.14);
+        --vc-radio-button-box-shadow: var(--black2) 0 0.125rem 0 0;
+        --vc-rect-button-height: 1.75rem;
+        --vc-rect-button-min-width: 4rem;
+        --vc-rect-button-font-size: 0.875rem;
+        --vc-corner-badge-padding: 0.125rem 0.3125rem;
+        --vc-corner-badge-font-size: 0.75rem;
+        --vc-corner-badge-line-height: 0.875rem;
+        --vc-card-width: auto;
+        margin-bottom: 12px;
+    }
+
+    .vc_Card_shop {
+        --vc-card-left-border-color: #e8e8e8;
+        --vc-card-left-fill-color: #fff;
+        --vc-card-right-border-color: #e8e8e8;
+        --vc-card-background-color: #fff;
+    }
+
+    .vc_Card_card, .vc_Card_container {
+        width: var(--vc-card-width,28.375rem);
+    }
+
+    .vc_Card_card {
+        height: var(--vc-card-height,7.375rem);
+        position: relative;
+    }
+
+    .vc_Card_left {
+        background: linear-gradient(180deg,var(--vc-card-left-border-color,#e8e8e8) var(--vc-card-sawtooth-margin,.25rem),transparent 0,transparent calc(100% - var(--vc-card-sawtooth-margin, .25rem)),var(--vc-card-left-border-color,#e8e8e8) calc(100% - var(--vc-card-sawtooth-margin, .25rem))) 0 0 /0.0625rem 100% no-repeat,linear-gradient(180deg,var(--vc-card-left-fill-color,#fff) var(--vc-card-sawtooth-margin,.25rem),transparent 0,transparent calc(100% - var(--vc-card-sawtooth-margin, .25rem)),var(--vc-card-left-fill-color,#fff) calc(100% - var(--vc-card-sawtooth-margin, .25rem))) 0 0/100% 100% no-repeat;
+        border-bottom: 0.0625rem solid var(--vc-card-left-border-color,#e8e8e8);
+        border-bottom-left-radius: 0.125rem;
+        border-top: 0.0625rem solid var(--vc-card-left-border-color,#e8e8e8);
+        border-top-left-radius: 0.125rem;
+        box-sizing: border-box;
+        height: 100%;
+        left: 0;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        width: var(--vc-card-height,7.375rem);
+    }
+
+    .vc_Card_right {
+        background-color: var(--vc-card-background-color,#fff);
+        border: 0.0625rem solid var(--vc-card-right-border-color,#e8e8e8);
+        border-bottom-right-radius: 0.125rem;
+        border-left: none;
+        border-top-right-radius: 0.125rem;
+        box-sizing: border-box;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: calc(100% - var(--vc-card-height, 7.375rem));
+    }
+
+    .vc_VoucherStandardTemplate_hideOverflow {
+        border: 0.0625rem solid transparent;
+        border-radius: 0.125rem;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .vc_VoucherStandardTemplate_template {
+        border: 0.0625rem solid transparent;
+        border-left: none;
+        box-shadow: var(--vc-template-box-shadow,.125rem .125rem .3125rem rgba(0,0,0,.07));
+        box-sizing: border-box;
+        display: flex;
+        height: 100%;
+        position: relative;
+        transition: background 1s ease;
+    }
+
+    .vc_VoucherStandardTemplate_left {
+        align-items: center;
+        border-right: 0.0625rem dashed #e8e8e8;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        width: var(--vc-card-height,7.375rem);
+    }
+
+    .vc_VoucherStandardTemplate_middle {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+        padding-left: 0.75rem;
+        position: relative;
+    }
+
+    .vc_VoucherStandardTemplate_right {
+        align-items: flex-end;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0.75rem;
+        position: relative;
+    }
+
+    .vc_CornerBadge_bestChoice {
+        background-color: var(--vc-corner-badge-bg-color,#4c7);
+    }
+
+    .vc_CornerBadge_levelCorner {
+        left: -0.25rem;
+        top: 0.3125rem;
+    }
+
+    .vc_CornerBadge_cornerBadge {
+        border-radius: 0.125rem 0.125rem 0.125rem 0;
+        color: #fff;
+        display: flex;
+        font-size: var(--vc-corner-badge-font-size,.625rem);
+        line-height: var(--vc-corner-badge-line-height,.75rem);
+        padding: var(--vc-corner-badge-padding,.125rem .25rem);
+        position: absolute;
+    }
+
+    .vc_RightCornerBadge_rightCornerClassName {
+        font-size: .75rem;
+        height: 1.125rem;
+        width: 2.3125rem;
+    }
+
+    .vc_RightCornerBadge_rightCorner {
+        align-items: center;
+        background-color: #ffeaea;
+        border-radius: 10px 2px 0 10px;
+        color: #ee4d2d;
+        display: flex;
+        font-size: .75rem;
+        font-weight: 500;
+        height: 1.125rem;
+        justify-content: center;
+        position: absolute;
+        right: -0.25rem;
+        top: 0.25rem;
+        width: 2.3125rem;
+    }
+
+    .vc_Stack_stack {
+        background-color: #fff;
+        border: 0.03125rem solid rgba(0,0,0,.09);
+        border-radius: 0 0 0.125rem 0.125rem;
+        border-top: none;
+        box-shadow: 0 0.0625rem 0.1875rem rgba(0,0,0,.09);
+        box-sizing: border-box;
+        height: 0.5rem;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        position: relative;
+    }
+
+    .vc_Logo_imageLogo {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    .vc_Logo_circular {
+        border: 0.0625rem solid #efefef;
+        border-radius: 50%;
+    }
+
+    .vc_Logo_logo {
+        display: block;
+        height: var(--vc-logo-size,3.5rem);
+        width: var(--vc-logo-size,3.5rem);
+    }
+
+    .vc_A11yAriaText_A11yContent {
+        clip: rect(0,0,0,0) !important;
+        border: 0 !important;
+        height: 1px !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        padding: 0 !important;
+        position: absolute !important;
+        white-space: nowrap !important;
+        width: 1px !important;
+    }
+
+    .vc_MainTitle_mainTitle {
+        display: flex;
+    }
+
+    .vc_Subtitle_defaultLine, .vc_Subtitle_oneLine {
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .vc_Subtitle_defaultLine {
+        -webkit-line-clamp: 2;
+    }
+
+    .vc_Subtitle_subTitle {
+        color: var(--vc-sub-title-color,rgba(0,0,0,.8));
+        font-size: var(--vc-subtitle-font-size,.875rem);
+        font-weight: var(--vc-subtitle-font-weight,normal);
+        line-height: var(--vc-subtitle-line-height,1rem);
+        margin: var(--vc-sub-title-margin,0);
+        padding: var(--vc-sub-title-padding,0);
+        text-align: var(--vc-subtitle-text-align,unset);
+        white-space: var(--vc-sub-title-white-space,unset);
+        word-break: break-word;
+    }
+
+    .vc_Label_label {
+        display: flex;
+        margin: var(--vc-card-label-margin,.3125rem 0 .25rem 0);
+        min-width: 0;
+        overflow: hidden;
+        padding: var(--vc-card-label-padding,0);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .vc_ProgressBarExpiry_progressBarExpiry {
+        color: rgba(0,0,0,.54);
+        font-size: var(--vc-expiry-font-size,.75rem);
+        line-height: var(--vc-expiry-line-height,.875rem);
+        margin: var(--vc-card-progress-expiry-margin,.25rem 0 0 0);
+        margin-top: var(--vc-expiry-margin-top,.25rem);
+        overflow: hidden;
+        padding-right: var(--vc-card-progress-expiry-padding-right,0);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .vc_ProgressBarExpiry_usageLimitedText.vc_ProgressBarExpiry_twoRowsLimitText {
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .vc_ProgressBarExpiry_usageLimitedText {
+        line-height: var(--vc-card-progress-expiry-usage-limited-text-linehigh,unset);
+        margin: var(--vc-card-progress-expiry-usage-limited-text-margin,0);
+        white-space: normal;
+    }
+
+    .vc_ProgressBarExpiry_capitalize {
+        text-transform: var(--vc-card-progress-expiry-capitalize-text-transform,unset);
+    }
+
+    .vc_ProgressBarExpiry_validUntil {
+        color: rgba(0,0,0,.54);
+    }
+
+    .vc_MainTitle_defaultLine, .vc_MainTitle_fsvLine {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .vc_MainTitle_text {
+        color: var(--vc-main-title-color,rgba(0,0,0,.8));
+        font-size: var(--vc-main-title-font-size,1rem);
+        font-weight: 500;
+        line-height: var(--vc-main-title-line-height,1.25rem);
+        white-space: var(--vc-card-mian-title-white-space,nowrap);
+    }
+
+    .vc_VoucherStandardTemplate_center {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .vc_RadioButton_radioSelected {
+        background-color: #ee4d2d;
+        border-width: 0;
+    }
+
+    .vc_RadioButton_radio {
+        fill: currentColor;
+        stroke: currentColor;
+        align-items: center;
+        border: var(--vc-radio-button-border,1px solid rgba(0,0,0,.14));
+        border-radius: 50%;
+        box-shadow: var(--vc-radio-button-box-shadow,rgba(0,0,0,.02) 0 2px 0 0);
+        box-sizing: border-box;
+        cursor: pointer;
+        display: flex;
+        height: 1.125rem;
+        justify-content: center;
+        width: 1.125rem;
+    }
+
+    .W8WT2r {
+        padding: 0 0 2.75rem;
+        margin: 0;
+    }
+
+    .Bk\+p3j {
+        display: block;
+        padding-right: 1.25rem;
+        padding-left: 0.25rem;
+        margin-left: -0.25rem;
+        overflow-y: scroll;
+    }
+
+    .\+idyFV {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 83.1%;
+        margin-top: 0.9375rem;
+    }
+
+    .k857Ih.g1MlJb {
+        padding-bottom: 4.5rem;
+    }
+
+    .k857Ih {
+        position: relative;
+        width: 28rem;
+        height: 39.25rem;
+        padding: 1.5rem;
+        background: #fff;
+    }
+
+    .lTT4eh {
+        border: 1px solid rgba(0,0,0,.09);
+        z-index: 590 !important;
+    }
+
+    .QIr8Cv {
+        border: 1px solid rgba(0,0,0,.09);
+        z-index: 590 !important;
+    }
+
+    .yIJbm- {
+        position: absolute;
+        bottom: 4.125rem;
+        left: 0;
+        box-sizing: border-box;
+        width: 100%;
+        background: #fff;
+        border-top: 1px solid rgba(0,0,0,.09);
+    }
+
+    ._8V7enQ {
+        display: flex;
+        align-items: center;
+        height: 2.6875rem;
+        margin-left: 1.5rem;
+    }
+
+    .qll9xC {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: flex-end;
+        padding: 0.75rem 1.5rem;
+        background: #fff;
+    }
+
+    .bv0ZQP {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+<main>
+    <!-- breadcrumb area start -->
+    <section class="breadcrumb-area pt-140 pb-140 bg_img" data-background="~/Content/assets/images/bg/breadcrumb-bg-1.jpeg" data-overlay="dark" data-opacity="5">
+        <div class="shape shape__1"><img src="~/Content/assets/images/shape/breadcrumb-shape-1.png" alt=""></div>
+        <div class="shape shape__2"><img src="~/Content/assets/images/shape/breadcrumb-shape-2.png" alt=""></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12 text-center">
+                    <h2 class="page-title">Cafena Cart</h2>
+                    <div class="cafena-breadcrumb breadcrumbs">
+                        <ul class="list-unstyled d-flex align-items-center justify-content-center">
+                            <li class="cafenabcrumb-item duxinbcrumb-begin">
+                                <a href="/"><span>Home</span></a>
+                            </li>
+                            <li class="cafenabcrumb-item duxinbcrumb-end">
+                                <span>Cart</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb area end -->
+    <!-- cart area start -->
+    <div class="cart-area pt-120 pb-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    @if (lstCart != null)
+                    {
+                        foreach (var item in lstCart)
+                        {
+                            <div class="cart-wrapper cart-wrapper-table" style="display:none" id="cartTable-@item.idSupplier">
+                                <div class="table-content table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th><input type="checkbox" class="checkCart" id="checkAll-@item.idSupplier" style="width: 20px; height: 20px;"></th>
+                                                <th class="product-thumbnail" id="titleSupplier-@item.idSupplier">@item.titleSupplier</th>
+                                                <th class="cart-product-name"></th>
+                                                <th class="product-price"></th>
+                                                <th class="product-quantity"></th>
+                                                <th class="product-subtotal"></th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var itemProd in item.cartViews)
+                                            {
+                                                <tr id="tr-@item.idSupplier-@itemProd.idCart">
+                                                    <td style="width: 70px;">
+                                                        <input type="checkbox" class="checkCart" id="checkCart-@item.idSupplier-@itemProd.idCart" style="width: 20px; height: 20px;">
+                                                    </td>
+                                                    <td class="product-thumbnail">
+                                                        <a href="#" class="img">
+                                                            <img style="height:100%" src="@itemProd.imageProd" alt="">
+                                                        </a>
+                                                    </td>
+                                                    <td class="product-name"><a href="#">@itemProd.titleProd</a></td>
+                                                    <td class="product-price"><span class="amount">$<span class="amount" id="unitPrice-@item.idSupplier-@itemProd.idCart">@itemProd.UnitPrice</span></span></td>
+                                                    <td class="product-quantity">
+                                                        <input type="number" min="1" max="50" id="inputAmount-@item.idSupplier-@itemProd.idCart" value="@itemProd.Amount">
+                                                    </td>
+                                                    <td class="product-subtotal"><span class="amount" id="price-@item.idSupplier-@itemProd.idCart">@itemProd.Price</span></td>
+                                                    <td>
+                                                        <button class="site-btn__bghide" id="btnDeleteCart-@item.idSupplier-@itemProd.idCart" style="color: #ff4700">Delete</button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <div>
+                                        <i class="fas fa-ticket-alt" style="color: #ff6600; width: 35px;"></i>
+                                        <span id="qcVoucher-@item.idSupplier" style="font-size: 17px; margin-right: 10px; color: black">Buy $<span style="color: black" id="conditionQCVoucher-@item.idSupplier">0</span> for a chance to get $<span style="color: black" id="discountQCVoucher-@item.idSupplier">0</span> off</span>
+                                        <p hidden id="idVoucherApplyAuto-@item.idSupplier">0</p>
+                                        <span id="applyVoucher-@item.idSupplier" style="font-size: 17px; margin-right: 10px; color: orangered">$<span id="priceOff-@item.idSupplier" style="color: orangered">0</span> off</span>
+
+                                        <button class="qe2YoR" data-bs-toggle="dropdown" id="btnSeeVoucherOfSupp-@item.idSupplier" style="font-size: 17px;">See more Vouchers</button>
+
+                                        <span hidden id="priceSelectedSupp-@item.idSupplier">0</span>
+                                        <div class="shopee-popover QIr8Cv lTT4eh dropdown-menu" id="seeVoucherOfSupp-@item.idSupplier" style="position: absolute; top: 523.011px; left: 347.727px; z-index: 600;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                        }
+                    }
+                    <div class="cart-wrapper" id="cart-bottom" style="padding: 25px 25px; width: 1176.222px;">
+                        <div style="display: grid; justify-content: space-between;">
+                            <div class="CzLyKQ">
+                                <div class="FGs2jP" style="font-size: 20px;">
+                                    <i class="fas fa-ticket-alt" style="color: #ff6600; width: 30px;"></i>
+                                    Cafena Voucher
+                                </div>
+                                <span style="font-size: 17px; color: orangered; margin-left: 200px;" id="applyVCafena">$<span style="color: orangered;" id="priceVCafena">0</span> off</span>
+                                <button class="qe2YoR" style="font-size: 17px;" data-bs-toggle="modal" id="btnSelectV_Cafena" data-bs-target="#exampleModalCenteredScrollable">Select Voucher</button>
+                            </div>
+                        </div>
+                        <p hidden id="idVoucherApplyAuto">0</p>
+                        <hr />
+                        <div class="d-flex" style="justify-content: space-between;">
+                            <div class="coupon d-flex align-items-center">
+                                <div class="u4pma8">
+                                    <input class="stardust-checkbox__input checkCart" id="cbSelectAll" style="width: 20px; height: 20px;" type="checkbox" aria-checked="false" aria-disabled="false" tabindex="0" role="checkbox" aria-label="Click here to select all products">
+                                </div>
+                                @if (lstCart != null)
+                                {
+                                    var amountAllProd = 0;
+                                    foreach (var item in lstCart)
+                                    {
+                                        amountAllProd += item.cartViews.Count();
+                                    }
+                                    <button class="site-btn__bghide clear-btn-style" id="selectAllCart">Select All (@amountAllProd)</button>
+                                }
+                                else
+                                {
+                                    <button class="site-btn__bghide clear-btn-style" id="selectAllCart">Select All (0)</button>
+                                }
+                                <button class="site-btn site-btn__bghide">Delete</button>
+                            </div>
+                            <div class="totalCheck d-flex align-items-center">
+                                <div class="BV92a3" role="region">
+                                    <div class="DScaTh">
+                                        <div class="CoYXUV" style="font-size:19px">
+                                            Total payment (<span id="qttSelect" style="color:black">0</span> Product):
+                                            <span style="color:orangered">$<span style="color:orangered" id="amountSelect">0.00</span></span>
+                                            <p hidden id="amountFirst">0</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cart-total">
+                                <button id="btnCheckout" class="site-btn">Procceed to checkout</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="exampleModalCenteredScrollable" tabindex="-1" aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="min-width: 800px;min-height:500px">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalCenteredScrollableTitle">Cafena Vouchers</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body" id="contentVoucherCafena">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="_8V7enQ">
+                                        <span class="Qqtdvc" style="font-size:16px;color:black"><span id="countCheckedVCafe" style="font-size:16px;color:black">0</span> Voucher Selected. </span>
+                                    </div>
+                                    <button type="button" class="site-btn" id="btnApplyVoucherCafena">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- cart area end -->
+</main>
+<script src="~/Content/assets/js/jquery-2.2.4.min.js"></script>
+<script>
+    function roundToTwo(num) {
+        return +(Math.round(num + "e+2") + "e-2");
+    };
+    function introVoucher() {
+        var itemOfAll = document.querySelectorAll(`[id^="priceSelectedSupp-"]`);
+
+        itemOfAll.forEach(item => {
+            var idSupplier = item.id.slice(18);
+            var sumSubTotalSupp = $("#" + item.id).text();
+            if ($("#idVoucherApplyAuto-" + idSupplier).text() == 0) {
+                $.ajax({
+                    type: "get",
+                    url: "/Cart/CartIntroVoucherToSelect",
+                    data: {
+                        userCreate: idSupplier,
+                        priceCartSupp: sumSubTotalSupp,
+                    },
+                    success: function (res) {
+                        if (res != "") {
+                            $("#qcVoucher-" + idSupplier).show();
+                            $("#conditionQCVoucher-" + idSupplier).text(res.condition);
+                            $("#discountQCVoucher-" + idSupplier).text(res.discount);
+                            $("#applyVoucher-" + idSupplier).hide();
+                            $("#priceOff-" + idSupplier).text(0);
+                            $("#idVoucherApplyAuto-" + idSupplier).text(0);
+                        } else {
+                            $("#qcVoucher-" + idSupplier).hide();
+                            $("#conditionQCVoucher-" + idSupplier).text(0);
+                            $("#discountQCVoucher-" + idSupplier).text(0);
+                        }
+                        //else {
+                        //    $("#qcVoucher-" + idSupplier).hide();
+                        //    $("#applyVoucher-" + idSupplier).show();
+                        //    $("#priceOff-" + idSupplier).text(res.discount);
+                        //    $("#idVoucherApplyAuto-" + idSupplier).text(res.id);
+                        //}
+                        //var priceOfSuppCheck = document.querySelectorAll(`[id^="priceOff-"]`);
+                        //priceOfSuppCheck.forEach(item => {
+                        //    if ($("#" + item.id).text() != 0) {
+                        //        reCalVSupp += parseInt($("#" + item.id).text());
+                        //    }
+                        //});
+                        ////alert("re " + reCalVSupp);
+                        //if (reCalVSupp != 0) {
+                        //    $("#amountSelect").text((sumSubTotal - reCalVSupp) + ".00");
+                        //    document.getElementById("amountSelect").style.display = "inline-block";
+                        //} else {
+                        //    $("#amountSelect").text((sumSubTotal) + ".00");
+                        //    document.getElementById("amountSelect").style.display = "inline-block";
+                        //}
+                    },
+                    error: function (response) {
+                        console.log(response.responseText);
+                    }
+                });
+            }
+
+        });
+    };
+    introVoucher();
+    function countCheckCart() {
+        var countCheckedCart = 0;
+        var itemOfCheck = document.querySelectorAll(`[id^="checkCart-"]`);
+        itemOfCheck.forEach(item => {
+            if ($("#" + item.id).is(':checked')) {
+                countCheckedCart += 1;
+            }
+            $("#qttSelect").text(countCheckedCart);
+        });
+    }
+    function subTotalCheckCart() {
+        var sumSubTotal = 0;
+        var itemOfCheck = document.querySelectorAll(`[id^="checkCart-"]`);
+        itemOfCheck.forEach(item => {
+            if ($("#" + item.id).is(':checked')) {
+                var idSuppCart = item.id.slice(10);
+                var price = $("#price-" + idSuppCart).text();
+                sumSubTotal += parseInt(price);
+            }
+            $("#amountSelect").text((sumSubTotal) + ".00");
+            $("#amountFirst").text(sumSubTotal);
+        });
+    }
+    function autoSelectVoucherSupp(idSupplierCheck) {
+        var sumSubTotal = parseInt($("#amountSelect").text());
+        document.getElementById("amountSelect").style.display = "none";
+        if ($("#amountSelect").text() != "0.00") {
+            //off of Cafena
+            $.ajax({
+                type: "get",
+                url: "/Cart/CartAutoOneVoucherToSelect",
+                data: {
+                    userCreate: 0,
+                    priceCartSupp: sumSubTotal,
+                },
+                success: function (res) {
+                    var offCafena = 0;
+                    var sumSubTotalSupp = 0;
+                    if (res != "") {
+                        $("#applyVCafena").show();
+                        $("#priceVCafena").text(res.discount+".00");
+                        offCafena = $("#priceVCafena").text();
+                        $("#idVoucherApplyAuto").text(res.id);
+                        //alert("sum " + sumSubTotal);
+                        //alert("off " + offCafena);
+                        if (offCafena != 0) {
+                            sumSubTotal=sumSubTotal - offCafena;
+                        }
+                        //alert("sum2 " + sumSubTotal);
+                    }
+                    var itemOfCheckSupp = document.querySelectorAll(`[id^="checkCart-` + idSupplierCheck + `"]`);
+                    itemOfCheckSupp.forEach(itemSupp => {
+                        if ($("#" + itemSupp.id).is(':checked')) {
+                            var idSuppCart1 = itemSupp.id.slice(10);
+                            var priceSupp = $("#price-" + idSuppCart1).text();
+                            sumSubTotalSupp += parseInt(priceSupp);
+                        }
+                    });
+                    $("#priceSelectedSupp-" + idSupplierCheck).text(sumSubTotalSupp);
+                    var reCalVSupp = 0;
+                    if (sumSubTotalSupp != 0) {
+                        $.ajax({
+                            type: "get",
+                            url: "/Cart/CartAutoOneVoucherToSelect",
+                            data: {
+                                userCreate: idSupplierCheck,
+                                priceCartSupp: sumSubTotalSupp,
+                            },
+                            success: function (res) {
+                                if (res != "") {
+                                    $("#qcVoucher-" + idSupplierCheck).hide();
+                                    $("#applyVoucher-" + idSupplierCheck).show();
+                                    $("#priceOff-" + idSupplierCheck).text(res.discount);
+                                    $("#idVoucherApplyAuto-" + idSupplierCheck).text(res.id);
+                                } else {
+                                    $("#qcVoucher-" + idSupplierCheck).show();
+                                    $("#applyVoucher-" + idSupplierCheck).hide();
+                                    $("#priceOff-" + idSupplierCheck).text(0);
+                                    $("#idVoucherApplyAuto-" + idSupplierCheck).text(0);
+                                }
+                                var priceOfSuppCheck = document.querySelectorAll(`[id^="priceOff-"]`);
+                                priceOfSuppCheck.forEach(item => {
+                                    if ($("#" + item.id).text() != 0) {
+                                        reCalVSupp += parseInt($("#" + item.id).text());
+                                    }
+                                });
+                                //alert("re " + reCalVSupp);
+                                if (reCalVSupp != 0) {
+                                    $("#amountSelect").text((sumSubTotal - reCalVSupp) + ".00");
+                                    document.getElementById("amountSelect").style.display = "inline-block";
+                                } else {
+                                    $("#amountSelect").text((sumSubTotal) + ".00");
+                                    document.getElementById("amountSelect").style.display = "inline-block";
+                                }
+                            },
+                            error: function (response) {
+                                console.log(response.responseText);
+                            }
+                        });
+                    } else {
+                        $("#qcVoucher-" + idSupplierCheck).show();
+                        $("#applyVoucher-" + idSupplierCheck).hide();
+                        $("#priceOff-" + idSupplierCheck).text(0);
+                        $("#idVoucherApplyAuto-" + idSupplierCheck).text(0);
+
+                        var priceOfSuppCheck = document.querySelectorAll(`[id^="priceOff-"]`);
+                        priceOfSuppCheck.forEach(item => {
+                            if ($("#" + item.id).text() != 0) {
+                                reCalVSupp += parseInt($("#" + item.id).text());
+                            }
+                        });
+                        //alert("re " + reCalVSupp);
+                        if (reCalVSupp != 0) {
+                            $("#amountSelect").text((sumSubTotal - reCalVSupp) + ".00");
+                            document.getElementById("amountSelect").style.display = "inline-block";
+
+                        } else {
+                            $("#amountSelect").text((sumSubTotal) + ".00");
+                            document.getElementById("amountSelect").style.display = "inline-block";
+
+                        }
+                    }
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        } else {
+            $("#applyVCafena").hide();
+            $("#priceVCafena").text(0);
+            $("#idVoucherApplyAuto").text(0);
+            var sumSubTotalSupp = 0;
+            var reCalVSupp = 0;
+            var itemOfCheckSupp = document.querySelectorAll(`[id^="checkCart-` + idSupplierCheck + `"]`);
+            itemOfCheckSupp.forEach(itemSupp => {
+                if ($("#" + itemSupp.id).is(':checked')) {
+                    var idSuppCart1 = itemSupp.id.slice(10);
+                    var priceSupp = $("#price-" + idSuppCart1).text();
+                    sumSubTotalSupp += parseInt(priceSupp);
+                }
+            });
+            $("#priceSelectedSupp-" + idSupplierCheck).text(sumSubTotalSupp);
+            if (sumSubTotalSupp != 0) {
+                $.ajax({
+                    type: "get",
+                    url: "/Cart/CartAutoOneVoucherToSelect",
+                    data: {
+                        userCreate: idSupplierCheck,
+                        priceCartSupp: sumSubTotalSupp,
+                    },
+                    success: function (res) {
+                        if (res != "") {
+                            $("#qcVoucher-" + idSupplierCheck).hide();
+                            $("#applyVoucher-" + idSupplierCheck).show();
+                            $("#priceOff-" + idSupplierCheck).text(res.discount);
+                            $("#idVoucherApplyAuto-" + idSupplierCheck).text(res.id);
+
+                        } else {
+                            $("#qcVoucher-" + idSupplierCheck).show();
+                            $("#applyVoucher-" + idSupplierCheck).hide();
+                            $("#priceOff-" + idSupplierCheck).text(0);
+                            $("#idVoucherApplyAuto-" + idSupplierCheck).text(0);
+
+                        }
+                        var priceOfSuppCheck = document.querySelectorAll(`[id^="priceOff-"]`);
+                        priceOfSuppCheck.forEach(item => {
+                            if ($("#" + item.id).text() != 0) {
+                                reCalVSupp += parseInt($("#" + item.id).text());
+                            }
+                        });
+                        //alert("re " + reCalVSupp);
+                        if (reCalVSupp != 0) {
+                            $("#amountSelect").text((sumSubTotal - reCalVSupp) + ".00");
+                            document.getElementById("amountSelect").style.display = "inline-block";
+                        } else {
+                            $("#amountSelect").text((sumSubTotal) + ".00");
+                            document.getElementById("amountSelect").style.display = "inline-block";
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response.responseText);
+                    }
+                });
+            } else {
+                $("#qcVoucher-" + idSupplierCheck).show();
+                $("#applyVoucher-" + idSupplierCheck).hide();
+                $("#priceOff-" + idSupplierCheck).text(0);
+                $("#idVoucherApplyAuto-" + idSupplierCheck).text(0);
+                var priceOfSuppCheck = document.querySelectorAll(`[id^="priceOff-"]`);
+                priceOfSuppCheck.forEach(item => {
+                    if ($("#" + item.id).text() != 0) {
+                        reCalVSupp += parseInt($("#" + item.id).text());
+                    }
+                });
+                //alert("re " + reCalVSupp);
+                if (reCalVSupp != 0) {
+                    $("#amountSelect").text((sumSubTotal - reCalVSupp) + ".00");
+                    document.getElementById("amountSelect").style.display = "inline-block";
+
+                } else {
+                    $("#amountSelect").text((sumSubTotal) + ".00");
+                    document.getElementById("amountSelect").style.display = "inline-block";
+
+                }
+            }
+        }
+    }
+    function reCalTotalCartWhenSelectVoucher() {
+        var sumSubTotal = parseInt($("#amountFirst").text());
+        document.getElementById("amountSelect").style.display = "none";
+        if ($("#amountFirst").text() != "0.00") {
+            //off of Cafena
+            var offCafena = 0;
+
+            if ($("#priceVCafena").text()!=0) {
+                offCafena = $("#priceVCafena").text();
+                sumSubTotal = sumSubTotal - offCafena;
+            }
+            var reCalVSupp = 0;
+            var priceOfSuppCheck = document.querySelectorAll(`[id^="priceOff-"]`);
+            priceOfSuppCheck.forEach(item => {
+                if ($("#" + item.id).text() != 0) {
+                    reCalVSupp += parseInt($("#" + item.id).text());
+                }
+            });
+            //alert("re " + reCalVSupp);
+            if (reCalVSupp != 0) {
+                $("#amountSelect").text((sumSubTotal - reCalVSupp) + ".00");
+                document.getElementById("amountSelect").style.display = "inline-block";
+            } else {
+                $("#amountSelect").text((sumSubTotal) + ".00");
+                document.getElementById("amountSelect").style.display = "inline-block";
+            }
+
+        } else {
+            $("#applyVCafena").hide();
+            $("#priceVCafena").text(0);
+            $("#idVoucherApplyAuto").text(0);
+            var reCalVSupp = 0;
+            var priceOfSuppCheck = document.querySelectorAll(`[id^="priceOff-"]`);
+            priceOfSuppCheck.forEach(item => {
+                if ($("#" + item.id).text() != 0) {
+                    reCalVSupp += parseInt($("#" + item.id).text());
+                }
+            });
+            //alert("re " + reCalVSupp);
+            if (reCalVSupp != 0) {
+                $("#amountSelect").text((sumSubTotal - reCalVSupp) + ".00");
+                document.getElementById("amountSelect").style.display = "inline-block";
+
+            } else {
+                $("#amountSelect").text((sumSubTotal) + ".00");
+                document.getElementById("amountSelect").style.display = "inline-block";
+
+            }
+        }
+    }
+
+    function seeMoreVouchers(idSupplierSelect) {
+        if (idSupplierSelect != 0) {
+            priceCompareCondition = $("#priceSelectedSupp-" + idSupplierSelect).text();
+            idVoucherApplyAuto = $("#idVoucherApplyAuto-" + idSupplierSelect).text();
+            titleSupp = $("#titleSupplier-" + idSupplierSelect).text();
+
+            $.ajax({
+                type: "get",
+                url: "/Cart/partialModalSelectVoucherOfSuppInCart",
+                data: {
+                    userCreate: idSupplierSelect,
+                    priceCompareCondition: priceCompareCondition,
+                },
+                success: function (res) {
+                    $("#seeVoucherOfSupp-" + idSupplierSelect).html("");
+                    $("#seeVoucherOfSupp-" + idSupplierSelect).html(res);
+                    $(".vc_RadioButton_radio").on("click", function () {
+                        $(".vc_RadioButton_radio").css("accent-color", "#ff4200");
+                    });
+                    var e = document.getElementById("titleSuppVou");
+                    e.id = "titleSuppVou-" + idSupplierSelect;
+                    $("#titleSuppVou-" + idSupplierSelect).text(titleSupp);
+                    var numberOfChecked = 0;
+                    if (idVoucherApplyAuto != 0) {
+                        $("#checkbox-" + idVoucherApplyAuto).prop("checked", true);
+                        $("#checkbox-" + idVoucherApplyAuto).css("accent-color", "#ff4200");
+                        numberOfChecked = $('input:radio:checked').length;
+                    }
+                    var e1 = document.getElementById("countChecked");
+                    e1.id = "countChecked-" + idSupplierSelect;
+                    $("#countChecked-" + idSupplierSelect).text(numberOfChecked);
+
+                    var e2 = document.getElementById("btnApplyVoucherOfSupp");
+                    e2.id = "btnApplyVoucherOfSupp-" + idSupplierSelect;
+                    var lstCheckbox = document.querySelectorAll(`[id^="checkbox-"]`);
+                    $("#btnApplyVoucherOfSupp-" + idSupplierSelect).click(function () {
+                        var idVoucher = 0;
+                        lstCheckbox.forEach(item => {
+                            if ($("#" + item.id).is(':checked')) {
+                                idVoucher = item.id.slice(9);
+                            }
+                        });
+                        $("#priceOff-" + idSupplierSelect).text($("#discount-" + idVoucher).text());
+                        $("#idVoucherApplyAuto-" + idSupplierSelect).text(idVoucher);
+                        reCalTotalCartWhenSelectVoucher();
+                    });
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        } else {
+            // call ajax of Cafena
+            idVoucherApplyAuto = $("#idVoucherApplyAuto").text();
+            if ($("#amountSelect").text() != "0.00") {
+                priceCompareCondition = $("#amountFirst").text();
+            } else {
+                priceCompareCondition = $("#amountSelect").text();
+            }
+            $.ajax({
+                type: "get",
+                url: "/Cart/partialModalSelectVoucherInCart",
+                data: {
+                    userCreate: 0,
+                    priceCompareCondition: priceCompareCondition,
+                },
+                success: function (res) {
+                    $("#contentVoucherCafena").html("");
+                    $("#contentVoucherCafena").html(res);
+                    $(".vc_RadioButton_radio").on("click", function () {
+                        $(".vc_RadioButton_radio").css("accent-color", "#ff4200");
+                    });
+                    var numberOfChecked = 0;
+                    if (idVoucherApplyAuto != 0) {
+                        //$("#bestChoice-" + idVoucherApplyAuto).show();
+                        $("#checkbox-" + idVoucherApplyAuto).prop("checked", true);
+                        $("#checkbox-" + idVoucherApplyAuto).css("accent-color", "#ff4200");
+                        numberOfChecked = $('input:radio:checked').length;
+                    }
+                    $("#countCheckedVCafe").text(numberOfChecked);
+                    var lstCheckbox = document.querySelectorAll(`[id^="checkbox-"]`);
+                    $("#btnApplyVoucherCafena").click(function () {
+                        var idVoucher = 0;
+                        lstCheckbox.forEach(item => {
+                            if ($("#" + item.id).is(':checked')) {
+                                idVoucher = item.id.slice(9);
+                            }
+                        });
+                        $("#priceVCafena").text($("#discount-" + idVoucher).text());
+                        $("#idVoucherApplyAuto").text(idVoucher);
+                        $("#exampleModalCenteredScrollable").modal("hide");
+                        reCalTotalCartWhenSelectVoucher();
+                    });
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        }
+
+    }
+
+    function checkSelectAll() {
+        var lstProdOfCart = document.querySelectorAll(`[id^="checkCart-"]`);
+        var checkLstProdOfCart = true;
+        for (var k = 0; k < lstProdOfCart.length; k++) {
+            if ($("#" + lstProdOfCart[k].id).is(':checked')) {
+                checkLstProdOfCart = true;
+            } else {
+                checkLstProdOfCart = false;
+                break;
+            }
+        }
+        if (checkLstProdOfCart == true) {
+            $("#cbSelectAll").prop("checked", true);
+        } else {
+            $("#cbSelectAll").prop("checked", false);
+        }
+    }
+
+    function btnCheckout() {
+        var strIdCart="";
+        var idVoucherSupp = "";
+
+        var lstAllSupp = document.querySelectorAll(`[id^="checkAll-"]`);
+        for (var i = 0; i < lstAllSupp.length; i++) {
+            var idSupplier = lstAllSupp[i].id.slice(9);
+            var lstCart = document.querySelectorAll(`[id^="checkCart-` + idSupplier + `"]`);
+            for (var j = 0; j < lstCart.length; j++) {
+                if ($("#" + lstCart[j].id).is(':checked')) {
+                    var idCart;
+                    var str = lstCart[j].id.slice(10).split("-");
+                    for (var k = 0; k < str.length; k++) {
+                        idCart = str[1];
+                    }
+                    if (strIdCart == "") {
+                        strIdCart = idCart;
+                    } else {
+                        strIdCart = strIdCart+"," + idCart;
+                    }
+                }
+            }
+            if ($("#idVoucherApplyAuto-" + idSupplier).text() != 0) {
+                if (idVoucherSupp == "") {
+                    idVoucherSupp = $("#idVoucherApplyAuto-" + idSupplier).text();
+
+                } else {
+                    idVoucherSupp = idVoucherSupp +","+ $("#idVoucherApplyAuto-" + idSupplier).text();
+                }
+            }
+        }
+        if (strIdCart != "") {
+            var idVoucherCafe = $("#idVoucherApplyAuto").text();
+            var priceTotal = $("#amountSelect").text();
+
+            var urlCheckOut = "/CheckOut?lsCartCheckout=" + strIdCart + "&lsIdVoucherSupp=" + idVoucherSupp + "&idVoucherCafe=" + idVoucherCafe
+                + "&priceTotal=" + priceTotal;
+            window.location.assign(urlCheckOut);
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please select the product to purchase!",
+                timer: 1500,
+                timerProgressBar: true,
+                showConfirmButton: false,
+            });
+        }
+
+    }
+
+    $(document).ready(function () {
+        $("#btnCheckout").click(function () {
+            btnCheckout();
+        });
+
+        $("#applyVCafena").hide();
+        var applyV = document.querySelectorAll(`[id^="applyVoucher-"]`);
+        applyV.forEach(item => {
+            $("#" + item.id).hide();
+        });
+        // custom display unitPrice
+        var itemOfAll = document.querySelectorAll(`[id^="unitPrice-"]`);
+        itemOfAll.forEach(item => {
+            if (Number.isInteger(roundToTwo($("#" + item.id).text()))) {
+                $("#" + item.id).text(roundToTwo($("#" + item.id).text()) + ".00");
+            } else {
+                $("#" + item.id).text(roundToTwo($("#" + item.id).text()));
+            }
+        });
+        // custom input checkbox
+        $(".checkCart").css("accent-color", "#ff4200");
+        $(".checkCart").on("click", function () {
+            $(".checkCart").css("accent-color", "#ff4200");
+        });
+
+        // lazy load menu cartSupplier
+        $(window).scroll(function () {
+            $(".cart-wrapper-table").slice(0, 1).show();
+            if ($(this).scrollTop() + $(this).height() > $(document).height() - 600) {
+                $(".cart-wrapper-table:hidden").slice(0, 1).slideDown();
+            }
+        });
+
+        //selector đến menu cần làm việc
+        var bottomFixCart = $("#cart-bottom");
+        // dùng sự kiện cuộn chuột để bắt thông tin đã cuộn được chiều dài là bao nhiêu.
+        $(window).scroll(function () {
+            // Nếu cuộn được hơn 150px rồi
+            if ($(this).scrollTop() > 100) {
+                // Tiến hành show menu ra
+                $('#cart-bottom').addClass('cart-bottom-fix');
+                bottomFixCart.show();
+            } else {
+                // Ngược lại, nhỏ hơn 150px thì hide menu đi.
+                bottomFixCart.hide();
+            }
+            if ($(this).scrollTop() + $(this).height() > $(document).height() - 500) {
+                $('#cart-bottom').removeClass('cart-bottom-fix');
+            }
+        });
+
+        $("#btnSelectV_Cafena").click(function () {
+            seeMoreVouchers(0);
+        });
+
+        var lst = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(lstCart));
+        for (var i = 0; i < lst.length; i++) {
+            $("#btnSeeVoucherOfSupp-" + lst[i].idSupplier).click(function () {
+                var idSupplier = this.id.slice(20);
+                seeMoreVouchers(idSupplier);
+            });
+        }
+        function btnSelectAll() {
+            $("#selectAllCart").click(function () {
+                var itemOfAll = document.querySelectorAll(`[id^="checkAll-"]`);
+
+                $(".checkCart").css("accent-color", "#ff4200");
+                if ($("#cbSelectAll").is(':checked')) {
+                    $("#cbSelectAll").prop("checked", false);
+                    var itemOfCart = document.querySelectorAll(`[id^="checkCart-"]`);
+
+                    itemOfAll.forEach(item => {
+                        $("#" + item.id).prop("checked", false);
+                    });
+                    itemOfCart.forEach(item => {
+                        $("#" + item.id).prop("checked", false);
+                    });
+                    $("#amountSelect").text("0.00");
+                    document.getElementById("amountSelect").style.display = "none";
+                    $("#applyVCafena").hide();
+                    $("#priceVCafena").text(0);
+                    $("#idVoucherApplyAuto").text(0);
+                    var reCalVSupp = 0;
+                    var sumSubTotal = $("#amountSelect").text();
+                    itemOfAll.forEach(item => {
+                        var idSupplier = item.id.slice(9);
+                        //autoSelectVoucherSupp(idSupplier);
+                        $("#qcVoucher-" + idSupplier).show();
+                        $("#applyVoucher-" + idSupplier).hide();
+                        $("#priceOff-" + idSupplier).text(0);
+                        $("#idVoucherApplyAuto-" + idSupplier).text(0);
+                        $("#priceSelectedSupp-" + idSupplier).text(0);
+                    });
+                    var priceOfSuppCheck = document.querySelectorAll(`[id^="priceOff-"]`);
+                    priceOfSuppCheck.forEach(itemP => {
+                        if ($("#" + itemP.id).text() != 0) {
+                            reCalVSupp += parseInt($("#" + itemP.id).text());
+                        }
+                    });
+                    //alert("re " + reCalVSupp);
+                    if (reCalVSupp != 0) {
+                        $("#amountSelect").text((sumSubTotal - reCalVSupp) + ".00");
+                    } else {
+                        $("#amountSelect").text((sumSubTotal));
+                    }
+                    document.getElementById("amountSelect").style.display = "inline-block";
+                    introVoucher();
+                } else {
+                    $("#cbSelectAll").prop("checked", true);
+                    var itemOfCart = document.querySelectorAll(`[id^="checkCart-"]`);
+
+                    itemOfAll.forEach(item => {
+                        $("#" + item.id).prop("checked", true);
+                    });
+                    itemOfCart.forEach(item => {
+                        $("#" + item.id).prop("checked", true);
+                    });
+                    // change totalAmount - priceSubTotal
+                    subTotalCheckCart();
+                    itemOfAll.forEach(item => {
+                        var idSupplier = item.id.slice(9);
+                        autoSelectVoucherSupp(idSupplier);
+                    });
+                }
+
+                countCheckCart();
+            });
+            $("#cbSelectAll").change(function () {
+                var itemOfAll = document.querySelectorAll(`[id^="checkAll-"]`);
+                if ($("#cbSelectAll").is(':checked')) {
+                    $("#cbSelectAll").prop("checked", true);
+                    var itemOfCart = document.querySelectorAll(`[id^="checkCart-"]`);
+
+                    itemOfAll.forEach(item => {
+                        $("#" + item.id).prop("checked", true);
+                    });
+                    itemOfCart.forEach(item => {
+                        $("#" + item.id).prop("checked", true);
+                    });
+                    subTotalCheckCart();
+                    itemOfAll.forEach(item => {
+                        var idSupplier = item.id.slice(9);
+                        autoSelectVoucherSupp(idSupplier);
+                    });
+                } else {
+                    $("#cbSelectAll").prop("checked", false);
+                    var itemOfCart = document.querySelectorAll(`[id^="checkCart-"]`);
+
+                    itemOfAll.forEach(item => {
+                        $("#" + item.id).prop("checked", false);
+                    });
+                    itemOfCart.forEach(item => {
+                        $("#" + item.id).prop("checked", false);
+                    });
+                    $("#amountSelect").text("0.00");
+                    document.getElementById("amountSelect").style.display = "none";
+
+                    $("#applyVCafena").hide();
+                    $("#priceVCafena").text(0);
+                    $("#idVoucherApplyAuto").text(0);
+                    var reCalVSupp = 0;
+                    var sumSubTotal = $("#amountSelect").text();
+                    itemOfAll.forEach(item => {
+                        var idSupplier = item.id.slice(9);
+                        //autoSelectVoucherSupp(idSupplier);
+                        $("#qcVoucher-" + idSupplier).show();
+                        $("#applyVoucher-" + idSupplier).hide();
+                        $("#priceOff-" + idSupplier).text(0);
+                        $("#idVoucherApplyAuto-" + idSupplier).text(0);
+                        $("#priceSelectedSupp-" + idSupplier).text(0);
+                    });
+                    var priceOfSuppCheck = document.querySelectorAll(`[id^="priceOff-"]`);
+                    priceOfSuppCheck.forEach(itemP => {
+                        if ($("#" + itemP.id).text() != 0) {
+                            reCalVSupp += parseInt($("#" + itemP.id).text());
+                        }
+                    });
+                    //alert("re " + reCalVSupp);
+                    if (reCalVSupp != 0) {
+                        $("#amountSelect").text((sumSubTotal - reCalVSupp) + ".00");
+                    } else {
+                        $("#amountSelect").text((sumSubTotal));
+                    }
+                    document.getElementById("amountSelect").style.display = "inline-block";
+                    introVoucher();
+                }
+                countCheckCart();
+            });
+        }
+        btnSelectAll();
+
+
+
+        for (i = 0; i < lst.length; i++) {
+            $("#checkAll-" + lst[i].idSupplier).change(function () {
+                var idSupplier = this.id.slice(9);
+                if ($(this).is(':checked')) {
+                    // Do something...
+                    var itemOfAll = document.querySelectorAll(`[id^="checkCart-` + idSupplier + `"]`);
+                    itemOfAll.forEach(item => {
+                        $("#" + item.id).prop("checked", true);
+                    });
+                } else {
+                    var itemOfAll = document.querySelectorAll(`[id^="checkCart-` + idSupplier + `"]`);
+                    itemOfAll.forEach(item => {
+                        $("#" + item.id).prop("checked", false);
+                    });
+                    $("#cbSelectAll").prop("checked", false);
+                }
+                checkSelectAll();
+                countCheckCart();
+                subTotalCheckCart();
+                autoSelectVoucherSupp(idSupplier);
+            });
+
+            var cartViews = lst[i].cartViews;
+            for (var j = 0; j < cartViews.length; j++) {
+                $("#checkCart-" + lst[i].idSupplier + "-" + cartViews[j].idCart).change(function () {
+                    var str = this.id.slice(10).split("-");
+                    var idSupplier = 0;
+                    for (var k = 0; k < str.length; k++) {
+                        idSupplier = str[0];
+                        break;
+                    }
+                    var itemOfAll = document.querySelectorAll(`[id^="checkCart-` + idSupplier + `"]`);
+                    var check = true;
+                    for (var k = 0; k < itemOfAll.length; k++) {
+                        if ($("#" + itemOfAll[k].id).is(':checked')) {
+                            check = true;
+                        } else {
+                            check = false;
+                            break;
+                        }
+                    }
+                    if (check == true) {
+                        $("#checkAll-" + idSupplier).prop("checked", true);
+                    } else {
+                        $("#checkAll-" + idSupplier).prop("checked", false);
+                        $("#cbSelectAll").prop("checked", false);
+                    }
+                    checkSelectAll();
+                    countCheckCart();
+                    subTotalCheckCart();
+                    autoSelectVoucherSupp(idSupplier);
+
+                });
+                $("#inputAmount-" + lst[i].idSupplier + "-" + cartViews[j].idCart).on('focusin', function () {
+                    $(this).data('val', $(this).val());
+                });
+                $("#inputAmount-" + lst[i].idSupplier + "-" + cartViews[j].idCart).change(function () {
+                    const maxAmount = 50;
+                    const minAmount = 1;
+                    if ($(this).val() > maxAmount || $(this).val() < minAmount) {
+                        $(this).val($(this).data("val"));
+                    }
+                    var amountCurrent = $(this).val();
+                    var idSuppCart = this.id.slice(12);
+                    var str = this.id.slice(12).split("-");
+                    var idSupp = 0
+                    var idCart = 0;
+                    for (var k = 0; k < str.length; k++) {
+                        idSupp = str[0];
+                        idCart = str[1];
+                        break;
+                    }
+                    var price = parseInt($("#unitPrice-" + idSuppCart).text()) * parseInt(amountCurrent);
+                    $.ajax({
+                        type: "get",
+                        url: "/Cart/UpdateCart",
+                        data: {
+                            idCart: idCart,
+                            amount: amountCurrent,
+                            price: price,
+                        },
+                        success: function (res) {
+                            if (Number.isInteger(price)) {
+                                $("#price-" + idSuppCart).text(price+".0");
+                            } else {
+                                $("#price-" + idSuppCart).text(roundToTwo(price));
+                            }
+                            subTotalCheckCart();
+                            autoSelectVoucherSupp(idSupp);
+
+                        },
+                        error: function (response) {
+                            console.log(response.responseText);
+                        }
+                    });
+                });
+
+                $("#btnDeleteCart-" + lst[i].idSupplier + "-" + cartViews[j].idCart).click(function () {
+                    var idSuppCart = this.id.slice(14);
+                    var str = this.id.slice(14).split("-");
+                    var idSupp = 0
+                    var idCart = 0;
+                    for (var k = 0; k < str.length; k++) {
+                        idSupp = str[0];
+                        idCart = str[1];
+                        break;
+                    }
+                    $.ajax({
+                        type: "get",
+                        url: "/Cart/DeleteCart",
+                        data: {
+                            idCart: idCart,
+                        },
+                        success: function (res) {
+                            $("#tr-" + idSuppCart).remove();
+                            var rowCount = document.querySelectorAll(`[id^="tr-` + idSupp + `"]`).length;
+                            if (rowCount == 0) {
+                                $("#cartTable-" + idSupp).remove();
+                            }
+                            checkSelectAll();
+                            countCheckCart();
+                            subTotalCheckCart();
+                            autoSelectVoucherSupp(idSupp);
+                        },
+                        error: function (response) {
+                            console.log(response.responseText);
+                        }
+                    });
+
+                });
+            }
+        }
+    });
+</script>

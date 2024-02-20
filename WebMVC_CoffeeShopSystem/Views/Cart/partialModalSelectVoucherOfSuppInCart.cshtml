@@ -1,0 +1,134 @@
+﻿<div class="k857Ih g1MlJb " style="width: 500px; height: 600px; ">
+    <h3><span style="color:black" id="titleSuppVou">Title Supplier</span> Voucher</h3>
+    <div class="+idyFV Bk+p3j">
+        @if (ViewBag.lstVoucher.Count > 0)
+        {
+            foreach (var item in ViewBag.lstVoucher)
+            {
+                if (ViewBag.priceCompareCondition >= item.condition)
+                {
+                    <div class="W8WT2r">
+                        <div data-testid="vcCard" class="vc_Card_container vc_Card_shop vc_VoucherStandardTemplate_shop vc_shop-voucher_pc">
+                            <div class="vc_Card_card">
+                                <div class="vc_Card_left">
+                                    <div class="vc_Card_sawtooth"></div>
+                                </div>
+                                <div class="vc_Card_right"></div>
+                                <div class="vc_VoucherStandardTemplate_hideOverflow"></div>
+                                <div data-testid="voucher-card" class="vc_VoucherStandardTemplate_template" role="presentation">
+                                    <div class="vc_VoucherStandardTemplate_left" role="presentation">
+                                        <div data-testid="vcLogo" class="vc_Logo_imageLogo" data-target="shop_icon">
+                                            <img class="vc_Logo_logo vc_Logo_circular" src="https://i.pinimg.com/564x/27/25/51/272551f228fc74d104cc3aece28430b4.jpg" alt="Logo">
+                                        </div>
+                                    </div>
+                                    <div class="vc_VoucherStandardTemplate_middle" role="presentation" tabindex="0">
+                                        <div class="vc_A11yAriaText_A11yContent">
+                                            <span aria-label=""></span>
+                                            <span aria-label=""></span>
+                                            <span aria-label="Best Choice"></span>
+                                        </div>
+                                        <div data-testid="vcMainTitle" class="vc_MainTitle_mainTitle">
+                                            <div class="vc_MainTitle_text vc_MainTitle_defaultLine" style="font-size:17px">$@item.discount off</div>
+                                        </div>
+                                        <div data-testid="vcSubtitle" class="vc_Subtitle_subTitle vc_Subtitle_defaultLine" style="font-size:15px">
+                                            Minimum order $<span id="condition" style="color:black">@item.condition</span> Maximum discount $<span id="discount-@item.id" style="color:black">@item.discount</span>
+                                        </div>
+                                        <div data-testid="vcLabel" class="vc_Label_label"></div>
+                                        <div data-testid="vcProgressBarExpiry" class="vc_ProgressBarExpiry_progressBarExpiry">
+                                            <div class="vc_ProgressBarExpiry_usageLimitedText vc_ProgressBarExpiry_twoRowsLimitText">
+                                                <span class="vc_ProgressBarExpiry_validUntil vc_ProgressBarExpiry_capitalize" style="font-size:15px">Expiry: <span id="dateEnd">@item.endDate</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vc_VoucherStandardTemplate_right" role="presentation">
+                                        <div class="vc_VoucherStandardTemplate_center">
+                                            @*<div data-testid="vcRadioButton" class="vc_RadioButton_radio vc_RadioButton_radioSelected" data-cy="voucher_card_radiobutton" aria-label="" role="radio" aria-checked="true" tabindex="0">
+                                                </div>*@
+                                            <input type="radio" name="checkbox" id="checkbox-@item.id" class="vc_RadioButton_radio" style="width:21px;height:21px;" />
+                                        </div>
+                                    </div>
+                                    @if (item.id == ViewBag.callAutoVou.id)
+                                    {
+                                        <div data-testid="vcCornerBadge" id="bestChoice-@item.id" class="vc_CornerBadge_cornerBadge vc_CornerBadge_levelCorner vc_CornerBadge_bestChoice">
+                                            <div>Best Choice</div>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="vc_Stack_stack">
+                                <div class="vc_Stack_leftSeller"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="W8WT2r">
+                        <div data-testid="vcCard" style="--vc-card-left-fill-color: #e8e8e81f; --vc-card-background-color: #e8e8e81f; " class="vc_Card_container vc_Card_shop vc_VoucherStandardTemplate_shop vc_shop-voucher_pc">
+                            <div class="vc_Card_card">
+                                <div class="vc_Card_left" style="background: #e8e8e81f; ">
+                                    <div class="vc_Card_sawtooth"></div>
+                                </div>
+                                <div class="vc_Card_right"></div>
+                                <div class="vc_VoucherStandardTemplate_hideOverflow"></div>
+                                <div data-testid="voucher-card" class="vc_VoucherStandardTemplate_template" role="presentation">
+                                    <div class="vc_VoucherStandardTemplate_left" role="presentation">
+                                        <div data-testid="vcLogo" class="vc_Logo_imageLogo" data-target="shop_icon">
+                                            <img class="vc_Logo_logo vc_Logo_circular" src="https://i.pinimg.com/564x/27/25/51/272551f228fc74d104cc3aece28430b4.jpg" alt="Logo">
+                                        </div>
+                                    </div>
+                                    <div class="vc_VoucherStandardTemplate_middle" role="presentation" tabindex="0">
+                                        <div class="vc_A11yAriaText_A11yContent">
+                                            <span aria-label=""></span>
+                                            <span aria-label=""></span>
+                                            <span aria-label="Best Choice"></span>
+                                        </div>
+                                        <div data-testid="vcMainTitle" class="vc_MainTitle_mainTitle">
+                                            <div class="vc_MainTitle_text vc_MainTitle_defaultLine" style="font-size:17px;color:grey">$@item.discount off</div>
+                                        </div>
+                                        <div data-testid="vcSubtitle" class="vc_Subtitle_subTitle vc_Subtitle_defaultLine" style="font-size: 15px; color: grey">
+                                            Minimum order $<span id="condition" style="color:grey">@item.condition</span> Maximum discount $<span id="discount-@item.id" style="color:grey">@item.discount</span>
+                                        </div>
+                                        <div data-testid="vcLabel" class="vc_Label_label"></div>
+                                        <div data-testid="vcProgressBarExpiry" class="vc_ProgressBarExpiry_progressBarExpiry">
+                                            <div class="vc_ProgressBarExpiry_usageLimitedText vc_ProgressBarExpiry_twoRowsLimitText">
+                                                <span class="vc_ProgressBarExpiry_validUntil vc_ProgressBarExpiry_capitalize" style="font-size: 15px; color: grey ">Expiry: <span id="dateEnd">@item.endDate</span></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="vc_VoucherStandardTemplate_right" role="presentation">
+                                        <div class="vc_VoucherStandardTemplate_center">
+                                            @*<div data-testid="vcRadioButton" class="vc_RadioButton_radio vc_RadioButton_radioSelected" data-cy="voucher_card_radiobutton" aria-label="" role="radio" aria-checked="true" tabindex="0">
+                                                </div>*@
+                                            <input type="radio" id="checkbox-@item.id" class="vc_RadioButton_radio" style="width:21px;height:21px;" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="vc_Stack_stack">
+                                <div class="vc_Stack_leftSeller"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            <div class="yIJbm-">
+                <div class="_8V7enQ">
+                    <span class="Qqtdvc" style="font-size:16px;color:black"><span id="countChecked" style="font-size:16px;color:black">0</span> Voucher Selected. </span>
+                </div>
+            </div>
+            <div class="qll9xC">
+                <button type="button" id="btnApplyVoucherOfSupp" class="site-btn">Apply</button>
+            </div>
+        }
+        else
+        {
+            <div class="bv0ZQP">
+                <h3>The shop doesn't have a discount code yet.</h3><p></p>
+            </div>
+        }
+    </div>
+</div>
+
+

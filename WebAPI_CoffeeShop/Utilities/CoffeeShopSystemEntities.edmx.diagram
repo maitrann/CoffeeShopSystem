@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4fc0c0d486774cc6993679b30c2645ac" Name="Diagram1" ZoomLevel="95">
+        <EntityTypeShape EntityType="CoffeeShopSysModel.Account" Width="1.5" PointX="1.5" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.Address" Width="1.5" PointX="3.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.Blog" Width="1.5" PointX="8.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.Cart" Width="1.5" PointX="3.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.Category" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.CommentBlog" Width="1.5" PointX="11" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.Discount" Width="1.5" PointX="8.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.ForgotPassword" Width="1.5" PointX="10.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.Invoice" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.InvoiceAdmin" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.InvoiceDetail" Width="1.5" PointX="6" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.InvoiceSupplier" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.Product" Width="1.5" PointX="6" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.Review" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.Supplier" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.SupplierRefundV" Width="1.5" PointX="8.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.UserNewEmail" Width="1.5" PointX="10.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.Voucher" Width="1.5" PointX="12.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.W_RegisterAccount" Width="1.5" PointX="5.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.W_RegisterSupplier" Width="1.5" PointX="12.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.W_SHandleInvoice" Width="1.5" PointX="12.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.WatchList" Width="1.5" PointX="13.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CoffeeShopSysModel.Admin" Width="1.5" PointX="14.75" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="CoffeeShopSysModel.FK_Address_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeShopSysModel.FK_Cart_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeShopSysModel.FK_CommentBlog_Blog" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeShopSysModel.FK_InvoiceDetails_Cart" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeShopSysModel.FK_Product_Cate" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeShopSysModel.FK_Discount_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeShopSysModel.FK_InvoiceAdmin_Invoice" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeShopSysModel.FK_InvoiceDetails_Invoice" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeShopSysModel.FK_InvoiceSupplier_Invoice" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeShopSysModel.FK_InvoiceSupplier_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeShopSysModel.FK_Product_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeShopSysModel.FK_Cart_Product" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

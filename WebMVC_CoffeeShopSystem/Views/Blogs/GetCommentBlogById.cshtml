@@ -1,0 +1,205 @@
+﻿<div class="comment-thread">
+    <!-- Comment 1 start -->
+    @if (ViewBag.commentsBlog != null)
+    {
+        foreach (var item in ViewBag.commentsBlog)
+        {
+            <details open class="comment" id="comment-@item.id" data-id="@item.id">
+                <a href="#comment-@item.id" class="comment-border-link">
+                    <span class="sr-only">Jump to comment-1</span>
+                </a>
+                <summary>
+                    <div class="d-flex flex-row">
+                        <div class="comment-heading col-10">
+                            <div class="comment-info">
+                                <a href="#" class="comment-author">
+                                    @item.userName
+                                </a>
+                                @if (item.timeSpace == 0)
+                                {
+                                    <p class="m-0">
+                                        Today
+                                    </p>
+                                }
+                                else if (item.timeSpace >= 1 & item.timeSpace <= 7)
+                                {
+                                    <p class="m-0">
+                                        @item.timeSpace days ago
+                                    </p>
+                                }
+                                else if (item.timeSpace > 7)
+                                {
+                                    <p class="m-0">
+                                        @item.dateCreate
+                                    </p>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            @if (ViewBag.crrUser.ToString() == item.idAccount)
+                            {
+                                <p id="btnDeleteM" style="right: 21px;top: 27px;position: relative;text-decoration: underline;color: darkred;
+                                    font-family: unset;display: flex;justify-content: end;font-size: 13.8px;"
+                                   data-id="@item.id">Delete</p>
+                            }
+                        </div>
+                    </div>
+                </summary>
+
+                <div class="comment-body">
+                    <div id="contentEdit" data-id="@item.id"><p class="txtComment" data-id="@item.id" data-ureply="">@item.comment</p></div>
+                    <div class="d-flex flex-row">
+                        <button type="button" data-toggle="reply-form"
+                                data-target="comment-@item.id-reply-form" class="replyButton" id="replyHandle">
+                            Reply
+                        </button>
+                        @if (ViewBag.crrUser.ToString() == item.idAccount)
+                        {
+                            <button type="button" data-toggle="edit-form"
+                                    data-target="comment-@item.id-reply-form"
+                                    class="editButton" data-cm="@item.comment">
+                                Edit
+                            </button>
+                        }
+                    </div>
+                    <!-- Reply form start -->
+                    <form method="POST" class="reply-form d-none" id="comment-@item.id-reply-form"
+                          action="#">
+                        <textarea row="4" id="comment-@item.id-reply-form" maxlength="200"
+                                  class="contentComment" data-id="@item.id"></textarea>
+                        <button type="submit" class="submitReply"
+                                data-target="comment-@item.id-reply-form" data-idr="@item.id"
+                                data-idm="@item.id" data-edit="false">
+                            Submit
+                        </button>
+                        <button type="button" data-toggle="reply-form"
+                                data-target="comment-@item.id-reply-form"
+                                class="cancelButton">
+                            Cancel
+                        </button>
+                    </form>
+                    <!-- Reply form end -->
+                </div>
+                <div class="replies" data-id="@item.id">
+                    <!--Reply Comment Start -->
+                    @if (item.lsSubComment != null)
+                    {
+                        foreach (var itemSub in item.lsSubComment)
+                        {
+                            <div data-id="@itemSub.id" id="idReply">
+                                <details open class="comment replyComment" id="comment-@itemSub.id}"
+                                         data-target="@item.id">
+                                    <a href="#comment-@itemSub.id" class="comment-border-link">
+                                        <span class="sr-only">Jump to comment-1</span>
+                                    </a>
+                                    <summary>
+                                        <div class="d-flex flex-row">
+                                            <div class="comment-heading col-10" style="width: 97%;">
+                                                <div class="comment-info">
+                                                    <a href="#" class="comment-author">
+                                                        @itemSub.userName
+                                                    </a>
+                                                    @if (itemSub.timeSpace == 0)
+                                                    {
+                                                        <p class="m-0">
+                                                            Today
+                                                        </p>
+                                                    }
+                                                    else if (itemSub.timeSpace >= 1 & itemSub.timeSpace <= 7)
+                                                    {
+                                                        <p class="m-0">
+                                                            @itemSub.timeSpace days ago
+                                                        </p>
+                                                    }
+                                                    else if (itemSub.timeSpace > 7)
+                                                    {
+                                                        <p class="m-0">
+                                                            @itemSub.dateCreate
+                                                        </p>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="col-2">
+                                                <div class="col-2">
+                                                    @if (ViewBag.crrUser.ToString() == itemSub.idAccount)
+                                                    {
+                                                        <p id="btnDeleteS"
+                                                           style="right: 21px;top: 27px;position: relative;text-decoration: underline;color: darkred;
+                                                                    font-family: unset;display: flex;justify-content: end;font-size: 13.8px;"
+                                                           data-id="@itemSub.id}">Delete</p>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </summary>
+
+                                    <div class="comment-body">
+                                        <div id="contentEdit" data-id="@itemSub.id">
+                                            <p class="txtComment" data-id="@itemSub.id}" data-ureply="@itemSub.userReply">
+                                                <span style="color:chocolate;">@itemSub.userReply </span>
+                                                @itemSub.comment
+                                            </p>
+                                        </div>
+                                        <div class="d-flex flex-row">
+                                            <button type="button" data-toggle="reply-form" data-target="comment-@itemSub.id-reply-form'}" class="replyButton" id="replyHandle">Reply</button>
+                                            @if (ViewBag.crrUser.ToString() == itemSub.idAccount)
+                                            {
+                                                <button type="button" data-toggle="edit-form"
+                                                        data-target="comment-@itemSub.id-reply-form"
+                                                        class="editButton" data-cm="@itemSub.comment">
+                                                    Edit
+                                                </button>
+                                            }
+                                        </div>
+
+                                        <form method="POST" class="reply-form d-none"
+                                              id="comment-@itemSub.id-reply-form" action="#">
+                                            <textarea rows="4" id="comment-@itemSub.id-reply-form"
+                                                      maxlength="200" class="contentComment" data-id="@itemSub.id"></textarea>
+                                            <button type="submit" class="submitReply"
+                                                    data-target="comment-@itemSub.id-reply-form"
+                                                    data-idr="@itemSub.id}" data-idm="@item.id"
+                                                    data-edit="false">
+                                                Submit
+                                            </button>
+                                            <button type="button" data-toggle="reply-form"
+                                                    data-target="comment-@itemSub.id-reply-form'}"
+                                                    class="cancelButton">
+                                                Cancel
+                                            </button>
+                                        </form>
+                                    </div>
+                                </details>
+                            </div>
+                        }
+                    }
+
+                    @if (item.countSubComment >= 2)
+                    {
+                        <a href="#load-more" id="btnLoadMore" style="color: grey;text-decoration: underline;"
+                           data-target="@item.id">Load more replies</a>
+                    }
+                </div>
+            </details>
+        }
+    }
+</div>
+<script src="~/Content/assets/js/jquery-2.2.4.min.js"></script>
+<script>
+    //$('#btnCheckOut').on('click', function (e) {
+    //    e.preventDefault();
+    //    $('.overlay, .product-popup-1').addClass('show-popup');
+    //}, false);
+
+    $('a#btnLoadMore').on('click', function (e) {
+        e.preventDefault();
+        var target = $(this).attr('data-target');
+        $(`details.replyComment[data-target=` + target + `]:hidden`).slice(0, 2).show();
+        if ($(`details.replyComment[data-target=` + target + `]:hidden`).length == 0) {
+            $(this).remove();
+        }
+    })
+
+    //
+    $("details.replyComment").slice(0, 1).show();
+</script>

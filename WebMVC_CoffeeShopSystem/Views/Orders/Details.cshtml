@@ -1,0 +1,744 @@
+﻿
+@{
+    ViewBag.Title = "Orders Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    WebAPI_CoffeeShop.Models.ModelView.InvoiceView lstInvoiceDetails = ViewBag.lstInvoiceDetails;
+
+}
+<style>
+    .xBNaac {
+        background-image: repeating-linear-gradient(45deg,#6fa6d6,#6fa6d6 33px,transparent 0,transparent 41px,#f18d9b 0,#f18d9b 74px,transparent 0,transparent 82px);
+        background-position-x: -30px;
+        background-size: 116px 3px;
+        height: 3px;
+        width: 100%;
+    }
+
+    .hYgtuo {
+        padding: 28px 30px 24px;
+    }
+
+    .SvK9MH {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .i1xLmh {
+        align-items: center;
+        display: flex;
+    }
+
+    .IZawzb {
+        align-items: center;
+        color: #ee4d2d;
+        display: flex;
+        flex: 1 1 auto;
+        font-size: 1.125rem;
+        margin-bottom: 20px;
+        text-transform: capitalize;
+    }
+
+        .IZawzb .qclVa9 {
+            display: flex;
+            margin-right: 9px;
+        }
+
+    .y0jyrJ {
+        align-items: center;
+        display: flex;
+        font-size: 1rem;
+        word-break: break-word;
+    }
+
+    button.VNkBIJ.div-style {
+        color: #4080ee;
+        cursor: pointer;
+        margin-left: 5.5rem;
+        text-transform: capitalize;
+        font-size: 17px;
+    }
+
+    .div-style {
+        background: none;
+        border: 0;
+        display: block;
+        margin: 0;
+        padding: 0;
+        text-align: inherit;
+    }
+
+    .PzGLCh {
+        color: #222;
+        font-weight: 700;
+        font-size: 18px;
+    }
+
+    .a9c4OR {
+        margin-left: 100px;
+        word-break: break-word;
+        font-size: 18px;
+    }
+
+    .dIzOca {
+        border: 0.5px solid;
+        border-radius: 1px;
+        color: #ee4d2d;
+        flex-shrink: 0;
+        font-size: 14px;
+        margin-left: 1.5em;
+        padding: 2px 5px;
+        text-transform: capitalize;
+    }
+</style>
+<style>
+    .vc_shop-voucher_pc {
+        --vc-logo-size: 3.5rem;
+        --vc-expiry-font-size: 0.75rem;
+        --vc-expiry-line-height: 0.875rem;
+        --vc-expiry-margin-top: 0.25rem;
+        --vc-main-title-font-size: 1rem;
+        --vc-main-title-line-height: 1.25rem;
+        --vc-subtitle-font-size: 0.875rem;
+        --vc-subtitle-line-height: 1rem;
+        --vc-product-scope-font-size: 0.75rem;
+        --vc-product-scope-line-height: 0.875rem;
+        --vc-product-scope-padding: 0.0625rem 0.25rem;
+        --vc-icon-text-font-size: 0.75rem;
+        --vc-icon-text-line-height: 0.875rem;
+        --vc-icon-text-max-height: 1.75rem;
+        --vc-icon-text-margin-top: 0.25rem;
+        --vc-radio-button-border: 0.0625rem solid rgba(0,0,0,.14);
+        --vc-radio-button-box-shadow: var(--black2) 0 0.125rem 0 0;
+        --vc-rect-button-height: 1.75rem;
+        --vc-rect-button-min-width: 4rem;
+        --vc-rect-button-font-size: 0.875rem;
+        --vc-corner-badge-padding: 0.125rem 0.3125rem;
+        --vc-corner-badge-font-size: 0.75rem;
+        --vc-corner-badge-line-height: 0.875rem;
+        --vc-card-width: auto;
+        margin-bottom: 12px;
+    }
+
+    .vc_Card_shop {
+        --vc-card-left-border-color: #e8e8e8;
+        --vc-card-left-fill-color: #fff;
+        --vc-card-right-border-color: #e8e8e8;
+        --vc-card-background-color: #fff;
+    }
+
+    .vc_Card_card, .vc_Card_container {
+        width: var(--vc-card-width,28.375rem);
+    }
+
+    .vc_Card_card {
+        height: var(--vc-card-height,7.375rem);
+        position: relative;
+    }
+
+    .vc_Card_left {
+        background: linear-gradient(180deg,var(--vc-card-left-border-color,#e8e8e8) var(--vc-card-sawtooth-margin,.25rem),transparent 0,transparent calc(100% - var(--vc-card-sawtooth-margin, .25rem)),var(--vc-card-left-border-color,#e8e8e8) calc(100% - var(--vc-card-sawtooth-margin, .25rem))) 0 0 /0.0625rem 100% no-repeat,linear-gradient(180deg,var(--vc-card-left-fill-color,#fff) var(--vc-card-sawtooth-margin,.25rem),transparent 0,transparent calc(100% - var(--vc-card-sawtooth-margin, .25rem)),var(--vc-card-left-fill-color,#fff) calc(100% - var(--vc-card-sawtooth-margin, .25rem))) 0 0/100% 100% no-repeat;
+        border-bottom: 0.0625rem solid var(--vc-card-left-border-color,#e8e8e8);
+        border-bottom-left-radius: 0.125rem;
+        border-top: 0.0625rem solid var(--vc-card-left-border-color,#e8e8e8);
+        border-top-left-radius: 0.125rem;
+        box-sizing: border-box;
+        height: 100%;
+        left: 0;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        width: var(--vc-card-height,7.375rem);
+    }
+
+    .vc_Card_right {
+        background-color: var(--vc-card-background-color,#fff);
+        border: 0.0625rem solid var(--vc-card-right-border-color,#e8e8e8);
+        border-bottom-right-radius: 0.125rem;
+        border-left: none;
+        border-top-right-radius: 0.125rem;
+        box-sizing: border-box;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: calc(100% - var(--vc-card-height, 7.375rem));
+    }
+
+    .vc_VoucherStandardTemplate_hideOverflow {
+        border: 0.0625rem solid transparent;
+        border-radius: 0.125rem;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+    .vc_VoucherStandardTemplate_template {
+        border: 0.0625rem solid transparent;
+        border-left: none;
+        box-shadow: var(--vc-template-box-shadow,.125rem .125rem .3125rem rgba(0,0,0,.07));
+        box-sizing: border-box;
+        display: flex;
+        height: 100%;
+        position: relative;
+        transition: background 1s ease;
+    }
+
+    .vc_VoucherStandardTemplate_left {
+        align-items: center;
+        border-right: 0.0625rem dashed #e8e8e8;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        width: var(--vc-card-height,7.375rem);
+    }
+
+    .vc_VoucherStandardTemplate_middle {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+        padding-left: 0.75rem;
+        position: relative;
+    }
+
+    .vc_VoucherStandardTemplate_right {
+        align-items: flex-end;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 0.75rem;
+        position: relative;
+    }
+
+    .vc_CornerBadge_bestChoice {
+        background-color: var(--vc-corner-badge-bg-color,#4c7);
+    }
+
+    .vc_CornerBadge_levelCorner {
+        left: -0.25rem;
+        top: 0.3125rem;
+    }
+
+    .vc_CornerBadge_cornerBadge {
+        border-radius: 0.125rem 0.125rem 0.125rem 0;
+        color: #fff;
+        display: flex;
+        font-size: var(--vc-corner-badge-font-size,.625rem);
+        line-height: var(--vc-corner-badge-line-height,.75rem);
+        padding: var(--vc-corner-badge-padding,.125rem .25rem);
+        position: absolute;
+    }
+
+    .vc_RightCornerBadge_rightCornerClassName {
+        font-size: .75rem;
+        height: 1.125rem;
+        width: 2.3125rem;
+    }
+
+    .vc_RightCornerBadge_rightCorner {
+        align-items: center;
+        background-color: #ffeaea;
+        border-radius: 10px 2px 0 10px;
+        color: #ee4d2d;
+        display: flex;
+        font-size: .75rem;
+        font-weight: 500;
+        height: 1.125rem;
+        justify-content: center;
+        position: absolute;
+        right: -0.25rem;
+        top: 0.25rem;
+        width: 2.3125rem;
+    }
+
+    .vc_Stack_stack {
+        background-color: #fff;
+        border: 0.03125rem solid rgba(0,0,0,.09);
+        border-radius: 0 0 0.125rem 0.125rem;
+        border-top: none;
+        box-shadow: 0 0.0625rem 0.1875rem rgba(0,0,0,.09);
+        box-sizing: border-box;
+        height: 0.5rem;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        position: relative;
+    }
+
+    .vc_Logo_imageLogo {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    .vc_Logo_circular {
+        border: 0.0625rem solid #efefef;
+        border-radius: 50%;
+    }
+
+    .vc_Logo_logo {
+        display: block;
+        height: var(--vc-logo-size,3.5rem);
+        width: var(--vc-logo-size,3.5rem);
+    }
+
+    .vc_A11yAriaText_A11yContent {
+        clip: rect(0,0,0,0) !important;
+        border: 0 !important;
+        height: 1px !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        padding: 0 !important;
+        position: absolute !important;
+        white-space: nowrap !important;
+        width: 1px !important;
+    }
+
+    .vc_MainTitle_mainTitle {
+        display: flex;
+    }
+
+    .vc_Subtitle_defaultLine, .vc_Subtitle_oneLine {
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .vc_Subtitle_defaultLine {
+        -webkit-line-clamp: 2;
+    }
+
+    .vc_Subtitle_subTitle {
+        color: var(--vc-sub-title-color,rgba(0,0,0,.8));
+        font-size: var(--vc-subtitle-font-size,.875rem);
+        font-weight: var(--vc-subtitle-font-weight,normal);
+        line-height: var(--vc-subtitle-line-height,1rem);
+        margin: var(--vc-sub-title-margin,0);
+        padding: var(--vc-sub-title-padding,0);
+        text-align: var(--vc-subtitle-text-align,unset);
+        white-space: var(--vc-sub-title-white-space,unset);
+        word-break: break-word;
+    }
+
+    .vc_Label_label {
+        display: flex;
+        margin: var(--vc-card-label-margin,.3125rem 0 .25rem 0);
+        min-width: 0;
+        overflow: hidden;
+        padding: var(--vc-card-label-padding,0);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .vc_ProgressBarExpiry_progressBarExpiry {
+        color: rgba(0,0,0,.54);
+        font-size: var(--vc-expiry-font-size,.75rem);
+        line-height: var(--vc-expiry-line-height,.875rem);
+        margin: var(--vc-card-progress-expiry-margin,.25rem 0 0 0);
+        margin-top: var(--vc-expiry-margin-top,.25rem);
+        overflow: hidden;
+        padding-right: var(--vc-card-progress-expiry-padding-right,0);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .vc_ProgressBarExpiry_usageLimitedText.vc_ProgressBarExpiry_twoRowsLimitText {
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .vc_ProgressBarExpiry_usageLimitedText {
+        line-height: var(--vc-card-progress-expiry-usage-limited-text-linehigh,unset);
+        margin: var(--vc-card-progress-expiry-usage-limited-text-margin,0);
+        white-space: normal;
+    }
+
+    .vc_ProgressBarExpiry_capitalize {
+        text-transform: var(--vc-card-progress-expiry-capitalize-text-transform,unset);
+    }
+
+    .vc_ProgressBarExpiry_validUntil {
+        color: rgba(0,0,0,.54);
+    }
+
+    .vc_MainTitle_defaultLine, .vc_MainTitle_fsvLine {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .vc_MainTitle_text {
+        color: var(--vc-main-title-color,rgba(0,0,0,.8));
+        font-size: var(--vc-main-title-font-size,1rem);
+        font-weight: 500;
+        line-height: var(--vc-main-title-line-height,1.25rem);
+        white-space: var(--vc-card-mian-title-white-space,nowrap);
+    }
+
+    .vc_VoucherStandardTemplate_center {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .vc_RadioButton_radioSelected {
+        background-color: #ee4d2d;
+        border-width: 0;
+    }
+
+    .vc_RadioButton_radio {
+        fill: currentColor;
+        stroke: currentColor;
+        align-items: center;
+        border: var(--vc-radio-button-border,1px solid rgba(0,0,0,.14));
+        border-radius: 50%;
+        box-shadow: var(--vc-radio-button-box-shadow,rgba(0,0,0,.02) 0 2px 0 0);
+        box-sizing: border-box;
+        cursor: pointer;
+        display: flex;
+        height: 1.125rem;
+        justify-content: center;
+        width: 1.125rem;
+    }
+
+    .W8WT2r {
+        padding: 0 0 2.75rem;
+        margin: 0;
+    }
+
+    .Bk\+p3j {
+        display: block;
+        padding-right: 1.25rem;
+        padding-left: 0.25rem;
+        margin-left: -0.25rem;
+        overflow-y: scroll;
+    }
+
+    .\+idyFV {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 83.1%;
+        margin-top: 0.9375rem;
+    }
+
+    .k857Ih.g1MlJb {
+        padding-bottom: 4.5rem;
+    }
+
+    .k857Ih {
+        position: relative;
+        width: 28rem;
+        height: 39.25rem;
+        padding: 1.5rem;
+        background: #fff;
+    }
+
+    .lTT4eh {
+        border: 1px solid rgba(0,0,0,.09);
+        z-index: 590 !important;
+    }
+
+    .QIr8Cv {
+        border: 1px solid rgba(0,0,0,.09);
+        z-index: 590 !important;
+    }
+
+    .yIJbm- {
+        position: absolute;
+        bottom: 4.125rem;
+        left: 0;
+        box-sizing: border-box;
+        width: 100%;
+        background: #fff;
+        border-top: 1px solid rgba(0,0,0,.09);
+    }
+
+    ._8V7enQ {
+        display: flex;
+        align-items: center;
+        height: 2.6875rem;
+        margin-left: 1.5rem;
+    }
+
+    .qll9xC {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: flex-end;
+        padding: 0.75rem 1.5rem;
+        background: #fff;
+    }
+
+    .bv0ZQP {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+</style>
+<main>
+    <!-- breadcrumb area start -->
+    <section class="breadcrumb-area pt-140 pb-140 bg_img" data-background="~/Content/assets/images/bg/breadcrumb-bg-1.jpg" data-overlay="dark" data-opacity="5">
+        <div class="shape shape__1"><img src="~/Content/assets/images/shape/breadcrumb-shape-1.png" alt=""></div>
+        <div class="shape shape__2"><img src="~/Content/assets/images/shape/breadcrumb-shape-2.png" alt=""></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12 text-center">
+                    <h2 class="page-title">Cafena Orders</h2>
+                    <div class="cafena-breadcrumb breadcrumbs">
+                        <ul class="list-unstyled d-flex align-items-center justify-content-center">
+                            <li class="cafenabcrumb-item duxinbcrumb-begin">
+                                <a href="/"><span>Home</span></a>
+                            </li>
+                            <li class="cafenabcrumb-item duxinbcrumb-end">
+                                <span>Orders/Details</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <br />
+    <!-- breadcrumb area end -->
+    <div class="container" style="max-width:1300px">
+        <div class="row">
+            <div class="col-xl-12">
+                @if (lstInvoiceDetails != null)
+                {
+
+                    <div class="m6A2B1" style="border-bottom: 1px solid #d1d1d1; border-right: 1px solid #d1d1d1; border-left: 1px solid #d1d1d1; border-radius: 10px;">
+                        <div class="xBNaac"></div>
+                        <div class="hYgtuo">
+                            <div class="SvK9MH">
+                                <div class="IZawzb">
+                                    <div class="qclVa9">
+                                        <i class="fas fa-map-marker-alt" style="color: #ee4d2d;"></i>
+                                    </div>
+                                    <h2 style="color: #ee4d2d;">Delivery address</h2>
+                                </div>
+                            </div>
+                            <div class="i1xLmh">
+                                <div>
+                                    <div class="y0jyrJ">
+                                        <div class="PzGLCh">Tran Truong (+84) 866153730</div><div class="a9c4OR">@lstInvoiceDetails.address</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+
+                    <div class="cart-wrapper cart-wrapper-table" id="codeIdInvoice-@lstInvoiceDetails.id" style="border-radius: 10px 10px 0px 0px; padding: 16px 45px;">
+                        <div class="table-content table-responsive">
+                            <strong class="product-thumbnail" id="codeInvoice-@lstInvoiceDetails.codeInvoice" style="color: #8b8b8b;">Invoice Code: @lstInvoiceDetails.codeInvoice</strong>
+                        </div>
+                    </div>
+                    <div class="cart-wrapper cart-wrapper-table" id="idInvoice-@lstInvoiceDetails.id" style="border-radius: 0px 0px 10px 10px;">
+                        <div class="table-content table-responsive">
+                            @foreach (var itemDetail in lstInvoiceDetails.lstInvoiceDetails)
+                            {
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th id="orderSupp-@itemDetail.idSupplier" style="color: black;width:35rem">@itemDetail.titleSupplier
+                                            <button class="site-btn__2" id="btnViewSupp-@itemDetail.idSupplier" style="border-style: solid; border-width: thin; margin-left:5px">View Shop</button>
+                                            </th>
+                                            <th style="color: #8b8b8b;">Unit-Price</th>
+                                            <th style="color: #8b8b8b;">Quantity</th>
+                                            <th style="color: #8b8b8b;">Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var itemProd in itemDetail.lstProdPurchaseOfInvoiceDetails)
+                                        {
+                                            <tr id="tr-@itemProd.idProduct">
+                                                <td class="product-thumbnail product-name">
+                                                    <a href="#" class="img">
+                                                        <img style="height:100%" src="@itemProd.imageProd" alt="">
+                                                    </a>
+                                                    <a href="#" style="margin-left:60px">@itemProd.titleProd</a>
+                                                </td>
+                                                <td class="product-price"><span class="amount">$<span class="amount" id="unitPrice-@itemDetail.idSupplier-@itemProd.idInvoiceDetail">@itemProd.UnitPrice</span></span></td>
+                                                <td class="product-quantity">
+                                                    x<span style="color:black">@itemProd.Amount</span>
+                                                </td>
+                                                <td class="product-subtotal"><span class="amount" id="price-@itemDetail.idSupplier-@itemProd.idInvoiceDetail">@itemProd.Price</span></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+
+                                </table>
+                            }
+                        </div>
+                    </div>
+                    <br />
+                    <div class="cart-wrapper" id="cart-bottom" style="padding: 25px 25px;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <div class="coupon d-flex align-items-center">
+                            </div>
+                            <div class="CzLyKQ">
+                                <div class="FGs2jP" style="font-size: 20px;">
+                                    Payment methods
+                                </div>
+                                <span style="font-size: 19px;color: black;margin-left: 10.5rem;">Payment via Paypal</span>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="d-flex" style="justify-content: space-between; background: #fffff366;">
+                            <div class="coupon d-flex align-items-center">
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="BV92a3" role="region">
+                                    <div class="DScaTh">
+                                        <div class="CoYXUV" style="font-size: 19px; display: flex; justify-content: space-between;">
+                                            Total cost of goods ($):
+                                            <span style="color: black; margin-left: 100px;" id="amountFirst">0.00</span>
+                                        </div>
+                                        <div id="divTotalDiscountVouAllSupp" class="CoYXUV" style="font-size: 19px; display: flex; justify-content: space-between;">
+                                            Total discount from Voucher of Shops ($):
+                                            <span style="color: black; margin-left: 100px;" id="totalDiscountVouAllSupp">- @lstInvoiceDetails.discountVoucherS.00</span>
+                                        </div>
+                                        <div id="divTotalDiscountVouCafe" class="CoYXUV" style="font-size: 19px; display: flex; justify-content: space-between;">
+                                            Total discount from Voucher of Cafena ($):
+                                            <span style="color: black; margin-left: 100px;" id="totalDiscountVouCafe">- @lstInvoiceDetails.discountVoucherA.00</span>
+                                        </div>
+                                        <div class="CoYXUV" style="font-size: 19px; display: flex; justify-content: space-between;">
+                                            Service fees ($):
+                                            <span style="color: black; margin-left: 100px;" id="feeService">@lstInvoiceDetails.feeService</span>
+                                        </div>
+                                        <hr />
+
+                                        <div class="CoYXUV" style="font-size: 19px; display: flex; justify-content: space-between;">
+                                            Total money ($):
+                                            <span style="color: orangered; font-size: 24px;" id="totalMonet">@lstInvoiceDetails.totalPrice</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                }
+
+
+            </div>
+        </div>
+    </div>
+</main>
+<script src="~/Content/assets/js/jquery-2.2.4.min.js"></script>
+
+<script>
+    function roundToTwo(num) {
+        return +(Math.round(num + "e+2") + "e-2");
+    };
+    function calPriceVoucher() {
+        var lstPriceOfSupp = document.querySelectorAll(`[id^="price-"]`);
+        var amountFirst = 0;
+        lstPriceOfSupp.forEach(item => {
+            amountFirst += parseInt($("#" + item.id).text());
+        });
+        if (Number.isInteger(amountFirst)) {
+            $("#amountFirst").text(amountFirst + ".00");
+        } else {
+            $("#amountFirst").text(roundToTwo(amountFirst));
+        }
+
+        //var lstPriceVoucherOfSupp = document.querySelectorAll(`[id^="priceOff-"]`);
+        //var totalDiscountVouAllSupp = 0;
+        //lstPriceVoucherOfSupp.forEach(item => {
+        //    totalDiscountVouAllSupp += parseInt($("#" + item.id).text());
+        //});
+        //if (totalDiscountVouAllSupp != 0) {
+        //    if (Number.isInteger(totalDiscountVouAllSupp)) {
+        //        $("#totalDiscountVouAllSupp").text("- " + totalDiscountVouAllSupp + ".00");
+        //    } else {
+        //        $("#totalDiscountVouAllSupp").text("- " + roundToTwo(totalDiscountVouAllSupp));
+        //    }
+        //} else {
+        //    $("#divTotalDiscountVouAllSupp").hide();
+        //}
+
+        //var totalDiscountVouCafe = parseInt($("#priceVCafena").text());
+        //if (totalDiscountVouCafe != 0) {
+        //    if (Number.isInteger(totalDiscountVouCafe)) {
+        //        $("#totalDiscountVouCafe").text("- " + totalDiscountVouCafe + ".00");
+        //    } else {
+        //        $("#totalDiscountVouCafe").text("- " + roundToTwo(totalDiscountVouCafe));
+        //    }
+        //} else {
+        //    $("#divTotalDiscountVouCafe").hide();
+        //}
+
+        //var priceProdOfSupp = document.querySelectorAll(`[id^="priceProdOfSupp-"]`);
+        //var feeService = 0;
+        //priceProdOfSupp.forEach(item => {
+        //    var idSupplier = item.id.slice(16);
+        //    var subPriceProd = document.querySelectorAll(`[id^="price-` + idSupplier + `"]`);
+        //    var totalPriceOfSupp = 0;
+        //    subPriceProd.forEach(itemSubPriceProd => {
+        //        totalPriceOfSupp += parseInt($("#" + itemSubPriceProd.id).text());
+        //    });
+
+        //    var discountVouSupp = parseInt($("#priceOff-" + idSupplier).text());
+        //    if ($("#priceOff-" + idSupplier).text() != "") {
+        //        $("#priceProdOfSupp-" + idSupplier).text(totalPriceOfSupp - discountVouSupp);
+        //        feeService += 0.02 * (totalPriceOfSupp - discountVouSupp);
+
+        //    } else {
+        //        $("#priceProdOfSupp-" + idSupplier).text(totalPriceOfSupp);
+        //        feeService += 0.02 * (totalPriceOfSupp);
+        //    }
+        //    $("#priceProdOfSuppFirst-" + idSupplier).text(totalPriceOfSupp);
+
+        //});
+        //if (Number.isInteger(feeService)) {
+        //    $("#feeService").text(feeService + ".00");
+        //} else {
+        //    $("#feeService").text(roundToTwo(feeService));
+        //}
+    }
+    $(document).ready(function () {
+        calPriceVoucher();
+        // custom display unitPrice
+        var itemOfUnitPrice = document.querySelectorAll(`[id^="unitPrice-"]`);
+        itemOfUnitPrice.forEach(item => {
+            if (Number.isInteger(roundToTwo($("#" + item.id).text()))) {
+                $("#" + item.id).text(roundToTwo($("#" + item.id).text()) + ".00");
+            } else {
+                $("#" + item.id).text(roundToTwo($("#" + item.id).text()));
+            }
+        });
+        var itemOfProdPurc = document.querySelectorAll(`[id^="tr-"]`);
+        itemOfProdPurc.forEach(item => {
+            $("#" + item.id).hover(function () {
+                $("#" + item.id).css("cursor", "pointer");
+            });
+            $("#" + item.id).click(function () {
+                var idProduct = this.id.slice(3);
+                var urlOrderDetails = "/Products/Details?idProd=" + idProduct;
+
+                window.location.assign(urlOrderDetails);
+            });
+        });
+
+    });
+
+</script>
