@@ -17,8 +17,8 @@ namespace WebAPI_CoffeeShop.Utilities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.Discounts = new HashSet<Discount>();
             this.Carts = new HashSet<Cart>();
+            this.Discounts = new HashSet<Discount>();
         }
     
         public int id { get; set; }
@@ -33,11 +33,11 @@ namespace WebAPI_CoffeeShop.Utilities
         public Nullable<int> isActive { get; set; }
         public Nullable<int> idcate { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart> Carts { get; set; }
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Discount> Discounts { get; set; }
         public virtual Supplier Supplier { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cart> Carts { get; set; }
     }
 }

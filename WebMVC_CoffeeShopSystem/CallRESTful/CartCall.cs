@@ -43,15 +43,6 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
                 return prodInfo;
             }
         }
-        public void InsertCart(Cart model)
-        {
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = client.PostAsJsonAsync(cartUrl.InsertCart, model).GetAwaiter().GetResult();
-            }
-        }
         public void UpdateInsertCart(Cart model)
         {
             using (var client = new HttpClient())
@@ -98,6 +89,32 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
                     prodInfo = JsonConvert.DeserializeObject<List<CartView>>(prodResponse);
                 }
                 return prodInfo;
+            }
+        }
+        public int quantityCartOfUser(int idAccount)
+        {
+            int cart = 0;
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = client.GetAsync(cartUrl.quantityCartOfUser + "?idAccount=" + idAccount).GetAwaiter().GetResult();
+                if (Res.IsSuccessStatusCode)
+                {
+                    var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    cart = JsonConvert.DeserializeObject<int>(prodResponse);
+                }
+                return cart;
+            }
+
+        }
+        public void UpdateCartCheckout(string lsIdCart)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = client.GetAsync(cartUrl.UpdateCartCheckout + "?lsIdCart=" + lsIdCart).GetAwaiter().GetResult();
             }
         }
     }

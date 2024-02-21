@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebMVC_CoffeeShopSystem.Dao;
+using WebMVC_CoffeeShopSystem.Repositories;
 
 namespace WebMVC_CoffeeShopSystem.Controllers
 {
@@ -20,6 +21,7 @@ namespace WebMVC_CoffeeShopSystem.Controllers
             {
                 ViewBag.msgCheckout = "false";
             }
+            ViewBag.quantityCart = CartDao.Instance.quantityCartOfUser(idAccount);
             ViewBag.lstInvoice = InvoiceDao.Instance.GetAllInvoice(idAccount);
             return View();
         }

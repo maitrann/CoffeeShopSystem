@@ -40,13 +40,11 @@ namespace WebMVC_CoffeeShopSystem.Controllers
                 return Redirect("/Cart");
             }
         }
-        public ActionResult PaymentWithPaypal(string priceTotal, string address, string idVoucherS, string idVoucherA, string lsIdCart,
+        //ObjectInvoice callHandle = new ObjectInvoice();
+        public ActionResult PaymentWithPaypal(string priceTotal, string address, string idVoucherS, string idVoucherA, string quantity, string lsIdCart,
             string lsIdSupplier, string priceSupp, string priceAdmin, string fee, string Cancel = null)
         {
-            //ObjectInvoice callHandle = new ObjectInvoice();
-            var callHandle = handleObjectInvoice(priceTotal, address, idVoucherS, idVoucherA, lsIdCart, lsIdSupplier, priceSupp, priceAdmin, fee);
             string guid;
-            //getting the apiContext
             APIContext apiContext = PaypalConfiguration.GetAPIContext();
             try
             {
@@ -72,8 +70,8 @@ namespace WebMVC_CoffeeShopSystem.Controllers
                     //CreatePayment function gives us the payment approval url
                     //on which payer is redirected for paypal account payment
 
+                    //var createdPayment = this.CreatePayment(apiContext, baseURI + "guid=" + guid, priceTotal);
                     var createdPayment = this.CreatePayment(apiContext, baseURI + "guid=" + guid, priceTotal);
-
                     //get links returned from paypal in response to Create function call
 
                     var links = createdPayment.links.GetEnumerator();
@@ -93,16 +91,26 @@ namespace WebMVC_CoffeeShopSystem.Controllers
 
                     // saving the paymentID in the key guid
                     Session.Add(guid, createdPayment.id);
-
+                    Session.Add("priceTotalSs", priceTotal);
+                    Session.Add("addressSs", address);
+                    Session.Add("idVoucherSSs", idVoucherS);
+                    Session.Add("idVoucherASs", idVoucherA);
+                    Session.Add("quantitySs", quantity);
+                    Session.Add("lsIdCartSs", lsIdCart);
+                    Session.Add("lsIdSupplierSs", lsIdSupplier);
+                    Session.Add("priceSuppSs", priceSupp);
+                    Session.Add("priceAdminSs", priceAdmin);
+                    Session.Add("feeSs", fee);
                     return Redirect(paypalRedirectUrl);
                 }
                 else
                 {
                     // This function exectues after receving all parameters for the payment
-
                     guid = Request.Params["guid"];
 
                     var executedPayment = ExecutePayment(apiContext, payerId, Session[guid] as string);
+
+                    //callHandle.modelInvoice.idPayment = Session[guid] as string;
 
                     //If executed payment failed then we will show payment failure message to user
                     if (executedPayment.state.ToLower() != "approved")
@@ -115,10 +123,33 @@ namespace WebMVC_CoffeeShopSystem.Controllers
             {
                 return Redirect("http://localhost:52519");
             }
-
             //on successful payment, show success page to user.
+            var priceTotalSs = Session.Contents["priceTotalSs"] as string;
+            var addressSs = Session.Contents["addressSs"] as string;
+            var idVoucherSSs = Session.Contents["idVoucherSSs"] as string;
+            var idVoucherASs = Session.Contents["idVoucherASs"] as string;
+            var quantitySs = Session.Contents["quantitySs"] as string;
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var stringChars = new char[6];
+            var random = new Random();
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+            var finalString = new String(stringChars);
+
+            var codeInvoice = "IV" + DateTime.Now.ToString("yyyyMMdd") + finalString;
+            var lsIdCartSs = Session.Contents["lsIdCartSs"] as string;
+            var lsIdSupplierSs = Session.Contents["lsIdSupplierSs"] as string;
+            var priceSuppSs = Session.Contents["priceSuppSs"] as string;
+            var priceAdminSs = Session.Contents["priceAdminSs"] as string;
+            var feeSs = Session.Contents["feeSs"] as string;
+            ObjectInvoice callHandle = handleObjectInvoice(priceTotalSs, addressSs, idVoucherSSs, idVoucherASs, quantitySs,
+                                   lsIdCartSs, lsIdSupplierSs, priceSuppSs, priceAdminSs, feeSs);
             callHandle.modelInvoice.idPayment = Session[guid] as string;
+            callHandle.modelInvoice.codeInvoice = codeInvoice;
             callInvoiceDao.InsertInvoice(callHandle);
+            callCartDao.UpdateCartCheckout(lsIdCartSs);
             return RedirectToAction("Index", "Orders", new { checkout = "done" });
         }
         private Payment ExecutePayment(APIContext apiContext, string payerId, string paymentId)
@@ -127,16 +158,17 @@ namespace WebMVC_CoffeeShopSystem.Controllers
             this.payment = new Payment() { id = paymentId };
             return this.payment.Execute(apiContext, paymentExecution);
         }
-        private ObjectInvoice handleObjectInvoice(string priceTotal, string address, string idVoucherS, string idVoucherA, string lsIdCart,
+        private ObjectInvoice handleObjectInvoice(string priceTotal, string address, string idVoucherS, string idVoucherA,string quantity, string lsIdCart,
             string lsIdSupplier, string priceSupp, string priceAdmin, string fee)
         {
             ObjectInvoice objectInvoice = new ObjectInvoice();
             objectInvoice.modelInvoice.idAccount = 7;
             objectInvoice.modelInvoice.address = address;
             objectInvoice.modelInvoice.totalPrice = priceTotal.AsDecimal();
-            //objectInvoice.modelInvoice.idPayment = Session[guid] as string;
             objectInvoice.modelInvoice.idVoucherS = idVoucherS;
             objectInvoice.modelInvoice.idVoucherA = idVoucherA;
+            objectInvoice.modelInvoice.createDate = DateTime.Now;
+            objectInvoice.modelInvoice.Quantity = quantity.AsInt();
             objectInvoice.modelInvoice.isStatus = 0;
 
             string[] strIdCart = lsIdCart.Split(',');
@@ -157,19 +189,21 @@ namespace WebMVC_CoffeeShopSystem.Controllers
                 for (global::System.Int32 j = i; j < strPriceSupp.Length;)
                 {
                     invoiceSupplier.price = strPriceSupp[j].AsDecimal();
+                    break;
                 }
+                invoiceSupplier.createDate = DateTime.Now;
                 invoiceSupplier.status = 0;
                 objectInvoice.modelInvoiceSupplier.Add(invoiceSupplier);
             }
 
             objectInvoice.modelInvoiceAdmin.price = priceAdmin.AsDecimal();
+            objectInvoice.modelInvoiceAdmin.createDate = DateTime.Now;
             objectInvoice.modelInvoiceAdmin.status = 0;
             objectInvoice.modelInvoiceAdmin.feeService = fee.AsDecimal();
             return objectInvoice;
         }
         private Payment CreatePayment(APIContext apiContext, string redirectUrl, string priceTotal)
         {
-
             //create itemlist and add item objects to it
             //var itemList = new ItemList() { items = new List<Item>() };
 
@@ -181,7 +215,6 @@ namespace WebMVC_CoffeeShopSystem.Controllers
             //    quantity = item2.Amount.ToString(),
             //    sku = "sku"
             //});
-
 
             var payer = new Payer() { payment_method = "paypal" };
 

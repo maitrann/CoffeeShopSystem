@@ -544,7 +544,8 @@
 
                     <div class="cart-wrapper cart-wrapper-table" id="codeIdInvoice-@lstInvoiceDetails.id" style="border-radius: 10px 10px 0px 0px; padding: 16px 45px;">
                         <div class="table-content table-responsive">
-                            <strong class="product-thumbnail" id="codeInvoice-@lstInvoiceDetails.codeInvoice" style="color: #8b8b8b;">Invoice Code: @lstInvoiceDetails.codeInvoice</strong>
+                            <strong class="product-thumbnail" id="codeInvoice-@lstInvoiceDetails.codeInvoice" style="color: black;">Invoice Code: @lstInvoiceDetails.codeInvoice</strong>
+                            <p>Order Date: @lstInvoiceDetails.createDate</p>
                         </div>
                     </div>
                     <div class="cart-wrapper cart-wrapper-table" id="idInvoice-@lstInvoiceDetails.id" style="border-radius: 0px 0px 10px 10px;">
@@ -660,60 +661,12 @@
         } else {
             $("#amountFirst").text(roundToTwo(amountFirst));
         }
-
-        //var lstPriceVoucherOfSupp = document.querySelectorAll(`[id^="priceOff-"]`);
-        //var totalDiscountVouAllSupp = 0;
-        //lstPriceVoucherOfSupp.forEach(item => {
-        //    totalDiscountVouAllSupp += parseInt($("#" + item.id).text());
-        //});
-        //if (totalDiscountVouAllSupp != 0) {
-        //    if (Number.isInteger(totalDiscountVouAllSupp)) {
-        //        $("#totalDiscountVouAllSupp").text("- " + totalDiscountVouAllSupp + ".00");
-        //    } else {
-        //        $("#totalDiscountVouAllSupp").text("- " + roundToTwo(totalDiscountVouAllSupp));
-        //    }
-        //} else {
-        //    $("#divTotalDiscountVouAllSupp").hide();
-        //}
-
-        //var totalDiscountVouCafe = parseInt($("#priceVCafena").text());
-        //if (totalDiscountVouCafe != 0) {
-        //    if (Number.isInteger(totalDiscountVouCafe)) {
-        //        $("#totalDiscountVouCafe").text("- " + totalDiscountVouCafe + ".00");
-        //    } else {
-        //        $("#totalDiscountVouCafe").text("- " + roundToTwo(totalDiscountVouCafe));
-        //    }
-        //} else {
-        //    $("#divTotalDiscountVouCafe").hide();
-        //}
-
-        //var priceProdOfSupp = document.querySelectorAll(`[id^="priceProdOfSupp-"]`);
-        //var feeService = 0;
-        //priceProdOfSupp.forEach(item => {
-        //    var idSupplier = item.id.slice(16);
-        //    var subPriceProd = document.querySelectorAll(`[id^="price-` + idSupplier + `"]`);
-        //    var totalPriceOfSupp = 0;
-        //    subPriceProd.forEach(itemSubPriceProd => {
-        //        totalPriceOfSupp += parseInt($("#" + itemSubPriceProd.id).text());
-        //    });
-
-        //    var discountVouSupp = parseInt($("#priceOff-" + idSupplier).text());
-        //    if ($("#priceOff-" + idSupplier).text() != "") {
-        //        $("#priceProdOfSupp-" + idSupplier).text(totalPriceOfSupp - discountVouSupp);
-        //        feeService += 0.02 * (totalPriceOfSupp - discountVouSupp);
-
-        //    } else {
-        //        $("#priceProdOfSupp-" + idSupplier).text(totalPriceOfSupp);
-        //        feeService += 0.02 * (totalPriceOfSupp);
-        //    }
-        //    $("#priceProdOfSuppFirst-" + idSupplier).text(totalPriceOfSupp);
-
-        //});
-        //if (Number.isInteger(feeService)) {
-        //    $("#feeService").text(feeService + ".00");
-        //} else {
-        //    $("#feeService").text(roundToTwo(feeService));
-        //}
+        if ($("#totalDiscountVouAllSupp").text() == "- .00") {
+            $("#divTotalDiscountVouAllSupp").hide();
+        }
+        if ($("#totalDiscountVouCafe").text() == "- .00") {
+            $("#divTotalDiscountVouCafe").hide();
+        }
     }
     $(document).ready(function () {
         calPriceVoucher();

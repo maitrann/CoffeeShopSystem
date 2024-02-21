@@ -17,7 +17,7 @@ namespace WebAPI_CoffeeShop.Utilities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Invoice()
         {
-            //this.InvoiceAdmins = new HashSet<InvoiceAdmin>();
+            this.InvoiceAdmins = new HashSet<InvoiceAdmin>();
             this.InvoiceDetails = new HashSet<InvoiceDetail>();
             this.InvoiceSuppliers = new HashSet<InvoiceSupplier>();
         }
@@ -36,7 +36,6 @@ namespace WebAPI_CoffeeShop.Utilities
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvoiceAdmin> InvoiceAdmins { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InvoiceDetail> InvoiceDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

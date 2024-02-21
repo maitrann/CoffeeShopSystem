@@ -34,10 +34,6 @@ namespace WebMVC_CoffeeShopSystem.Repositories
         {
             return CartCall.Instance.getCart(idAccount);
         }
-        public void InsertCart(Cart model)
-        {
-            CartCall.Instance.InsertCart(model);
-        }
         public void UpdateInsertCart(Cart model)
         {
             CartCall.Instance.UpdateInsertCart(model);
@@ -53,6 +49,14 @@ namespace WebMVC_CoffeeShopSystem.Repositories
         public List<CartView> GetCartCheckout(int idAccount, string lsCartCheckout)
         {
             return CartCall.Instance.GetCartCheckout(idAccount, lsCartCheckout);
+        }
+        public void UpdateCartCheckout(string lsIdCart)
+        {
+            CartCall.Instance.UpdateCartCheckout(lsIdCart);
+        }
+        public int quantityCartOfUser(int idAccount)
+        {
+            return CartCall.Instance.quantityCartOfUser(idAccount);
         }
     }
 }

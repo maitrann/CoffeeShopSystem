@@ -28,6 +28,5 @@ namespace WebAPI_CoffeeShop.Utilities
         public string userReply { get; set; }
         public int idReply { get; set; }
         public int idMainComment { get; set; }
-
     }
 }

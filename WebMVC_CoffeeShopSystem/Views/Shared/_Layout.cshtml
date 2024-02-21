@@ -1,4 +1,7 @@
-﻿<!doctype html>
+﻿@{ 
+    var quantityCart = WebMVC_CoffeeShopSystem.Repositories.CartDao.Instance.quantityCartOfUser(7);
+}
+<!doctype html>
 <html class="no-js" lang="zxx">
 <!-- Mirrored from xpressrow.com/html/cafena/cafena/home-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 25 Jul 2023 04:03:20 GMT -->
 <head>
@@ -131,7 +134,7 @@
                                 </div>
                                 <a href="/Cart" class="cart item position-relative">
                                     <i class="fa fa-shopping-basket"></i>
-                                    <span class="cart__count">3</span>
+                                    <span class="cart__count" id="quantityCartLayout">@quantityCart</span>
                                 </a>
                             </div>
                         </div>
@@ -139,54 +142,6 @@
                 </div>
             </div>
         </div>
-
-        @*<div class="menu-area menu-area-2 custom-padding">
-                <div class="container-fluid custom-width">
-                    <div class="row">
-                        <div class="col-xl-8 col-lg-9 col-6">
-                            <div class="logo mm-only d-md-block d-lg-none">
-                                <a href="index.html">
-                                    <img src="~/Content/assets/images/logo/logo-black.png" alt="img">
-                                </a>
-                            </div>
-                            <div class="main-menu main-menu__2">
-                                <nav id="mobile-menu">
-                                    <ul>
-                                        <li class="menu-item-has-children">
-                                            <a href="/">
-                                                <img src="~/Content/assets/images/logo/logo-black.png" alt="img">
-                                            </a>
-                                        </li>
-                                        <li><a href="/Products">Products</a></li>
-                                        <li>
-                                                <a href="shop.html">Shop</a>
-                                                <ul class="sub-menu">
-                                                    <li><a href="shop.html">Shop</a></li>
-                                                    <li><a href="product-details.html">Shop Details</a></li>
-                                                    <li><a href="cart.html">Shop Cart</a></li>
-                                                    <li><a href="checkout.html">Shop Checkout</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                        <li><a href="/Cart">Cart</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-3 col-6 align-self-center">
-                            <div class="menu-area__right menu-area__right--2 d-flex justify-content-end align-items-center">
-                                <div class="hamburger-trigger item">
-                                    <i class="far fa-bars"></i>
-                                </div>
-                                <div class="cart cart-trigger item position-relative">
-                                    <i class="fa fa-shopping-basket"></i>
-                                    <span class="cart__count">3</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
     </header>
     <!-- header end -->
     <!-- side info for mobile view -->

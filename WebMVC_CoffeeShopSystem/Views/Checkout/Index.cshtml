@@ -624,7 +624,7 @@
                     <div class="cart-wrapper cart-wrapper-table"
                          style="border-radius: 0px 0px 10px 10px; background-color: #eefbff87; height: 80px; padding: 25px 25px; ">
                         <div style="padding-left: 860px;">
-                            <span style="font-size: 19px; margin-right: 10px; color: #717171;">Total amount (<span style="color: #717171;" id="totalAmountOfSupp-@item.idSupplier">0</span> products): </span>
+                            <span style="font-size: 19px; margin-right: 10px; color: #717171;">Total amount (<span style="color: #717171;" id="totalAmountOfSupp-@item.idSupplier">@item.cartViews.Count</span> products): </span>
                             <span style="font-size: 19px; margin-right: 10px; color: black">$<span style="color: black" id="priceProdOfSupp-@item.idSupplier">0</span></span>
                             <span hidden id="priceProdOfSuppFirst-@item.idSupplier">0</span>
                         </div>
@@ -926,6 +926,7 @@
             var lsIdSupplier = "";
             var priceSupp = "";
             var priceAdmin = 0;
+            var quantityInvoice = 0;
             var lstAllSupp = document.querySelectorAll(`[id^="cartTable-"]`);
             for (var i = 0; i < lstAllSupp.length; i++) {
                 var idSupplier = lstAllSupp[i].id.slice(10);
@@ -941,19 +942,21 @@
                 } else {
                     lsIdSupplier = lsIdSupplier + "," + idSupplier;
                 }
+                var calPriceSupp = parseFloat($("#priceProdOfSupp-" + idSupplier).text()) - (0.1 * parseFloat($("#priceProdOfSuppFirst-" + idSupplier).text()));
                 if (priceSupp == "") {
-                    priceSupp = parseFloat($("#priceProdOfSupp-" + idSupplier).text()) - (0.1 * parseFloat($("#priceProdOfSuppFirst-" + idSupplier).text()));
+                    priceSupp = calPriceSupp;
                 } else {
-                    priceSupp = priceSupp + "," + parseFloat($("#priceProdOfSupp-" + idSupplier).text()) - (0.1 * parseFloat($("#priceProdOfSuppFirst-" + idSupplier).text()));
+                    priceSupp = priceSupp + "," + calPriceSupp;
                 }
                 priceAdmin += parseFloat($("#priceProdOfSupp-" + idSupplier).text()) - (0.1 * parseFloat($("#priceProdOfSuppFirst-" + idSupplier).text()));
+
+                quantityInvoice += parseInt($("#totalAmountOfSupp-" + idSupplier).text());
+
             }
             var strIdCart = '@ViewBag.strIdCart';
-
             var fee = $("#feeService").text();
-
             var urlCheckOut = "/CheckOut/PaymentWithPaypal?priceTotal=" + priceTotal
-                + "&address=" + address + "&idVoucherS=" + idVoucherS + "&idVoucherA=" + idVoucherA + "&lsIdCart=" + strIdCart
+                + "&address=" + address + "&idVoucherS=" + idVoucherS + "&idVoucherA=" + idVoucherA + "&quantity=" + quantityInvoice + "&lsIdCart=" + strIdCart
                 + "&lsIdSupplier=" + lsIdSupplier + "&priceSupp=" + priceSupp + "&priceAdmin=" + priceAdmin + "&fee=" + fee;
 
             window.location.assign(urlCheckOut);

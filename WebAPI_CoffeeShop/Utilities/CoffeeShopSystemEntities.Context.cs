@@ -43,6 +43,7 @@ namespace WebAPI_CoffeeShop.Utilities
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<SupplierRefundV> SupplierRefundVs { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<UserNewEmail> UserNewEmails { get; set; }
         public virtual DbSet<Voucher> Vouchers { get; set; }
         public virtual DbSet<W_RegisterAccount> W_RegisterAccount { get; set; }
@@ -50,6 +51,19 @@ namespace WebAPI_CoffeeShop.Utilities
         public virtual DbSet<W_SHandleInvoice> W_SHandleInvoice { get; set; }
         public virtual DbSet<WatchList> WatchLists { get; set; }
         public virtual DbSet<Admin> Admins { get; set; }
+    
+        public virtual ObjectResult<int> Comment_MaxIndC(Nullable<int> mnC, Nullable<int> idBlog)
+        {
+            var mnCParameter = mnC.HasValue ?
+                new ObjectParameter("mnC", mnC) :
+                new ObjectParameter("mnC", typeof(int));
+    
+            var idBlogParameter = idBlog.HasValue ?
+                new ObjectParameter("idBlog", idBlog) :
+                new ObjectParameter("idBlog", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<int>("Comment_MaxIndC", mnCParameter, idBlogParameter);
+        }
     
         public virtual ObjectResult<Comment_MnC_Type_Result> Comment_MnC_Type(Nullable<int> id)
         {
@@ -71,19 +85,6 @@ namespace WebAPI_CoffeeShop.Utilities
                 new ObjectParameter("idMnC", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Comment_SubC_Type_Result>("Comment_SubC_Type", idBlogParameter, idMnCParameter);
-        }
-    
-        public virtual ObjectResult<int> Comment_MaxIndC(Nullable<int> mnC, Nullable<int> idBlog)
-        {
-            var mnCParameter = mnC.HasValue ?
-                new ObjectParameter("mnC", mnC) :
-                new ObjectParameter("mnC", typeof(int));
-    
-            var idBlogParameter = idBlog.HasValue ?
-                new ObjectParameter("idBlog", idBlog) :
-                new ObjectParameter("idBlog", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<int>("Comment_MaxIndC", mnCParameter, idBlogParameter);
         }
     }
 }

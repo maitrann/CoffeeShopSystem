@@ -26,11 +26,6 @@ namespace WebAPI_CoffeeShop.Controllers
             return _cartRepository.GetCartHover(idAccount);
         }
         [HttpPost]
-        public void InsertCart([FromBody]Cart model)
-        {
-            _cartRepository.InsertCart(model);
-        }
-        [HttpPost]
         public void UpdateInsertCart([FromBody] Cart model)
         {
             _cartRepository.UpdateInsertCart(model);
@@ -49,6 +44,16 @@ namespace WebAPI_CoffeeShop.Controllers
         public List<CartView> GetCartCheckout(int idAccount, string lsCartCheckout)
         {
             return _cartRepository.GetCartCheckout(idAccount, lsCartCheckout);
+        }
+        [HttpGet]
+        public int quantityCartOfUser(int idAccount)
+        {
+            return _cartRepository.quantityCartOfUser(idAccount);
+        }
+        [HttpGet]
+        public void UpdateCartCheckout(string lsIdCart)
+        {
+            _cartRepository.UpdateCartCheckout(lsIdCart);
         }
 
     }

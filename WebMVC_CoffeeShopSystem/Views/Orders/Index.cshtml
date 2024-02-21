@@ -531,6 +531,7 @@
                         <div class="cart-wrapper cart-wrapper-table" id="codeIdInvoice-@item.id" style="border-radius: 10px 10px 0px 0px; padding: 16px 45px;">
                             <div class="table-content table-responsive">
                                 <strong class="product-thumbnail" id="codeInvoice-@item.codeInvoice" style="color: orangered;">Invoice Code: @item.codeInvoice</strong>
+                                <p>Order Date: @item.createDate</p>
                             </div>
                         </div>
                         <div class="cart-wrapper cart-wrapper-table" id="idInvoice-@item.id" style="border-radius: 0px;">
@@ -591,6 +592,7 @@
     function roundToTwo(num) {
         return +(Math.round(num + "e+2") + "e-2");
     };
+    $("#quantityCartLayout").text('@ViewBag.quantityCart');
     $(document).ready(function () {
         // custom display unitPrice
         var itemOfUnitPrice = document.querySelectorAll(`[id^="unitPrice-"]`);

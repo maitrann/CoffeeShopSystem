@@ -572,6 +572,16 @@
     function roundToTwo(num) {
         return +(Math.round(num + "e+2") + "e-2");
     };
+    $(".checkCart").prop("checked", false);
+    //function uncheckStart() {
+    //    var itemOfAll = document.querySelectorAll(`[id^="checkAll-"]`);
+    //    itemOfAll.forEach(item => {
+    //        $("#" + item.id).prop("checked", false);
+    //    })
+    //    //$(".checkCart").prop("checked", false);
+    //    //var itemOfCart = document.querySelectorAll(`[id^="checkCart-"]`);
+    //}
+    //uncheckStart();
     function introVoucher() {
         var itemOfAll = document.querySelectorAll(`[id^="priceSelectedSupp-"]`);
 
@@ -1038,7 +1048,7 @@
                 }
             }
         }
-        if (strIdCart != "") {
+        if ($("#amountSelect").text() != "0.00") {
             var idVoucherCafe = $("#idVoucherApplyAuto").text();
             var priceTotal = $("#amountSelect").text();
 

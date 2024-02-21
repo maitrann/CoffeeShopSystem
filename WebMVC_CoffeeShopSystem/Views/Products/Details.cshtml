@@ -429,7 +429,17 @@
                     Price: Price
                 },
                 success: function (res) {
-                    alert("The product has been added to cart");
+                    Swal.fire({
+                        title: "Add to Cart!",
+                        text: "The product has been added to cart",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    @{
+                        var quantityCart = WebMVC_CoffeeShopSystem.Repositories.CartDao.Instance.quantityCartOfUser(7);
+                    }
+                    $("#quantityCartLayout").text('@quantityCart');
                 },
                 error: function (response) {
                     console.log(response.responseText);

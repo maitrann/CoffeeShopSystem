@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CoffeeShopSysModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CoffeeShopSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="id" />
@@ -121,7 +121,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <Property Name="idPayment" Type="varchar" MaxLength="100" />
           <Property Name="idVoucherS" Type="varchar" MaxLength="8000" />
           <Property Name="idVoucherA" Type="varchar" MaxLength="20" />
-          <Property Name="createDate" Type="date" />
+          <Property Name="createDate" Type="datetime" />
           <Property Name="isStatus" Type="int" />
           <Property Name="codeInvoice" Type="varchar" MaxLength="20" />
           <Property Name="Quantity" Type="int" />
@@ -132,7 +132,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="price" Type="decimal" Precision="19" Scale="2" />
-          <Property Name="createDate" Type="date" />
+          <Property Name="createDate" Type="datetime" />
           <Property Name="idInvoice" Type="int" />
           <Property Name="status" Type="int" />
           <Property Name="feeService" Type="decimal" Precision="19" Scale="2" />
@@ -154,7 +154,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idSupplier" Type="int" />
           <Property Name="price" Type="decimal" Precision="19" Scale="2" />
-          <Property Name="createDate" Type="date" />
+          <Property Name="createDate" Type="datetime" />
           <Property Name="idInvoice" Type="int" />
           <Property Name="status" Type="int" />
           <Property Name="dateMaxC" Type="date" />
@@ -214,6 +214,16 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <Property Name="idInvoiceD" Type="int" />
           <Property Name="priceRefund" Type="decimal" Precision="19" Scale="2" />
           <Property Name="status" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="UserNewEmail">
           <Key>
@@ -440,7 +450,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <Parameter Name="idBlog" Type="int" Mode="In" />
           <Parameter Name="idMnC" Type="int" Mode="In" />
         </Function>
-        <EntityContainer Name="CoffeeShopSysModelStoreContainer">
+        <EntityContainer Name="CoffeeShopSystemModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Blog" EntityType="Self.Blog" Schema="dbo" store:Type="Tables" />
@@ -457,6 +467,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <EntitySet Name="Review" EntityType="Self.Review" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplierRefundV" EntityType="Self.SupplierRefundV" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserNewEmail" EntityType="Self.UserNewEmail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Voucher" EntityType="Self.Voucher" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="W_RegisterAccount" EntityType="Self.W_RegisterAccount" Schema="dbo" store:Type="Tables" />
@@ -521,10 +532,11 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="CoffeeShopSysModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="CoffeeShopSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="id" />
@@ -576,8 +588,8 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="Status" Type="Boolean" />
           <NavigationProperty Name="Account" Relationship="Self.FK_Cart_Account" FromRole="Cart" ToRole="Account" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Cart_Product" FromRole="Cart" ToRole="Product" />
           <NavigationProperty Name="InvoiceDetails" Relationship="Self.FK_InvoiceDetails_Cart" FromRole="Cart" ToRole="InvoiceDetails" />
-          <NavigationProperty Name="Product" Relationship="CoffeeShopSysModel.FK_Cart_Product" FromRole="Cart" ToRole="Product" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -639,7 +651,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <Property Name="idPayment" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="idVoucherS" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
           <Property Name="idVoucherA" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="createDate" Type="DateTime" Precision="0" />
+          <Property Name="createDate" Type="DateTime" Precision="3" />
           <Property Name="isStatus" Type="Int32" />
           <Property Name="codeInvoice" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Quantity" Type="Int32" />
@@ -653,7 +665,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="price" Type="Decimal" Precision="19" Scale="2" />
-          <Property Name="createDate" Type="DateTime" Precision="0" />
+          <Property Name="createDate" Type="DateTime" Precision="3" />
           <Property Name="idInvoice" Type="Int32" />
           <Property Name="status" Type="Int32" />
           <Property Name="feeService" Type="Decimal" Precision="19" Scale="2" />
@@ -678,7 +690,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idSupplier" Type="Int32" />
           <Property Name="price" Type="Decimal" Precision="19" Scale="2" />
-          <Property Name="createDate" Type="DateTime" Precision="0" />
+          <Property Name="createDate" Type="DateTime" Precision="3" />
           <Property Name="idInvoice" Type="Int32" />
           <Property Name="status" Type="Int32" />
           <Property Name="dateMaxC" Type="DateTime" Precision="0" />
@@ -700,10 +712,10 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <Property Name="idSupplier" Type="Int32" />
           <Property Name="isActive" Type="Int32" />
           <Property Name="idcate" Type="Int32" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK_Cart_Product" FromRole="Product" ToRole="Cart" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Product_Cate" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="Discounts" Relationship="Self.FK_Discount_Product" FromRole="Product" ToRole="Discount" />
           <NavigationProperty Name="Supplier" Relationship="Self.FK_Product_Supplier" FromRole="Product" ToRole="Supplier" />
-          <NavigationProperty Name="Carts" Relationship="CoffeeShopSysModel.FK_Cart_Product" FromRole="Product" ToRole="Cart" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
@@ -746,6 +758,16 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <Property Name="idInvoiceD" Type="Int32" />
           <Property Name="priceRefund" Type="Decimal" Precision="19" Scale="2" />
           <Property Name="status" Type="Int32" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="UserNewEmail">
           <Key>
@@ -863,6 +885,18 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Cart_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="idProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_InvoiceDetails_Cart">
           <End Role="Cart" Type="Self.Cart" Multiplicity="0..1" />
           <End Role="InvoiceDetails" Type="Self.InvoiceDetail" Multiplicity="*" />
@@ -959,7 +993,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CoffeeShopSystemEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="Addresses" EntityType="Self.Address" />
           <EntitySet Name="Blogs" EntityType="Self.Blog" />
@@ -976,6 +1010,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <EntitySet Name="Reviews" EntityType="Self.Review" />
           <EntitySet Name="Suppliers" EntityType="Self.Supplier" />
           <EntitySet Name="SupplierRefundVs" EntityType="Self.SupplierRefundV" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="UserNewEmails" EntityType="Self.UserNewEmail" />
           <EntitySet Name="Vouchers" EntityType="Self.Voucher" />
           <EntitySet Name="W_RegisterAccount" EntityType="Self.W_RegisterAccount" />
@@ -994,6 +1029,10 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <AssociationSet Name="FK_CommentBlog_Blog" Association="Self.FK_CommentBlog_Blog">
             <End Role="Blog" EntitySet="Blogs" />
             <End Role="CommentBlog" EntitySet="CommentBlogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_Product" Association="Self.FK_Cart_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Cart" EntitySet="Carts" />
           </AssociationSet>
           <AssociationSet Name="FK_InvoiceDetails_Cart" Association="Self.FK_InvoiceDetails_Cart">
             <End Role="Cart" EntitySet="Carts" />
@@ -1027,34 +1066,18 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             <End Role="Supplier" EntitySet="Suppliers" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
-          <AssociationSet Name="FK_Cart_Product" Association="CoffeeShopSysModel.FK_Cart_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Cart" EntitySet="Carts" />
-          </AssociationSet>
-          <FunctionImport Name="Comment_MnC_Type" ReturnType="Collection(CoffeeShopSysModel.Comment_MnC_Type_Result)">
-          <Parameter Name="id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="Comment_SubC_Type" ReturnType="Collection(CoffeeShopSysModel.Comment_SubC_Type_Result)">
-            <Parameter Name="idBlog" Mode="In" Type="Int32" />
-            <Parameter Name="idMnC" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="Comment_MaxIndC" ReturnType="Collection(Int32)">
             <Parameter Name="mnC" Mode="In" Type="Int32" />
             <Parameter Name="idBlog" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="Comment_MnC_Type" ReturnType="Collection(CoffeeShopSystemModel.Comment_MnC_Type_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Comment_SubC_Type" ReturnType="Collection(CoffeeShopSystemModel.Comment_SubC_Type_Result)">
+            <Parameter Name="idBlog" Mode="In" Type="Int32" />
+            <Parameter Name="idMnC" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
-        <Association Name="FK_Cart_Product">
-          <End Type="CoffeeShopSysModel.Product" Role="Product" Multiplicity="0..1" />
-          <End Type="CoffeeShopSysModel.Cart" Role="Cart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="Cart">
-              <PropertyRef Name="idProduct" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="Comment_MnC_Type_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="Int32" Name="idBlog" Nullable="true" />
@@ -1090,9 +1113,9 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CoffeeShopSysModelStoreContainer" CdmEntityContainer="CoffeeShopSystemEntities">
+        <EntityContainerMapping StorageEntityContainer="CoffeeShopSystemModelStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="Accounts">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.Account">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.Account">
               <MappingFragment StoreEntitySet="Account">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="avatar" ColumnName="avatar" />
@@ -1108,7 +1131,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Addresses">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.Address">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.Address">
               <MappingFragment StoreEntitySet="Address">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idAccount" ColumnName="idAccount" />
@@ -1118,7 +1141,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Blogs">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.Blog">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.Blog">
               <MappingFragment StoreEntitySet="Blog">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="userCreate" ColumnName="userCreate" />
@@ -1131,7 +1154,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Carts">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.Cart">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.Cart">
               <MappingFragment StoreEntitySet="Cart">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idAccount" ColumnName="idAccount" />
@@ -1143,7 +1166,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.Category">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="title" ColumnName="title" />
@@ -1153,7 +1176,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CommentBlogs">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.CommentBlog">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.CommentBlog">
               <MappingFragment StoreEntitySet="CommentBlog">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idBlog" ColumnName="idBlog" />
@@ -1168,7 +1191,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Discounts">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.Discount">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.Discount">
               <MappingFragment StoreEntitySet="Discount">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="discount1" ColumnName="discount" />
@@ -1181,7 +1204,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ForgotPasswords">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.ForgotPassword">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.ForgotPassword">
               <MappingFragment StoreEntitySet="ForgotPassword">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="email" ColumnName="email" />
@@ -1193,7 +1216,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Invoices">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.Invoice">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.Invoice">
               <MappingFragment StoreEntitySet="Invoice">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idAccount" ColumnName="idAccount" />
@@ -1210,7 +1233,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="InvoiceAdmins">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.InvoiceAdmin">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.InvoiceAdmin">
               <MappingFragment StoreEntitySet="InvoiceAdmin">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="price" ColumnName="price" />
@@ -1222,7 +1245,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="InvoiceDetails">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.InvoiceDetail">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.InvoiceDetail">
               <MappingFragment StoreEntitySet="InvoiceDetails">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idInvoice" ColumnName="idInvoice" />
@@ -1233,7 +1256,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="InvoiceSuppliers">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.InvoiceSupplier">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.InvoiceSupplier">
               <MappingFragment StoreEntitySet="InvoiceSupplier">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idSupplier" ColumnName="idSupplier" />
@@ -1246,7 +1269,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.Product">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="title" ColumnName="title" />
@@ -1263,7 +1286,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Reviews">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.Review">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.Review">
               <MappingFragment StoreEntitySet="Review">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idAccount" ColumnName="idAccount" />
@@ -1275,7 +1298,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Suppliers">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.Supplier">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.Supplier">
               <MappingFragment StoreEntitySet="Supplier">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="avatar" ColumnName="avatar" />
@@ -1294,7 +1317,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SupplierRefundVs">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.SupplierRefundV">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.SupplierRefundV">
               <MappingFragment StoreEntitySet="SupplierRefundV">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idSupplier" ColumnName="idSupplier" />
@@ -1305,8 +1328,19 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="UserNewEmails">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.UserNewEmail">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.UserNewEmail">
               <MappingFragment StoreEntitySet="UserNewEmail">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="email" ColumnName="email" />
@@ -1318,7 +1352,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Vouchers">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.Voucher">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.Voucher">
               <MappingFragment StoreEntitySet="Voucher">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="condition" ColumnName="condition" />
@@ -1333,7 +1367,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="W_RegisterAccount">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.W_RegisterAccount">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.W_RegisterAccount">
               <MappingFragment StoreEntitySet="W_RegisterAccount">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="username" ColumnName="username" />
@@ -1348,7 +1382,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="W_RegisterSupplier">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.W_RegisterSupplier">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.W_RegisterSupplier">
               <MappingFragment StoreEntitySet="W_RegisterSupplier">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="username" ColumnName="username" />
@@ -1361,7 +1395,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="W_SHandleInvoice">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.W_SHandleInvoice">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.W_SHandleInvoice">
               <MappingFragment StoreEntitySet="W_SHandleInvoice">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idInvoice" ColumnName="idInvoice" />
@@ -1372,7 +1406,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WatchLists">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.WatchList">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.WatchList">
               <MappingFragment StoreEntitySet="WatchList">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idProduct" ColumnName="idProduct" />
@@ -1382,7 +1416,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Admins">
-            <EntityTypeMapping TypeName="CoffeeShopSysModel.Admin">
+            <EntityTypeMapping TypeName="CoffeeShopSystemModel.Admin">
               <MappingFragment StoreEntitySet="Admin">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="username" ColumnName="username" />
@@ -1392,9 +1426,10 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="Comment_MnC_Type" FunctionName="CoffeeShopSysModel.Store.Comment_MnC_Type">
+          <FunctionImportMapping FunctionImportName="Comment_MaxIndC" FunctionName="CoffeeShopSystemModel.Store.Comment_MaxIndC" />
+          <FunctionImportMapping FunctionImportName="Comment_MnC_Type" FunctionName="CoffeeShopSystemModel.Store.Comment_MnC_Type">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="CoffeeShopSysModel.Comment_MnC_Type_Result">
+              <ComplexTypeMapping TypeName="CoffeeShopSystemModel.Comment_MnC_Type_Result">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idBlog" ColumnName="idBlog" />
                 <ScalarProperty Name="idAccount" ColumnName="idAccount" />
@@ -1411,9 +1446,9 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Comment_SubC_Type" FunctionName="CoffeeShopSysModel.Store.Comment_SubC_Type">
+          <FunctionImportMapping FunctionImportName="Comment_SubC_Type" FunctionName="CoffeeShopSystemModel.Store.Comment_SubC_Type">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="CoffeeShopSysModel.Comment_SubC_Type_Result">
+              <ComplexTypeMapping TypeName="CoffeeShopSystemModel.Comment_SubC_Type_Result">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idBlog" ColumnName="idBlog" />
                 <ScalarProperty Name="idAccount" ColumnName="idAccount" />
@@ -1430,7 +1465,6 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="Comment_MaxIndC" FunctionName="CoffeeShopSysModel.Store.Comment_MaxIndC" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

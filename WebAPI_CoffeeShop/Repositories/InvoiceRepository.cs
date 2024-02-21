@@ -35,7 +35,7 @@ namespace WebAPI_CoffeeShop.Repositories
                         createDate = i.createDate,
                         isStatus = i.isStatus,
                         codeInvoice = i.codeInvoice,
-                    }).ToList();
+                    }).OrderByDescending(i => i.createDate).ToList();
             }
             return query;
         }
@@ -149,7 +149,7 @@ namespace WebAPI_CoffeeShop.Repositories
             return item;
         }
 
-        public void InsertNewInvoice(Invoice modelInvoice)
+        private void InsertNewInvoice(Invoice modelInvoice)
         {
             using (var context = new CoffeeShopSystemEntities())
             {
@@ -157,26 +157,25 @@ namespace WebAPI_CoffeeShop.Repositories
                 context.SaveChanges();
             }
         }
-        public void InsertNewInvoiceDetail(List<InvoiceDetail> modelInvoiceDetail)
+        private void InsertNewInvoiceDetail(List<InvoiceDetail> modelInvoiceDetail)
         {
             using (var context = new CoffeeShopSystemEntities())
             {
-                var idInvoiceNew = context.Invoices.Select(inv => inv.id).LastOrDefault();
+                int idInvoiceNew = context.Invoices.Select(inv => inv.id).OrderByDescending(inv=>inv).FirstOrDefault();
                 foreach (var item in modelInvoiceDetail)
                 {
                     item.idInvoice = idInvoiceNew;
-
                     context.InvoiceDetails.Add(item);
                     context.SaveChanges();
                 }
 
             }
         }
-        public void InsertNewInvoiceSupplier(List<InvoiceSupplier> modelInvoiceSupplier)
+        private void InsertNewInvoiceSupplier(List<InvoiceSupplier> modelInvoiceSupplier)
         {
             using (var context = new CoffeeShopSystemEntities())
             {
-                var idInvoiceNew = context.Invoices.Select(inv => inv.id).LastOrDefault();
+                var idInvoiceNew = context.Invoices.Select(inv => inv.id).OrderByDescending(inv => inv).FirstOrDefault();
                 foreach (var item in modelInvoiceSupplier)
                 {
                     item.idInvoice = idInvoiceNew;
@@ -185,11 +184,11 @@ namespace WebAPI_CoffeeShop.Repositories
                 }
             }
         }
-        public void InsertNewInvoiceAdmin(InvoiceAdmin modelInvoiceAdmin)
+        private void InsertNewInvoiceAdmin(InvoiceAdmin modelInvoiceAdmin)
         {
             using (var context = new CoffeeShopSystemEntities())
             {
-                var idInvoiceNew = context.Invoices.Select(inv => inv.id).LastOrDefault();
+                var idInvoiceNew = context.Invoices.Select(inv => inv.id).OrderByDescending(inv => inv).FirstOrDefault();
                 modelInvoiceAdmin.idInvoice = idInvoiceNew;
                 context.InvoiceAdmins.Add(modelInvoiceAdmin);
                 context.SaveChanges();
