@@ -879,7 +879,7 @@
                                 <a href="/"><span>Home</span></a>
                             </li>
                             <li class="cafenabcrumb-item duxinbcrumb-end">
-                                <span>/Blogs/Details</span>
+                                <span>Blogs/Details</span>
                             </li>
                         </ul>
                     </div>
@@ -1098,21 +1098,205 @@
 </main>
 <script src="~/Content/assets/js/jquery-2.2.4.min.js"></script>
 <script>
-    var idBlog = @ViewBag.idBlog;
-    function onloadCommentBlog(id) {
-        $.ajax({
-            type: "get",
-            url: "/Blogs/GetCommentBlogById",
-            data: {
-                id: id
-            },
-            success: function (res) {
-                $('#contentComment').html(res);
-            },
-            error: function (response) {
-                console.log(response.responseText);
+    $(document).ready(function () {
+        var idBlog = @ViewBag.idBlog;
+        function onloadCommentBlog(id) {
+            $.ajax({
+                type: "get",
+                url: "/Blogs/GetCommentBlogById",
+                data: {
+                    id: id
+                },
+                success: function (res) {
+                    $('#contentComment').html(res);
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        }
+        onloadCommentBlog(idBlog);
+        replyButtonSubmit(idBlog);
+        $("#btnSubmit").on('click', function (e) {
+            e.preventDefault();
+            //if (checkUsersLogin() == false) {
+            //    window.location.assign("http://localhost:8080/UsersLogin");
+            //    return "";
+            //};
+            //if (checkStatusOfAccount() == false) {
+            //    displayToastMessage(true, "Your Account Has Been Restricted");
+            //    return "";
+            //}
+            var contentComment = $("textarea#comment").val();
+            if (contentComment.trim().length == 0) {
+                $("textarea#comment").get(0).setCustomValidity('Please Input This Field');
+                $("textarea#comment").get(0).reportValidity();
+            } else {
+                var contentC = $("textarea#comment").val();
+                $.ajax({
+                    async: false,
+                    cache: false,
+                    url: "/Blogs/InsertMainCommentBlog",
+                    data: {
+                        idBlog: idBlog,
+                        content: contentC,
+                    }
+                }).done(function (res) {
+                    onloadCommentBlog(idBlog);
+                    clearCommentArea();
+                });
             }
+        })
+        $("#btnClear").on('click', function (e) {
+            e.preventDefault();
+            clearCommentArea();
         });
-    }
-    onloadCommentBlog(idBlog);
+        function closeAllReplyForm(dataTarget) {
+            $('form.reply-form').each(function (e) {
+                var currentTarget = $(this).attr('id');
+                $(`textarea[id=${currentTarget}]`).val(" ");
+                if ($(this).attr("data-target") != dataTarget) {
+                    if (!$(this).hasClass('d-none')) {
+                        $(this).addClass('d-none');
+                    }
+                }
+            })
+        }
+
+        function clearCommentArea() {
+            $("textarea#comment").attr('placeholder', "Type your comments...").val("").focus().blur();
+        }
+        function replyButtonSubmit(idBlog) {
+            $(document).on('click', function (e) {
+                if (e.target.className == "submitReply") {
+                    e.preventDefault();
+                    //if (checkUsersLogin() == false) {
+                    //    window.location.assign("http://localhost:8080/UsersLogin");
+                    //    return "";
+                    //};
+                    //if (checkStatusOfAccount() == false) {
+                    //    displayToastMessage(true, "Your Account Has Been Restricted");
+                    //    return "";
+                    //}
+                    var dataTarget = e.target.getAttribute("data-target");
+                    var currentTAComment = $(`textarea#${dataTarget}`);
+                    var contentComment = $(currentTAComment).val();
+                    var idMain = e.target.getAttribute("data-idm");
+                    if (contentComment.trim().length == 0) {
+                        $(currentTAComment).get(0).setCustomValidity('Please Input This Field');
+                        $(currentTAComment).get(0).reportValidity();
+                    } else {
+                        var idMnC = e.target.getAttribute('data-idr');
+                        if (e.target.getAttribute('data-edit') == "false") {
+                            $.ajax({
+                                async: false,
+                                cache: false,
+                                url: "/Blogs/InsertSubCommentBlog",
+                                data: {
+                                    idBlog: idBlog,
+                                    idReply: idMnC,
+                                    content: contentComment,
+                                    idMainB: idMain
+                                }
+                            }).done(function (res) {
+                                $(`div.replies[data-id=${idMain}]`).append(res);
+                                closeAllReplyForm(" ");
+                            });
+                        } else if (e.target.getAttribute("data-edit") == "true") {
+                            var idCEdit = $(currentTAComment).attr('data-id');
+                            var pComment = $(`p.txtComment[data-id=${idCEdit}]`).attr('data-ureply');
+                            var setHTML = "";
+                            if (pComment.trim().length != 0) {
+                                setHTML = `<p class="txtComment" data-id="${idCEdit}" data-ureply="${pComment}"><span style="color:chocolate;">
+                                    ${pComment}</span> ${contentComment}</p>`
+                            } else {
+                                setHTML = `<p class="txtComment" data-id="${idCEdit}" data-ureply="">${contentComment}</p>`;
+                            }
+                            alert("ajax Edit");
+                            //$.ajax({
+                            //    async: false,
+                            //    cache: false,
+                            //    url: "/Blogs/ajax/editComment",
+                            //    data: {
+                            //        idCM: idCEdit,
+                            //        content: contentComment
+                            //    }
+                            //}).done(function (data) {
+                            //    $(`div[id="contentEdit"][data-id=${idCEdit}]`).html(setHTML);
+                            //    //
+                            //    closeAllReplyForm("");
+                            //});
+                        }
+                    }
+                } else if (e.target.className == "cancelButton") {
+                    e.preventDefault();
+                    closeAllReplyForm(" ");
+                } else if (e.target.id == "btnDeleteS") {
+                    e.preventDefault();
+                    var dataID = e.target.getAttribute("data-id");
+                    var currentTag = $(`div[id="idReply"][data-id=${dataID}]`);
+                    alert("ajax Delete");
+                    //$.ajax({
+                    //    async: false,
+                    //    cache: false,
+                    //    url: "/Blogs/ajax/deleteComment",
+                    //    data: {
+                    //        idBlog: idBlog,
+                    //        idComment: dataID
+                    //    }
+                    //}).done(function (data) {
+                    //    closeAllReplyForm("");
+                    //});
+                    //currentTag.remove();
+                } else if (e.target.id == "btnDeleteM") {
+                    e.preventDefault();
+                    var dataID = e.target.getAttribute("data-id");
+                    var currentTag = $(`details[data-id=${dataID}]`);
+                    alert("ajax Delete");                    
+                    //$.ajax({
+                    //    async: false,
+                    //    cache: false,
+                    //    url: "/Blogs/ajax/deleteComment",
+                    //    data: {
+                    //        idBlog: idBlog,
+                    //        idComment: dataID
+                    //    }
+                    //}).done(function (data) {
+                    //    closeAllReplyForm("");
+                    //});
+                    //currentTag.remove();
+                } else if (e.target.id == "replyHandle") {
+                    //checkUsersLogin();
+                    //alert("checkUsersLogin");
+                    return true;
+                }
+            })
+        }
+
+
+        document.addEventListener(
+            "click",
+            function (event) {
+                var target = event.target;
+                var replyForm;
+                if (target.matches("[data-toggle='reply-form']")) {
+                    closeAllReplyForm(target.getAttribute("data-target"));
+                    replyForm = document.getElementById(target.getAttribute("data-target"));
+                    replyForm.classList.toggle("d-none");
+                    //
+                    $(`button[class='submitReply'][data-target=${target.getAttribute("data-target")}]`).attr('data-edit', false);
+                    $(`textarea#${target.getAttribute("data-target")}`).val(" ");
+
+                } else if (target.matches("[data-toggle='edit-form']")) {
+                    closeAllReplyForm(target.getAttribute("data-target"));
+                    replyForm = document.getElementById(target.getAttribute("data-target"));
+                    replyForm.classList.toggle("d-none");
+                    $(`button[class='submitReply'][data-target=${target.getAttribute("data-target")}]`).attr('data-edit', true);
+                    $(`textarea#${target.getAttribute("data-target")}`).val(target.getAttribute("data-cm"));
+                }
+            },
+            false
+        );
+    });
+
 </script>

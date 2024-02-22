@@ -89,15 +89,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Utilities\CoffeeShopSystemEntities.Context.tt">
+    <Content Include="Utilities\CoffeeShopSystemModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CoffeeShopSystemEntities.edmx</DependentUpon>
-      <LastGenOutput>CoffeeShopSystemEntities.Context.cs</LastGenOutput>
+      <DependentUpon>CoffeeShopSystemModel.edmx</DependentUpon>
+      <LastGenOutput>CoffeeShopSystemModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Utilities\CoffeeShopSystemEntities.tt">
+    <Content Include="Utilities\CoffeeShopSystemModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CoffeeShopSystemEntities.edmx</DependentUpon>
-      <LastGenOutput>CoffeeShopSystemEntities.cs</LastGenOutput>
+      <DependentUpon>CoffeeShopSystemModel.edmx</DependentUpon>
+      <LastGenOutput>CoffeeShopSystemModel.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
   </ItemGroup>
@@ -134,108 +134,115 @@
     <Compile Include="Repositories\InvoiceRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\VoucherRepository.cs" />
+    <Compile Include="Repositories\WatchListRepository.cs" />
     <Compile Include="Utilities\Account.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Address.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Admin.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Blog.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Cart.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Category.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\CoffeeShopSystemEntities.Context.cs">
+    <Compile Include="Utilities\CoffeeShopSystemModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CoffeeShopSystemEntities.Context.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\CoffeeShopSystemEntities.cs">
+    <Compile Include="Utilities\CoffeeShopSystemModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\CoffeeShopSystemEntities.Designer.cs">
+    <Compile Include="Utilities\CoffeeShopSystemModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CoffeeShopSystemEntities.edmx</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Utilities\CommentBlog.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Comment_MnC_Type_Result.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Comment_SubC_Type_Result.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Discount.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\ForgotPassword.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\GetCommentMain_Result.cs">
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\GetCommentSub_Result.cs">
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Invoice.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\InvoiceAdmin.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\InvoiceDetail.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\InvoiceSupplier.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Product.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Review.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Supplier.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\SupplierRefundV.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\sysdiagram.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\UserNewEmail.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Voucher.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\WatchList.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\W_RegisterAccount.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\W_RegisterSupplier.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\W_SHandleInvoice.cs">
-      <DependentUpon>CoffeeShopSystemEntities.tt</DependentUpon>
+      <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <EntityDeploy Include="Utilities\CoffeeShopSystemEntities.edmx">
+    <EntityDeploy Include="Utilities\CoffeeShopSystemModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CoffeeShopSystemEntities.Designer.cs</LastGenOutput>
+      <LastGenOutput>CoffeeShopSystemModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Utilities\CoffeeShopSystemEntities.edmx.diagram">
-      <DependentUpon>CoffeeShopSystemEntities.edmx</DependentUpon>
+    <Content Include="Utilities\CoffeeShopSystemModel.edmx.diagram">
+      <DependentUpon>CoffeeShopSystemModel.edmx</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

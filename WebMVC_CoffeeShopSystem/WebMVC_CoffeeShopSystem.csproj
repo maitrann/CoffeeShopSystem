@@ -464,6 +464,8 @@
     <Content Include="Views\Blogs\GetCommentBlogById.cshtml" />
     <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Blogs\InsertMainCommentBlog.cshtml" />
+    <Content Include="Views\Blogs\InsertSubCommentBlog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

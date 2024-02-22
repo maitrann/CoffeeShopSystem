@@ -89,10 +89,45 @@ namespace WebAPI_CoffeeShop.Repositories
                 }
                 context.CommentBlogs.Add(comment);
                 context.SaveChanges();
+                var key = context.CommentBlogs.Select(c => c.id).OrderByDescending(id => id).FirstOrDefault();
+                if (model.idReply != 0)
+                {
+                    subC = context.GetCommentSub(key).Select(c=> new Comment_SubC_Type_Result()
+                    {
+                        id = c.id,
+                        idBlog =c.idBlog,
+                        idAccount =c.idAccount,
+                        comment = c.comment,
+                        dateCreate = c.dateCreate,
+                        indC = c.indC,
+                        mnC = c.mnC,
+                        status = c.status,
+                        userType = c.userType,
+                        userName = c.userName,
+                        userReply= c.userReply,
+                        timeSpace = c.timeSpace,
+                    }).FirstOrDefault();
+                } else
+                {
+                    subC = context.GetCommentMain(key).Select(c => new Comment_SubC_Type_Result()
+                    {
+                        id = c.id,
+                        idBlog = c.idBlog,
+                        idAccount = c.idAccount,
+                        comment = c.comment,
+                        dateCreate = c.dateCreate,
+                        indC = c.indC,
+                        mnC = c.mnC,
+                        status = c.status,
+                        userType = c.userType,
+                        userName = c.userName,
+                        timeSpace = c.timeSpace,
+                    }).FirstOrDefault();
+                }
             }
-
             return subC;
         }
 
+        
     }
 }

@@ -86,5 +86,23 @@ namespace WebAPI_CoffeeShop.Utilities
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Comment_SubC_Type_Result>("Comment_SubC_Type", idBlogParameter, idMnCParameter);
         }
+    
+        public virtual ObjectResult<GetCommentMain_Result> GetCommentMain(Nullable<int> idCmt)
+        {
+            var idCmtParameter = idCmt.HasValue ?
+                new ObjectParameter("idCmt", idCmt) :
+                new ObjectParameter("idCmt", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCommentMain_Result>("GetCommentMain", idCmtParameter);
+        }
+    
+        public virtual ObjectResult<GetCommentSub_Result> GetCommentSub(Nullable<int> idSubC)
+        {
+            var idSubCParameter = idSubC.HasValue ?
+                new ObjectParameter("idSubC", idSubC) :
+                new ObjectParameter("idSubC", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetCommentSub_Result>("GetCommentSub", idSubCParameter);
+        }
     }
 }

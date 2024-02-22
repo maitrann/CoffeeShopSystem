@@ -42,5 +42,9 @@ namespace WebMVC_CoffeeShopSystem.Repositories
         {
             return BlogCall.Instance.GetCommentBlogById(id);
         }
+        public Comment_SubC_Type_Result InsertCommentBlog(Comment_SubC_Type_Result model)
+        {
+            return BlogCall.Instance.InsertCommentBlog(model);
+        }
     }
 }

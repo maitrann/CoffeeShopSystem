@@ -87,7 +87,7 @@
                         foreach (var itemSub in item.lsSubComment)
                         {
                             <div data-id="@itemSub.id" id="idReply">
-                                <details open class="comment replyComment" id="comment-@itemSub.id}"
+                                <details open class="comment replyComment" id="comment-@itemSub.id"
                                          data-target="@item.id">
                                     <a href="#comment-@itemSub.id" class="comment-border-link">
                                         <span class="sr-only">Jump to comment-1</span>
@@ -126,7 +126,7 @@
                                                         <p id="btnDeleteS"
                                                            style="right: 21px;top: 27px;position: relative;text-decoration: underline;color: darkred;
                                                                     font-family: unset;display: flex;justify-content: end;font-size: 13.8px;"
-                                                           data-id="@itemSub.id}">Delete</p>
+                                                           data-id="@itemSub.id">Delete</p>
                                                     }
                                                 </div>
                                             </div>
@@ -141,7 +141,7 @@
                                             </p>
                                         </div>
                                         <div class="d-flex flex-row">
-                                            <button type="button" data-toggle="reply-form" data-target="comment-@itemSub.id-reply-form'}" class="replyButton" id="replyHandle">Reply</button>
+                                            <button type="button" data-toggle="reply-form" data-target="comment-@itemSub.id-reply-form" class="replyButton" id="replyHandle">Reply</button>
                                             @if (ViewBag.crrUser.ToString() == itemSub.idAccount)
                                             {
                                                 <button type="button" data-toggle="edit-form"
@@ -158,12 +158,12 @@
                                                       maxlength="200" class="contentComment" data-id="@itemSub.id"></textarea>
                                             <button type="submit" class="submitReply"
                                                     data-target="comment-@itemSub.id-reply-form"
-                                                    data-idr="@itemSub.id}" data-idm="@item.id"
+                                                    data-idr="@itemSub.id" data-idm="@item.id"
                                                     data-edit="false">
                                                 Submit
                                             </button>
                                             <button type="button" data-toggle="reply-form"
-                                                    data-target="comment-@itemSub.id-reply-form'}"
+                                                    data-target="comment-@itemSub.id-reply-form"
                                                     class="cancelButton">
                                                 Cancel
                                             </button>
@@ -186,11 +186,6 @@
 </div>
 <script src="~/Content/assets/js/jquery-2.2.4.min.js"></script>
 <script>
-    //$('#btnCheckOut').on('click', function (e) {
-    //    e.preventDefault();
-    //    $('.overlay, .product-popup-1').addClass('show-popup');
-    //}, false);
-
     $('a#btnLoadMore').on('click', function (e) {
         e.preventDefault();
         var target = $(this).attr('data-target');
@@ -200,6 +195,7 @@
         }
     })
 
-    //
     $("details.replyComment").slice(0, 1).show();
+
+
 </script>

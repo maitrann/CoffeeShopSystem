@@ -75,6 +75,21 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
                 return prodInfo;
             }
         }
-
+        public Comment_SubC_Type_Result InsertCommentBlog(Comment_SubC_Type_Result model)
+        {
+            Comment_SubC_Type_Result comment = new Comment_SubC_Type_Result();
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = client.PostAsJsonAsync(blogUrl.InsertCommentBlog,model).GetAwaiter().GetResult();
+                if (Res.IsSuccessStatusCode)
+                {
+                    var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    comment = JsonConvert.DeserializeObject<Comment_SubC_Type_Result>(prodResponse);
+                }
+                return comment;
+            }
+        }
     }
 }
