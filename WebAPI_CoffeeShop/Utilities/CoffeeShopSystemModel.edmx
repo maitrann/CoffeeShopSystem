@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CoffeeShopSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="CoffeeShopSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="id" />
@@ -293,7 +293,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idProduct" Type="int" />
           <Property Name="idAccount" Type="int" />
-          <Property Name="createDate" Type="date" />
+          <Property Name="createDate" Type="datetime" />
         </EntityType>
         <Association Name="FK_Address_Account">
           <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
@@ -439,6 +439,18 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WatchList_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="WatchList" Type="Self.WatchList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="WatchList">
+              <PropertyRef Name="idProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="Comment_MaxIndC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="mnC" Type="int" Mode="In" />
           <Parameter Name="idBlog" Type="int" Mode="In" />
@@ -537,9 +549,12 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             <End Role="Supplier" EntitySet="Supplier" />
             <End Role="Product" EntitySet="Product" />
           </AssociationSet>
+          <AssociationSet Name="FK_WatchList_Product" Association="Self.FK_WatchList_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="WatchList" EntitySet="WatchList" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="CoffeeShopSystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -722,6 +737,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <NavigationProperty Name="Category" Relationship="Self.FK_Product_Cate" FromRole="Product" ToRole="Category" />
           <NavigationProperty Name="Discounts" Relationship="Self.FK_Discount_Product" FromRole="Product" ToRole="Discount" />
           <NavigationProperty Name="Supplier" Relationship="Self.FK_Product_Supplier" FromRole="Product" ToRole="Supplier" />
+          <NavigationProperty Name="WatchLists" Relationship="CoffeeShopSystemModel.FK_WatchList_Product" FromRole="Product" ToRole="WatchList" />
         </EntityType>
         <EntityType Name="Review">
           <Key>
@@ -843,7 +859,8 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idProduct" Type="Int32" />
           <Property Name="idAccount" Type="Int32" />
-          <Property Name="createDate" Type="DateTime" Precision="0" />
+          <Property Name="createDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="CoffeeShopSystemModel.FK_WatchList_Product" FromRole="WatchList" ToRole="Product" />
         </EntityType>
         <EntityType Name="Admin">
           <Key>
@@ -1077,18 +1094,22 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
             <Parameter Name="idBlog" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Comment_MnC_Type" ReturnType="Collection(CoffeeShopSystemModel.Comment_MnC_Type_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Comment_SubC_Type" ReturnType="Collection(CoffeeShopSystemModel.Comment_SubC_Type_Result)">
             <Parameter Name="idBlog" Mode="In" Type="Int32" />
             <Parameter Name="idMnC" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetCommentMain" ReturnType="Collection(CoffeeShopSystemModel.GetCommentMain_Result)">
-            <Parameter Name="idCmt" Mode="In" Type="Int32" />
+          <Parameter Name="idCmt" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetCommentSub" ReturnType="Collection(CoffeeShopSystemModel.GetCommentSub_Result)">
-            <Parameter Name="idSubC" Mode="In" Type="Int32" />
+          <Parameter Name="idSubC" Mode="In" Type="Int32" />
           </FunctionImport>
+          <AssociationSet Name="FK_WatchList_Product" Association="CoffeeShopSystemModel.FK_WatchList_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="WatchList" EntitySet="WatchLists" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="Comment_MnC_Type_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -1147,6 +1168,18 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <Property Type="String" Name="userReply" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="timeSpace" Nullable="true" />
         </ComplexType>
+        <Association Name="FK_WatchList_Product">
+          <End Type="CoffeeShopSystemModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="CoffeeShopSystemModel.WatchList" Role="WatchList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="WatchList">
+              <PropertyRef Name="idProduct" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

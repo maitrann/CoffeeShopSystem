@@ -1,0 +1,191 @@
+﻿
+@{
+    ViewBag.Title = "Favorite Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<WebAPI_CoffeeShop.Models.ModelView.WatchListView> lstFv = ViewBag.lstFv;
+}
+
+<main>
+    <!-- breadcrumb area start -->
+    <section class="breadcrumb-area pt-140 pb-140 bg_img" data-background="~/Content/assets/images/bg/breadcrumb-bg-1.jpeg" data-overlay="dark" data-opacity="5">
+        <div class="shape shape__1"><img src="~/Content/assets/images/shape/breadcrumb-shape-1.png" alt=""></div>
+        <div class="shape shape__2"><img src="~/Content/assets/images/shape/breadcrumb-shape-2.png" alt=""></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12 text-center">
+                    <h2 class="page-title">Cafena Favorites</h2>
+                    <div class="cafena-breadcrumb breadcrumbs">
+                        <ul class="list-unstyled d-flex align-items-center justify-content-center">
+                            <li class="cafenabcrumb-item duxinbcrumb-begin">
+                                <a href="index.html"><span>Home</span></a>
+                            </li>
+                            <li class="cafenabcrumb-item duxinbcrumb-end">
+                                <span>Favorite Products</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb area end -->
+    @if (lstFv != null)
+    {
+        <!-- product popup start -->
+        <div class="product-popup product-popup-1">
+            <div class="view-background">
+                <div class="row" id="contentPopup">
+
+                </div>
+            </div>
+        </div>
+        <!-- product popup end -->
+        <!-- blog area start -->
+        <div class="blog-area pt-120 pb-105">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="shop-filter-wrapper d-flex justify-content-between align-items-center mb-30">
+                            <div class="sf-left">
+                                <div class="show-text">
+                                    <span>Showing 1–12 of 54 results</span>
+                                </div>
+                            </div>
+                            <div class="sf-right d-flex justify-content-end align-items-center">
+                                <nav>
+                                    <div class="nav" id="shop-filter-tab" role="tablist">
+                                        <a class="nav-link active" id="shop-tab-1-tab" data-bs-toggle="tab"
+                                           href="#shop-tab-1" role="tab" aria-controls="shop-tab-1"
+                                           aria-selected="true"><i class="fas fa-th"></i></a>
+                                        <a class="nav-link" id="shop-tab-2-tab" data-bs-toggle="tab" href="#shop-tab-2"
+                                           role="tab" aria-controls="shop-tab-2" aria-selected="false"><i class="fas fa-list-ul"></i></a>
+                                    </div>
+                                </nav>
+                                <div class="sort-wrapper ml-45">
+                                    <select name="select" id="select">
+                                        <option value="1">Short By New</option>
+                                        <option value="2">Short By New</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8">
+                        <div class="tab-content" id="shop-tabContent">
+                            <div class="tab-pane fade show mt-none-30 active" id="shop-tab-1" role="tabpanel" aria-labelledby="shop-tab-1-tab">
+                                <div class="row">
+                                    @foreach (var item in lstFv)
+                                    {
+                                        <div class="col-xl-4 col-lg-6 col-md-6 mt-30 itemlstProd" id="itemLstFv-@item.id" style="display:none">
+                                            <div class="pp__item pp__item--2 active text-center pt-20 pb-20">
+                                                <div class="pp__action pp__action--2 d-flex align-items-center justify-content-center">
+                                                    <div class="cart d-flex align-items-center justify-content-center">
+                                                        <a name="addToCartFast" data-id="@item.idProduct" data-price="@item.priceCurr"><i class="fal fa-shopping-basket"></i></a>
+                                                    </div>
+                                                    <div class="wishlist d-flex align-items-center justify-content-center">
+                                                        <a href="#favorites" name="removeToWatchList" data-id="@item.id"><i class="fal fa-heart" style="color:red"></i></a>
+                                                    </div>
+                                                    @*<div class="view d-flex align-items-center justify-content-center">
+                                                            <a href="#0" value="@item.id" class="classPopup"><i class="fal fa-eye"></i></a>
+                                                        </div>*@
+                                                </div>
+                                                <div class="pp__thumb pp__thumb--2 mt-35">
+                                                    <img class="default" src="@item.image" alt="" style="height:100%">
+                                                    <img class="on-hover" src="@item.image1" alt="" style="height:100%">
+                                                </div>
+                                                <div class="pp__content pp__content--2 mt-25">
+                                                    <div class="pp__c-top d-flex align-items-center justify-content-center">
+                                                        <div class="pp__cat pp__cat--2">
+                                                            <a href="/Products/Details?idProd=@item.idProduct">@item.titleCate</a>
+                                                        </div>
+                                                    </div>
+                                                    <h4 class="pp__title pp__title--2">
+                                                        <a href="/Products/Details?idProd=@item.idProduct">@item.titleProduct</a>
+                                                    </h4>
+                                                    <div class="pp__price pp__price--2 d-flex align-items-center justify-content-center">
+                                                        <h6 class="label">Price - </h6>
+                                                        @if (item.priceCurr != item.price)
+                                                        {
+                                                            <span class="price"> $@item.priceCurr / <span class="regular"><del>$@item.price</del></span></span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="price"> $@item.priceCurr </span>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12 text-center">
+                                <a href="#load" id="loadMore" class="site-btn mt-60">load more</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4">
+                        <div class="blog__sidebar blog__sidebar--shop mt-none-30">
+                            <div class="widget mt-30">
+                                <h2 class="title">Search Here</h2>
+                                <form action="https://xpressrow.com/html/cafena/cafena/index.html" class="search-widget">
+                                    <input type="search" name="search" id="search" placeholder="Serach Product">
+                                    <button type="submit"><i class="fal fa-search"></i></button>
+                                </form>
+                            </div>
+                            <div class="widget mt-30">
+                                <h2 class="title">Categories</h2>
+                                <ul>
+                                    <li class="cat-item"><a href="#0">Burger</a> <span>04</span></li>
+                                    <li class="cat-item"><a href="#0">2x Pizza</a> <span>06</span></li>
+                                    <li class="cat-item"><a href="#0">Cold Drinks</a> <span>08</span></li>
+                                    <li class="cat-item"><a href="#0">Chicken</a> <span>10</span></li>
+                                    <li class="cat-item"><a href="#0">Stuck Dish</a> <span>12</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- blog area end -->
+    }
+</main>
+<script src="~/Content/assets/js/jquery-2.2.4.min.js"></script>
+<script>
+    $(".itemlstProd").slice(0, 6).show();
+    $("#loadMore").on("click", function (e) {
+        e.preventDefault();
+        $(".itemlstProd:hidden").slice(0, 6).slideDown();
+        if ($(".itemlstProd:hidden").length == 0) {
+            $("#loadMore").hide();
+        }
+    });
+    $("a[name='removeToWatchList']").click(function () {
+        var idW = $(this).data("id");
+        $.ajax({
+            type: "get",
+            url: "/Favorites/RemoveToWatchList",
+            data: {
+                id: $(this).data("id"),
+            },
+            success: function (res) {
+                $("#itemLstFv-" + idW).remove();
+                Swal.fire({
+                    title: "Remove to Favorites list!",
+                    text: "The product has been removed to favorites list",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            },
+            error: function (response) {
+                console.log(response.responseText);
+            }
+        });
+    });
+</script>

@@ -53,10 +53,19 @@ namespace WebAPI_CoffeeShop.Repositories
             using (var context = new CoffeeShopSystemEntities())
             {
                 var cart = context.Carts.Where(c => c.idProduct == model.idProduct & c.Status == true).FirstOrDefault();
+                var cartAmountOld = cart.Amount;
                 if (cart != null)
                 {
                     cart.Amount += model.Amount;
-                    cart.Price += model.Price;
+                    if (cart.Amount >= 50)
+                    {
+                        cart.Amount = 50;
+                        cart.Price = (cart.Price / cartAmountOld) * 50;
+                    }
+                    else
+                    {
+                        cart.Price += model.Price;
+                    }
                     context.SaveChanges();
                 }
                 else

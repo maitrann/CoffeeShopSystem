@@ -19,6 +19,7 @@ namespace WebAPI_CoffeeShop.Utilities
         {
             this.Carts = new HashSet<Cart>();
             this.Discounts = new HashSet<Discount>();
+            this.WatchLists = new HashSet<WatchList>();
         }
     
         public int id { get; set; }
@@ -39,5 +40,7 @@ namespace WebAPI_CoffeeShop.Utilities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Discount> Discounts { get; set; }
         public virtual Supplier Supplier { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WatchList> WatchLists { get; set; }
     }
 }

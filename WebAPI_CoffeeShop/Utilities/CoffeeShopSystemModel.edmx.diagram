@@ -41,6 +41,7 @@
         <AssociationConnector Association="CoffeeShopSystemModel.FK_InvoiceSupplier_Invoice" ManuallyRouted="false" />
         <AssociationConnector Association="CoffeeShopSystemModel.FK_InvoiceSupplier_Supplier" ManuallyRouted="false" />
         <AssociationConnector Association="CoffeeShopSystemModel.FK_Product_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="CoffeeShopSystemModel.FK_WatchList_Product" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

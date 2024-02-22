@@ -119,6 +119,7 @@
     <Compile Include="Interface\IInvoiceRepository.cs" />
     <Compile Include="Interface\IProductRepository.cs" />
     <Compile Include="Interface\IVoucherRepository.cs" />
+    <Compile Include="Interface\IWatchListRepository.cs" />
     <Compile Include="Models\ModelView\BlogView.cs" />
     <Compile Include="Models\ModelView\CartView.cs" />
     <Compile Include="Models\ModelView\CommentBlogView.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Models\ModelView\InvoiceView.cs" />
     <Compile Include="Models\ModelView\ProductView.cs" />
     <Compile Include="Models\ModelView\SubCommentBlogView.cs" />
+    <Compile Include="Models\ModelView\WatchListView.cs" />
     <Compile Include="Models\ObjectInvoice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\BlogRepository.cs" />

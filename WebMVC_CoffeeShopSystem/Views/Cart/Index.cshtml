@@ -457,11 +457,11 @@
                                                         <input type="checkbox" class="checkCart" id="checkCart-@item.idSupplier-@itemProd.idCart" style="width: 20px; height: 20px;">
                                                     </td>
                                                     <td class="product-thumbnail">
-                                                        <a href="#" class="img">
+                                                        <a href="/Products/Details?idProd=@itemProd.idProduct" class="img">
                                                             <img style="height:100%" src="@itemProd.imageProd" alt="">
                                                         </a>
                                                     </td>
-                                                    <td class="product-name"><a href="#">@itemProd.titleProd</a></td>
+                                                    <td class="product-name"><a href="/Products/Details?idProd=@itemProd.idProduct">@itemProd.titleProd</a></td>
                                                     <td class="product-price"><span class="amount">$<span class="amount" id="unitPrice-@item.idSupplier-@itemProd.idCart">@itemProd.UnitPrice</span></span></td>
                                                     <td class="product-quantity">
                                                         <input type="number" min="1" max="50" id="inputAmount-@item.idSupplier-@itemProd.idCart" value="@itemProd.Amount">

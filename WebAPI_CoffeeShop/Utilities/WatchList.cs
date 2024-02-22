@@ -18,5 +18,7 @@ namespace WebAPI_CoffeeShop.Utilities
         public Nullable<int> idProduct { get; set; }
         public Nullable<int> idAccount { get; set; }
         public Nullable<System.DateTime> createDate { get; set; }
+    
+        public virtual Product Product { get; set; }
     }
 }

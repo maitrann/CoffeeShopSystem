@@ -46,7 +46,7 @@
                         <div class="shop-filter-wrapper d-flex justify-content-between align-items-center mb-30">
                             <div class="sf-left">
                                 <div class="show-text">
-                                    <span>Showing 1–12 of 54 results</span>
+                                    <span>Showing @lstProd.Count() results</span>
                                 </div>
                             </div>
                             <div class="sf-right d-flex justify-content-end align-items-center">
@@ -55,17 +55,12 @@
                                         <a class="nav-link active" id="shop-tab-1-tab" data-bs-toggle="tab"
                                            href="#shop-tab-1" role="tab" aria-controls="shop-tab-1"
                                            aria-selected="true"><i class="fas fa-th"></i></a>
-                                        <a class="nav-link" id="shop-tab-2-tab" data-bs-toggle="tab" href="#shop-tab-2"
-                                           role="tab" aria-controls="shop-tab-2" aria-selected="false"><i class="fas fa-list-ul"></i></a>
                                     </div>
                                 </nav>
                                 <div class="sort-wrapper ml-45">
                                     <select name="select" id="select">
                                         <option value="1">Short By New</option>
                                         <option value="2">Short By New</option>
-                                        <option value="3">Short By New</option>
-                                        <option value="4">Short By New</option>
-                                        <option value="5">Short By New</option>
                                     </select>
                                 </div>
                             </div>
@@ -83,14 +78,14 @@
                                             <div class="pp__item pp__item--2 active text-center pt-20 pb-20">
                                                 <div class="pp__action pp__action--2 d-flex align-items-center justify-content-center">
                                                     <div class="cart d-flex align-items-center justify-content-center">
-                                                        <a href="#"><i class="fal fa-shopping-basket"></i></a>
+                                                        <a name="addToCartFast" data-id="@item.id" data-price="@item.finalPrice"><i class="fal fa-shopping-basket"></i></a>
                                                     </div>
                                                     <div class="wishlist d-flex align-items-center justify-content-center">
-                                                        <a href="#"><i class="fal fa-heart"></i></a>
+                                                        <a name="addToWatchListFast" data-id="@item.id" href="#favorites"><i class="fal fa-heart" id="iconHeart-@item.id"></i></a>
                                                     </div>
-                                                    <div class="view d-flex align-items-center justify-content-center">
-                                                        <a href="#0" value="@item.id" class="classPopup"><i class="fal fa-eye"></i></a>
-                                                    </div>
+                                                    @*<div class="view d-flex align-items-center justify-content-center">
+                                                            <a href="#0" value="@item.id" class="classPopup"><i class="fal fa-eye"></i></a>
+                                                        </div>*@
                                                 </div>
                                                 <div class="pp__thumb pp__thumb--2 mt-35">
                                                     <img class="default" src="@item.image" alt="" style="height:100%">
@@ -147,14 +142,6 @@
                                     <li class="cat-item"><a href="#0">Chicken</a> <span>10</span></li>
                                     <li class="cat-item"><a href="#0">Stuck Dish</a> <span>12</span></li>
                                 </ul>
-                            </div>
-                            <div class="widget slider-range mt-30">
-                                <h2 class="title">Price Filter</h2>
-                                <div id="slider-range"></div>
-                                <p class="d-flex justify-content-between align-items-center">
-                                    <input type="text" id="amount" readonly>
-                                    <label for="amount">Filter</label>
-                                </p>
                             </div>
                             <div class="widget mt-30">
                                 <h2 class="title">top Product</h2>
@@ -252,22 +239,82 @@
                 $("#loadMore").hide();
             }
         });
-        $(".classPopup").on("click", function () {
-            //$(".product-popup").hide();
-            var valIdProd = $(this).attr("value");
+        //$(".classPopup").on("click", function () {
+        //    //$(".product-popup").hide();
+        //    var valIdProd = $(this).attr("value");
+        //    $.ajax({
+        //        type: "get",
+        //        url: "/Products/popupProd",
+        //        data: {
+        //            idProd: valIdProd,
+        //        },
+        //        success: function (res) {
+        //            $("#contentPopup").html("");
+        //            $("#contentPopup").html(res);
+        //            //$('.overlay, .product-popup-1').addClass('show-popup');
+        //            $('.product-p-close').on('click', function () {
+        //                $('.overlay, .popup-coffe-mechine, .product-popup').removeClass('show-popup');
+        //            });
+        //        },
+        //        error: function (response) {
+        //            console.log(response.responseText);
+        //        }
+        //    });
+        //});
+        $("a[name='addToCartFast']").click(function () {
+            var Amount = 1;
+            var Price = parseInt($(this).data("price")) * parseInt(Amount);
             $.ajax({
                 type: "get",
-                url: "/Products/popupProd",
+                url: "/Cart/AddToCart",
                 data: {
-                    idProd: valIdProd,
+                    idProduct: $(this).data("id"),
+                    Amount: Amount,
+                    Price: Price
                 },
                 success: function (res) {
-                    $("#contentPopup").html("");
-                    $("#contentPopup").html(res);
-                    //$('.overlay, .product-popup-1').addClass('show-popup');
-                    $('.product-p-close').on('click', function () {
-                        $('.overlay, .popup-coffe-mechine, .product-popup').removeClass('show-popup');
+                    Swal.fire({
+                        title: "Add to Cart!",
+                        text: "The product has been added to cart",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 1500
                     });
+                    @{
+                        var quantityCart = WebMVC_CoffeeShopSystem.Repositories.CartDao.Instance.quantityCartOfUser(7);
+                    }
+                    $("#quantityCartLayout").text('@quantityCart');
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        });
+        $("a[name='addToWatchListFast']").click(function () {
+            $.ajax({
+                type: "get",
+                url: "/Favorites/AddToWatchList",
+                data: {
+                    idProduct: $(this).data("id"),
+                },
+                success: function (res) {
+                    if (res == "True") {
+                        Swal.fire({
+                            title: "Add to Favorites list!",
+                            text: "The product has been added to favorites list",
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Remove to Favorites list!",
+                            text: "The product has been removed to favorites list",
+                            icon: "info",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
                 },
                 error: function (response) {
                     console.log(response.responseText);

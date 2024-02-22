@@ -12,14 +12,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-12 text-center">
-                    <h2 class="page-title">Product Details</h2>
+                    <h2 class="page-title">Cafena Product Details</h2>
                     <div class="cafena-breadcrumb breadcrumbs">
                         <ul class="list-unstyled d-flex align-items-center justify-content-center">
                             <li class="cafenabcrumb-item duxinbcrumb-begin">
                                 <a href="index.html"><span>Home</span></a>
                             </li>
                             <li class="cafenabcrumb-item duxinbcrumb-end">
-                                <span>Product</span>
+                                <span>Products/Details</span>
                             </li>
                         </ul>
                     </div>
@@ -28,62 +28,6 @@
         </div>
     </section>
     <!-- breadcrumb area end -->
-    <!-- product popup start -->
-    <div class="product-popup product-popup-1">
-        <div class="view-background">
-            <div class="row">
-                <div class="col-md-4 align-self-center">
-                    <div class="quickview d-flex align-items-center justify-content-center">
-                        <div class="quickview__thumb">
-                            <img src="~/Content/assets/images/products/pp-1.png" alt="">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="viewcontent">
-                        <div class="viewcontent__header">
-                            <h2>VICARAGUA COFFEE BEANS</h2>
-                            <a class="view_close product-p-close" type="reset" href="javascript:void(0)"><i class="fal fa-times"></i></a>
-                        </div>
-                        <div class="viewcontent__rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fal fa-star"></i>
-                        </div>
-                        <div class="viewcontent__price">
-                            <h4><span>$</span>99.00</h4>
-                        </div>
-                        <div class="viewcontent__stock">
-                            <h4>Available :<span> In stock</span></h4>
-                        </div>
-                        <div class="viewcontent__details">
-                            <p>Anlor sit amet, consectetur adipiscing elit. Fusce condimentum est lacus, non pretium risus lacinia vel. Fusce eget turpis orci.</p>
-                        </div>
-                        <div class="viewcontent__action">
-                            <span>Qty</span>
-                            <input type="number" placeholder="1">
-                            <a class="site-btn" href="#">add to cart</a>
-                        </div>
-                        <div class="viewcontent__footer">
-                            <ul class="list-unstyled">
-                                <li>Category:</li>
-                                <li>SKU:</li>
-                                <li>Brand:</li>
-                            </ul>
-                            <ul class="list-unstyled">
-                                <li>Watches</li>
-                                <li>2584-MK63</li>
-                                <li>Brenda</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- product popup end -->
     <!-- product details area start -->
     <div class="product-details__area pt-120 pb-110">
         <div class="container">
@@ -168,7 +112,7 @@
                             <input type="number" min="1" max="50" placeholder="1" value="1" id="quantity" autocomplete="off" required>
                             <button class="site-btn" id="btnAddToCart">add to cart</button>
                         </div>
-                        <a href="#0" class="wishlist"><i class="fas fa-heart"></i> Add to watch list</a>
+                        <a id="addToWatchList" style=" cursor: pointer;" data-id="@detailsProd.id" class="wishlist"><i class="fas fa-heart"></i> Add to Favorites List</a>
                         <div class="pd-social-wrapper">
                             <span class="share"><i class="fas fa-share"></i> Share</span>
                             <div class="social-links d-flex align-items-center" data-href="https://developers.facebook.com/docs/plugins/" data-layout="" data-size="">
@@ -440,6 +384,38 @@
                         var quantityCart = WebMVC_CoffeeShopSystem.Repositories.CartDao.Instance.quantityCartOfUser(7);
                     }
                     $("#quantityCartLayout").text('@quantityCart');
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        });
+
+        $("#addToWatchList").click(function () {
+            $.ajax({
+                type: "get",
+                url: "/Favorites/AddToWatchList",
+                data: {
+                    idProduct: $(this).data("id"),
+                },
+                success: function (res) {
+                    if (res == "True") {
+                        Swal.fire({
+                            title: "Add to Favorites list!",
+                            text: "The product has been added to favorites list",
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Remove to Favorites list!",
+                            text: "The product has been removed to favorites list",
+                            icon: "info",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
                 },
                 error: function (response) {
                     console.log(response.responseText);
