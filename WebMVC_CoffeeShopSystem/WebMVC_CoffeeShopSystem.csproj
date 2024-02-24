@@ -90,6 +90,7 @@
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
       <Private>True</Private>
@@ -179,14 +180,18 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BaseURL\accountUrl.cs" />
     <Compile Include="BaseURL\blogUrl.cs" />
     <Compile Include="BaseURL\cartUrl.cs" />
+    <Compile Include="BaseURL\googleAuthUrl.cs" />
     <Compile Include="BaseURL\invoiceUrl.cs" />
     <Compile Include="BaseURL\productUrl.cs" />
     <Compile Include="BaseURL\voucherUrl.cs" />
     <Compile Include="BaseURL\watchListUrl.cs" />
+    <Compile Include="CallRESTful\AccountCall.cs" />
     <Compile Include="CallRESTful\BlogCall.cs" />
     <Compile Include="CallRESTful\CartCall.cs" />
+    <Compile Include="CallRESTful\GoogleAuthCall.cs" />
     <Compile Include="CallRESTful\InvoiceCall.cs" />
     <Compile Include="CallRESTful\ProductsCall.cs" />
     <Compile Include="CallRESTful\VoucherCall.cs" />
@@ -198,7 +203,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\SigninController.cs" />
     <Compile Include="Controllers\VoucherController.cs" />
+    <Compile Include="Dao\AccountDao.cs" />
+    <Compile Include="Dao\GoogleAuthDao.cs" />
     <Compile Include="Dao\InvoiceDao.cs" />
     <Compile Include="Dao\WatchListDao.cs" />
     <Compile Include="Global.asax.cs">
@@ -217,6 +225,7 @@
     <Content Include="Content\assets\css\font-awesome.min.css" />
     <Content Include="Content\assets\css\jquery-ui.css" />
     <Content Include="Content\assets\css\lightcase.css" />
+    <Content Include="Content\assets\css\login.css" />
     <Content Include="Content\assets\css\main.css" />
     <Content Include="Content\assets\css\meanmenu.css" />
     <Content Include="Content\assets\css\mtCart.css" />
@@ -275,6 +284,7 @@
     <Content Include="Content\assets\images\icons\ci-1.png" />
     <Content Include="Content\assets\images\icons\ci-2.png" />
     <Content Include="Content\assets\images\icons\ci-3.png" />
+    <Content Include="Content\assets\images\icons\errorIcon.png" />
     <Content Include="Content\assets\images\icons\f-icon-1.png" />
     <Content Include="Content\assets\images\icons\f-icon-2.png" />
     <Content Include="Content\assets\images\icons\f-icon-3.png" />
@@ -282,6 +292,9 @@
     <Content Include="Content\assets\images\icons\filter.png" />
     <Content Include="Content\assets\images\icons\ft-map-marker.png" />
     <Content Include="Content\assets\images\icons\ft-phone.png" />
+    <Content Include="Content\assets\images\icons\iconEmail.png" />
+    <Content Include="Content\assets\images\icons\iconSuccess.png" />
+    <Content Include="Content\assets\images\icons\loadingWaiting.gif" />
     <Content Include="Content\assets\images\icons\t-quote.png" />
     <Content Include="Content\assets\images\icons\wcu-1.png" />
     <Content Include="Content\assets\images\icons\wcu-2.png" />
@@ -370,6 +383,7 @@
     <Content Include="Content\assets\images\top-grade\tg-3.png" />
     <Content Include="Content\assets\images\top-grade\tg-4.png" />
     <Content Include="Content\assets\js\bootstrap.bundle.min.js" />
+    <Content Include="Content\assets\js\errorFieldCheck.js" />
     <Content Include="Content\assets\js\imagesloaded.pkgd.min.js" />
     <Content Include="Content\assets\js\isotope.pkgd.min.js" />
     <Content Include="Content\assets\js\jquery-2.2.4.min.js" />
@@ -471,6 +485,8 @@
     <Content Include="Views\Blogs\InsertMainCommentBlog.cshtml" />
     <Content Include="Views\Blogs\InsertSubCommentBlog.cshtml" />
     <Content Include="Views\Favorites\Index.cshtml" />
+    <Content Include="Views\Products\SearchProductsByKeyWord.cshtml" />
+    <Content Include="Views\Signin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

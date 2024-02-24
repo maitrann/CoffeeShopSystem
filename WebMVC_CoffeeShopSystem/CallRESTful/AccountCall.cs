@@ -4,119 +4,109 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Net.Http;
-using System.Threading.Tasks;
 using System.Web;
-using System.Web.Mvc;
-using WebMVC_CoffeeShopSystem.BaseURL;
 using WebAPI_CoffeeShop.Models.ModelView;
-using System.Web.Razor.Tokenizer.Symbols;
+using WebMVC_CoffeeShopSystem.BaseURL;
+using System.Web.Helpers;
+using PayPal.Api;
+using WebAPI_CoffeeShop.Utilities;
 
 namespace WebMVC_CoffeeShopSystem.CallRESTful
 {
-    public class ProductsCall
+    public class AccountCall
     {
-        ProductsCall() { }
-        private static ProductsCall instance = null;
-        public static ProductsCall Instance
+        AccountCall() { }
+        private static AccountCall instance = null;
+        public static AccountCall Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new ProductsCall();
+                    instance = new AccountCall();
                 }
                 return instance;
             }
         }
-        public List<ProductView> getProducts()
+        public bool CheckAccountExistUsername(string username)
         {
-            List<ProductView> prodInfo = new List<ProductView>();
-            using (var client = new HttpClient())
-            {
-                //Passing service base url
-                client.DefaultRequestHeaders.Clear();
-                //Define request data format
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                //Sending request to find web api REST service resource getProducts using HttpClient
-                HttpResponseMessage Res = client.GetAsync(productUrl.getProducts).GetAwaiter().GetResult();
-                //Checking the response is successful or not which is sent using HttpClient
-                if (Res.IsSuccessStatusCode)
-                {
-                    //Storing the response details recieved from web api
-                    var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                    //Deserializing the response recieved from web api and storing into the product list
-                    prodInfo = JsonConvert.DeserializeObject<List<ProductView>>(prodResponse);
-                }
-                //returning the product list to view
-                return prodInfo;
-            }
-        }
-        public ProductView GetDetailsProduct(int? idProd)
-        {
-            ProductView prodInfo = new ProductView();
+            bool prodInfo = true;
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                HttpResponseMessage Res = client.GetAsync(productUrl.getDetailsProduct + "?idProd=" + idProd).GetAwaiter().GetResult();
+                HttpResponseMessage Res = client.GetAsync(accountUrl.CheckAccountExistUsername + "?username=" + username).GetAwaiter().GetResult();
                 if (Res.IsSuccessStatusCode)
                 {
                     var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                    prodInfo = JsonConvert.DeserializeObject<ProductView>(prodResponse);
+                    prodInfo = JsonConvert.DeserializeObject<bool>(prodResponse);
                 }
                 return prodInfo;
             }
         }
-
-        public List<ProductView> SearchProductsByKeyWord(string keyword)
+        public bool CheckAccountExistEmail(string email)
         {
-            List<ProductView> prodInfo = new List<ProductView>();
+            bool prodInfo = true;
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = client.GetAsync(productUrl.SearchProductsByKeyWord + "?keyword=" + keyword).GetAwaiter().GetResult();
+                HttpResponseMessage Res = client.GetAsync(accountUrl.CheckAccountExistEmail + "?email=" + email).GetAwaiter().GetResult();
                 if (Res.IsSuccessStatusCode)
                 {
                     var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                    prodInfo = JsonConvert.DeserializeObject<List<ProductView>>(prodResponse);
+                    prodInfo = JsonConvert.DeserializeObject<bool>(prodResponse);
                 }
                 return prodInfo;
             }
         }
-        public List<ProductView> SearchProductsByCategory(string lsIdCategory)
+        public bool CheckAccountExistPhone(string phone)
         {
-            List<ProductView> prodInfo = new List<ProductView>();
+            bool prodInfo = true;
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = client.GetAsync(productUrl.SearchProductsByCategory + "?lsIdCategory=" + lsIdCategory).GetAwaiter().GetResult();
+                HttpResponseMessage Res = client.GetAsync(accountUrl.CheckAccountExistPhone + "?phone=" + phone).GetAwaiter().GetResult();
                 if (Res.IsSuccessStatusCode)
                 {
                     var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                    prodInfo = JsonConvert.DeserializeObject<List<ProductView>>(prodResponse);
+                    prodInfo = JsonConvert.DeserializeObject<bool>(prodResponse);
                 }
                 return prodInfo;
             }
         }
-        public List<ProductView> SearchProductsByPrice(int typePrice)
+        public AccountView SignUpAccount(Account model)
         {
-            List<ProductView> prodInfo = new List<ProductView>();
+            AccountView prodInfo = null;
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = client.GetAsync(productUrl.SearchProductsByPrice + "?typePrice=" + typePrice).GetAwaiter().GetResult();
+                HttpResponseMessage Res = client.PostAsJsonAsync(accountUrl.SignUpAccount, model).GetAwaiter().GetResult();
                 if (Res.IsSuccessStatusCode)
                 {
                     var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                    prodInfo = JsonConvert.DeserializeObject<List<ProductView>>(prodResponse);
+                    prodInfo = JsonConvert.DeserializeObject<AccountView>(prodResponse);
                 }
                 return prodInfo;
             }
         }
-
+        public AccountView SignInAccount(string email, string password)
+        {
+            AccountView prodInfo = new AccountView();
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = client.GetAsync(accountUrl.SignInAccount + "?email=" + email + "&password=" + password).GetAwaiter().GetResult();
+                if (Res.IsSuccessStatusCode)
+                {
+                    var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    prodInfo = JsonConvert.DeserializeObject<AccountView>(prodResponse);
+                }
+                return prodInfo;
+            }
+        }
     }
 }

@@ -8,6 +8,12 @@
         <span class="shape shape__1 position-absolute"><img src="~/Content/assets/images/shape/hero-shape-2-1.png" alt=""></span>
         <span class="shape shape__2 position-absolute"><img src="~/Content/assets/images/shape/hero-shape-2-2.png" alt=""></span>
         <div class="container-fluid custom-width">
+            @if (ViewBag.shortMessageSignin == "true")
+            {
+                <div class="alert alert-success" role="alert" id="alertLoginGG">
+                    Successfully authenticated from Google account.
+                </div>
+            }
             <div class="row mm-reverse">
                 <div class="col-xl-6 col-lg-7 align-self-center">
                     <div class="hero__content hero__content--2 position-relative">
@@ -17,9 +23,9 @@
                         </h1>
                         <p>The coffee is brewed by first roasting the green coffee beans over hot <br> coals in a brazier. given an opportunity to sample.</p>
                         @*<div class="btns mt-45 d-flex align-items-center justify-content-start">
-                            <a href="about.html" class="site-btn site-btn__2">testy Coffee</a>
-                            <a href="contact.html" class="site-btn">Read More</a>
-                        </div>*@
+                                <a href="about.html" class="site-btn site-btn__2">testy Coffee</a>
+                                <a href="contact.html" class="site-btn">Read More</a>
+                            </div>*@
                     </div>
                 </div>
                 <div class="col-xl-6 col-lg-5">
@@ -113,202 +119,202 @@
     <!-- about area end -->
     <!-- populer menu area start -->
     @*<section class="popular-menu__area grey-bg position-relative pb-120">
-        <span class="shape shape__1 position-absolute"><img src="~/Content/assets/images/shape/menu-shape-1.png" alt=""></span>
-        <span class="shape shape__2 position-absolute"><img src="~/Content/assets/images/shape/menu-shape-2.png" alt=""></span>
-        <span class="shape shape__3 position-absolute"><img src="~/Content/assets/images/shape/menu-shape-3.png" alt=""></span>
-        <span class="shape shape__4 position-absolute"><img src="~/Content/assets/images/shape/menu-shape-4.png" alt=""></span>
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12 text-center">
-                    <div class="section-heading section-heading__black mb-40">
-                        <span class="sub-title">Special menu</span>
-                        <h2 class="title">Cafena Popular Menu</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xl-12 text-center">
-                    <div class="popular-menu__wrapper m-auto d-inline-block">
-                        <div class="popular-menu__filter d-flex justify-content-center align-items-center mb-55">
-                            <button class="active" data-filter="*">All</button>
-                            <button data-filter=".cat1">chocolate</button>
-                            <button data-filter=".cat2">coffee</button>
-                            <button data-filter=".cat3">sandwiches</button>
-                            <button data-filter=".cat4">sweets</button>
-                            <button data-filter=".cat5">Black tea</button>
-                            <button data-filter=".cat6">Grean Tea</button>
+            <span class="shape shape__1 position-absolute"><img src="~/Content/assets/images/shape/menu-shape-1.png" alt=""></span>
+            <span class="shape shape__2 position-absolute"><img src="~/Content/assets/images/shape/menu-shape-2.png" alt=""></span>
+            <span class="shape shape__3 position-absolute"><img src="~/Content/assets/images/shape/menu-shape-3.png" alt=""></span>
+            <span class="shape shape__4 position-absolute"><img src="~/Content/assets/images/shape/menu-shape-4.png" alt=""></span>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12 text-center">
+                        <div class="section-heading section-heading__black mb-40">
+                            <span class="sub-title">Special menu</span>
+                            <h2 class="title">Cafena Popular Menu</h2>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="popular-menu-grid" class="row popular-menu__grid mt-none-30">
-                <div class="col-xl-4 col-lg-6 col-md-6 grid-sizer"></div>
-                <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat1 cat5 mt-30">
-                    <div class="popular-menu__item">
-                        <div class="popular-menu__thumb">
-                            <img src="~/Content/assets/images/menu/menu-1.jpg" alt="">
-                        </div>
-                        <div class="popular-menu__content text-center">
-                            <h2 class="title">
-                                <a href="product-details.html">COFFEE</a>
-                            </h2>
-                            <div class="pp__price d-flex align-items-center justify-content-center">
-                                <h6 class="label">Price - </h6>
-                                <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
-                            </div>
-                            <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
-                                <div class="cart d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-shopping-basket"></i></a>
-                                </div>
-                                <div class="wishlist d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-heart"></i></a>
-                                </div>
-                                <div class="view d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-eye"></i></a>
-                                </div>
+                <div class="row">
+                    <div class="col-xl-12 text-center">
+                        <div class="popular-menu__wrapper m-auto d-inline-block">
+                            <div class="popular-menu__filter d-flex justify-content-center align-items-center mb-55">
+                                <button class="active" data-filter="*">All</button>
+                                <button data-filter=".cat1">chocolate</button>
+                                <button data-filter=".cat2">coffee</button>
+                                <button data-filter=".cat3">sandwiches</button>
+                                <button data-filter=".cat4">sweets</button>
+                                <button data-filter=".cat5">Black tea</button>
+                                <button data-filter=".cat6">Grean Tea</button>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div id="popular-menu-grid" class="row popular-menu__grid mt-none-30">
+                    <div class="col-xl-4 col-lg-6 col-md-6 grid-sizer"></div>
+                    <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat1 cat5 mt-30">
+                        <div class="popular-menu__item">
+                            <div class="popular-menu__thumb">
+                                <img src="~/Content/assets/images/menu/menu-1.jpg" alt="">
+                            </div>
+                            <div class="popular-menu__content text-center">
+                                <h2 class="title">
+                                    <a href="product-details.html">COFFEE</a>
+                                </h2>
+                                <div class="pp__price d-flex align-items-center justify-content-center">
+                                    <h6 class="label">Price - </h6>
+                                    <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
+                                </div>
+                                <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
+                                    <div class="cart d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-shopping-basket"></i></a>
+                                    </div>
+                                    <div class="wishlist d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-heart"></i></a>
+                                    </div>
+                                    <div class="view d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-eye"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat2 cat5 cat4 mt-30">
-                    <div class="popular-menu__item">
-                        <div class="popular-menu__thumb">
-                            <img src="~/Content/assets/images/menu/menu-2.jpg" alt="">
-                        </div>
-                        <div class="popular-menu__content text-center">
-                            <h2 class="title">
-                                <a href="product-details.html">CAFFÈ LATTE</a>
-                            </h2>
-                            <div class="pp__price mt-10 d-flex align-items-center justify-content-center">
-                                <h6 class="label">Price - </h6>
-                                <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
+                    <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat2 cat5 cat4 mt-30">
+                        <div class="popular-menu__item">
+                            <div class="popular-menu__thumb">
+                                <img src="~/Content/assets/images/menu/menu-2.jpg" alt="">
                             </div>
-                            <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
-                                <div class="cart d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-shopping-basket"></i></a>
+                            <div class="popular-menu__content text-center">
+                                <h2 class="title">
+                                    <a href="product-details.html">CAFFÈ LATTE</a>
+                                </h2>
+                                <div class="pp__price mt-10 d-flex align-items-center justify-content-center">
+                                    <h6 class="label">Price - </h6>
+                                    <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
                                 </div>
-                                <div class="wishlist d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-heart"></i></a>
-                                </div>
-                                <div class="view d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-eye"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat1 cat2 cat5 mt-30">
-                    <div class="popular-menu__item">
-                        <div class="popular-menu__thumb">
-                            <img src="~/Content/assets/images/menu/menu-3.jpg" alt="">
-                        </div>
-                        <div class="popular-menu__content text-center">
-                            <h2 class="title">
-                                <a href="product-details.html">ESPRESSO RISTRETTO</a>
-                            </h2>
-                            <div class="pp__price mt-10 d-flex align-items-center justify-content-center">
-                                <h6 class="label">Price - </h6>
-                                <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
-                            </div>
-                            <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
-                                <div class="cart d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-shopping-basket"></i></a>
-                                </div>
-                                <div class="wishlist d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-heart"></i></a>
-                                </div>
-                                <div class="view d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-eye"></i></a>
+                                <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
+                                    <div class="cart d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-shopping-basket"></i></a>
+                                    </div>
+                                    <div class="wishlist d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-heart"></i></a>
+                                    </div>
+                                    <div class="view d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-eye"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat3 cat4 cat5 mt-30">
-                    <div class="popular-menu__item">
-                        <div class="popular-menu__thumb">
-                            <img src="~/Content/assets/images/menu/menu-4.jpg" alt="">
-                        </div>
-                        <div class="popular-menu__content text-center">
-                            <h2 class="title">
-                                <a href="product-details.html">LATTE MACCHIATO</a>
-                            </h2>
-                            <div class="pp__price mt-10 d-flex align-items-center justify-content-center">
-                                <h6 class="label">Price - </h6>
-                                <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
+                    <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat1 cat2 cat5 mt-30">
+                        <div class="popular-menu__item">
+                            <div class="popular-menu__thumb">
+                                <img src="~/Content/assets/images/menu/menu-3.jpg" alt="">
                             </div>
-                            <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
-                                <div class="cart d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-shopping-basket"></i></a>
+                            <div class="popular-menu__content text-center">
+                                <h2 class="title">
+                                    <a href="product-details.html">ESPRESSO RISTRETTO</a>
+                                </h2>
+                                <div class="pp__price mt-10 d-flex align-items-center justify-content-center">
+                                    <h6 class="label">Price - </h6>
+                                    <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
                                 </div>
-                                <div class="wishlist d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-heart"></i></a>
-                                </div>
-                                <div class="view d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-eye"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat1 cat5 cat4 mt-30">
-                    <div class="popular-menu__item">
-                        <div class="popular-menu__thumb">
-                            <img src="~/Content/assets/images/menu/menu-5.jpg" alt="">
-                        </div>
-                        <div class="popular-menu__content text-center">
-                            <h2 class="title">
-                                <a href="product-details.html">ESPRESSO LUNGO</a>
-                            </h2>
-                            <div class="pp__price mt-10 d-flex align-items-center justify-content-center">
-                                <h6 class="label">Price - </h6>
-                                <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
-                            </div>
-                            <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
-                                <div class="cart d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-shopping-basket"></i></a>
-                                </div>
-                                <div class="wishlist d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-heart"></i></a>
-                                </div>
-                                <div class="view d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-eye"></i></a>
+                                <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
+                                    <div class="cart d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-shopping-basket"></i></a>
+                                    </div>
+                                    <div class="wishlist d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-heart"></i></a>
+                                    </div>
+                                    <div class="view d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-eye"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat6 cat4 mt-30">
-                    <div class="popular-menu__item">
-                        <div class="popular-menu__thumb">
-                            <img src="~/Content/assets/images/menu/menu-6.jpg" alt="">
-                        </div>
-                        <div class="popular-menu__content text-center">
-                            <h2 class="title">
-                                <a href="product-details.html">CAFÈ AU LAIT</a>
-                            </h2>
-                            <div class="pp__price mt-10 d-flex align-items-center justify-content-center">
-                                <h6 class="label">Price - </h6>
-                                <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
+                    <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat3 cat4 cat5 mt-30">
+                        <div class="popular-menu__item">
+                            <div class="popular-menu__thumb">
+                                <img src="~/Content/assets/images/menu/menu-4.jpg" alt="">
                             </div>
-                            <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
-                                <div class="cart d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-shopping-basket"></i></a>
+                            <div class="popular-menu__content text-center">
+                                <h2 class="title">
+                                    <a href="product-details.html">LATTE MACCHIATO</a>
+                                </h2>
+                                <div class="pp__price mt-10 d-flex align-items-center justify-content-center">
+                                    <h6 class="label">Price - </h6>
+                                    <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
                                 </div>
-                                <div class="wishlist d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-heart"></i></a>
+                                <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
+                                    <div class="cart d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-shopping-basket"></i></a>
+                                    </div>
+                                    <div class="wishlist d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-heart"></i></a>
+                                    </div>
+                                    <div class="view d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-eye"></i></a>
+                                    </div>
                                 </div>
-                                <div class="view d-flex align-items-center justify-content-center">
-                                    <a href="#0"><i class="fal fa-eye"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat1 cat5 cat4 mt-30">
+                        <div class="popular-menu__item">
+                            <div class="popular-menu__thumb">
+                                <img src="~/Content/assets/images/menu/menu-5.jpg" alt="">
+                            </div>
+                            <div class="popular-menu__content text-center">
+                                <h2 class="title">
+                                    <a href="product-details.html">ESPRESSO LUNGO</a>
+                                </h2>
+                                <div class="pp__price mt-10 d-flex align-items-center justify-content-center">
+                                    <h6 class="label">Price - </h6>
+                                    <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
+                                </div>
+                                <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
+                                    <div class="cart d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-shopping-basket"></i></a>
+                                    </div>
+                                    <div class="wishlist d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-heart"></i></a>
+                                    </div>
+                                    <div class="view d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-eye"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-6 grid-item cat6 cat4 mt-30">
+                        <div class="popular-menu__item">
+                            <div class="popular-menu__thumb">
+                                <img src="~/Content/assets/images/menu/menu-6.jpg" alt="">
+                            </div>
+                            <div class="popular-menu__content text-center">
+                                <h2 class="title">
+                                    <a href="product-details.html">CAFÈ AU LAIT</a>
+                                </h2>
+                                <div class="pp__price mt-10 d-flex align-items-center justify-content-center">
+                                    <h6 class="label">Price - </h6>
+                                    <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
+                                </div>
+                                <div class="pp__action pp__action--2 mt-15 d-flex align-items-center justify-content-center">
+                                    <div class="cart d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-shopping-basket"></i></a>
+                                    </div>
+                                    <div class="wishlist d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-heart"></i></a>
+                                    </div>
+                                    <div class="view d-flex align-items-center justify-content-center">
+                                        <a href="#0"><i class="fal fa-eye"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>*@
+        </section>*@
     <!-- populer menu area end -->
     <!-- product popup start -->
     <div class="product-popup product-popup-1">
@@ -581,8 +587,12 @@
     </div>
     <!-- blog area end -->
 </main>
-
-
+<script src="~/Content/assets/js/jquery-2.2.4.min.js"></script>
+<script>
+    $("#alertLoginGG").delay(2000).slideUp(200, function () {
+        $(this).alert('close');
+    });
+</script>
 
 
 

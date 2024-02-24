@@ -1,5 +1,13 @@
-﻿@{ 
+﻿@{
     var quantityCart = WebMVC_CoffeeShopSystem.Repositories.CartDao.Instance.quantityCartOfUser(7);
+    string userId = string.Empty;
+    string userName = string.Empty;
+    HttpCookie reqCookies = Request.Cookies["userInfo"];
+    if (reqCookies != null)
+    {
+        userId = reqCookies["userId"].ToString();
+        userName = reqCookies["userName"].ToString();
+    }
 }
 <!doctype html>
 <html class="no-js" lang="zxx">
@@ -133,8 +141,28 @@
                                 </div>
                                 <a href="/Cart" class="cart item position-relative">
                                     <i class="fa fa-shopping-basket"></i>
-                                    <span class="cart__count" id="quantityCartLayout">@quantityCart</span>
+                                    @if (userId != "")
+                                    {
+                                        <span class="cart__count" id="quantityCartLayout">@quantityCart</span>
+                                    }
                                 </a>
+                                @if (userId != "")
+                                {
+                                    <a href="#profile" class="cart item position-relative" data-bs-toggle="dropdown">
+                                        <i class="fa fa-user-circle" style="font-size: 40px;" aria-hidden="true"></i>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">My Profile (@userName)</a></li>
+                                        <li><a class="dropdown-item" href="#">Orders</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="/Logout">Logout</a></li>
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <a href="/Signin" class="site-btn__bghide" style="width:60px">Sign in</a>
+                                }
+
                             </div>
                         </div>
                     </div>

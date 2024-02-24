@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.EnterpriseServices.CompensatingResourceManager;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -12,6 +13,17 @@ namespace WebMVC_CoffeeShopSystem.Controllers
     {
         public ActionResult Index()
         {
+            if (TempData["shortMessageSignin"] != null)
+            {
+                ViewBag.shortMessageSignin = "true";
+                TempData.Remove("shortMessageSignin");
+            }
+            //if (Request.Cookies["userId"].Value == "")
+            //{
+            //    Response.Cookies["userId"].Value = "";
+            //    Response.Cookies["userName"].Value = "";
+            //}
+
             return View();
         }
 

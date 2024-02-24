@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using WebMVC_CoffeeShopSystem.CallRESTful;
 using WebAPI_CoffeeShop.Models.ModelView;
+using System.Web.Razor.Tokenizer.Symbols;
 
 namespace WebMVC_CoffeeShopSystem.Repositories
 {
@@ -37,6 +38,20 @@ namespace WebMVC_CoffeeShopSystem.Repositories
         public ProductView GetDetailsProduct(int? idProd)
         {
             return ProductsCall.Instance.GetDetailsProduct(idProd);
+        }
+        public List<ProductView> SearchProductsByKeyWord(string keyword)
+        {
+            return ProductsCall.Instance.SearchProductsByKeyWord(keyword);
+        }
+        public List<ProductView> SearchProductsByCategory(string lsIdCategory)
+        {
+            return ProductsCall.Instance.SearchProductsByCategory(lsIdCategory);
+
+        }
+        public List<ProductView> SearchProductsByPrice(int typePrice)
+        {
+            return ProductsCall.Instance.SearchProductsByPrice(typePrice);
+
         }
     }
 }

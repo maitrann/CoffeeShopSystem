@@ -25,9 +25,19 @@ namespace WebAPI_CoffeeShop.Controllers
             return _productRepository.GetDetailsProduct(idProd);
         }
         [HttpGet]
-        public List<ProductView> SearchProductsByName(string nameProduct)
+        public List<ProductView> SearchProductsByKeyWord(string keyword)
         {
-            return _productRepository.SearchProductsByName(nameProduct);
+            return _productRepository.SearchProductsByKeyWord(keyword);
+        }
+        [HttpGet]
+        public List<ProductView> SearchProductsByCategory(string lsIdCategory)
+        {
+            return _productRepository.SearchProductsByCategory(lsIdCategory);
+        }
+        [HttpGet]
+        public List<ProductView> SearchProductsByPrice(int typePrice)
+        {
+            return _productRepository.SearchProductsByPrice(typePrice);
         }
     }
 }

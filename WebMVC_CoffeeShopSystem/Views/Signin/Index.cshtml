@@ -1,0 +1,697 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome To Our Website</title>
+    <link rel="stylesheet" href="~/Content/assets/css/login.css">
+    <link rel="stylesheet" href="~/Content/assets/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="~/Content/assets/images/logo/favicon.ico" type="images/x-icon">
+    <style>
+        .gsi-material-button {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            -webkit-appearance: none;
+            background-color: WHITE;
+            background-image: none;
+            border: 1px solid #747775;
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            color: #1f1f1f;
+            cursor: pointer;
+            font-family: 'Roboto', arial, sans-serif;
+            font-size: 14px;
+            height: 40px;
+            letter-spacing: 0.25px;
+            outline: none;
+            overflow: hidden;
+            padding: 0 12px;
+            position: relative;
+            text-align: center;
+            -webkit-transition: background-color .218s, border-color .218s, box-shadow .218s;
+            transition: background-color .218s, border-color .218s, box-shadow .218s;
+            vertical-align: middle;
+            white-space: nowrap;
+            width: auto;
+            max-width: 400px;
+            min-width: min-content;
+        }
+
+            .gsi-material-button .gsi-material-button-icon {
+                height: 20px;
+                margin-right: 12px;
+                min-width: 20px;
+                width: 20px;
+            }
+
+            .gsi-material-button .gsi-material-button-content-wrapper {
+                -webkit-align-items: center;
+                align-items: center;
+                display: flex;
+                -webkit-flex-direction: row;
+                flex-direction: row;
+                -webkit-flex-wrap: nowrap;
+                flex-wrap: nowrap;
+                height: 100%;
+                justify-content: space-between;
+                position: relative;
+                width: 100%;
+            }
+
+            .gsi-material-button .gsi-material-button-contents {
+                -webkit-flex-grow: 1;
+                flex-grow: 1;
+                font-family: 'Roboto', arial, sans-serif;
+                font-weight: 500;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                vertical-align: top;
+            }
+
+            .gsi-material-button .gsi-material-button-state {
+                -webkit-transition: opacity .218s;
+                transition: opacity .218s;
+                bottom: 0;
+                left: 0;
+                opacity: 0;
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+            .gsi-material-button:disabled {
+                cursor: default;
+                background-color: #ffffff61;
+                border-color: #1f1f1f1f;
+            }
+
+                .gsi-material-button:disabled .gsi-material-button-contents {
+                    opacity: 38%;
+                }
+
+                .gsi-material-button:disabled .gsi-material-button-icon {
+                    opacity: 38%;
+                }
+
+            .gsi-material-button:not(:disabled):active .gsi-material-button-state,
+            .gsi-material-button:not(:disabled):focus .gsi-material-button-state {
+                background-color: #303030;
+                opacity: 12%;
+            }
+
+            .gsi-material-button:not(:disabled):hover {
+                -webkit-box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
+                box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
+            }
+
+                .gsi-material-button:not(:disabled):hover .gsi-material-button-state {
+                    background-color: #303030;
+                    opacity: 8%;
+                }
+    </style>
+</head>
+
+<body>
+    <div class="bodycontent">
+        <div class="container @ViewBag.modeForm" id="container">
+            <a href="/">
+                <i class="fa-solid fa-arrow-left"
+                   style=" top: 30px;left: 20px;z-index: 1000;position: absolute;"></i>
+            </a>
+            @if (TempData["msgSignin"] == "false")
+            {
+                <button class="btn-outline-danger" style=" position: fixed; z-index: 1000; background-color: #ffa8a8; border: 1px solid red; margin: 60px 0px 0px 125px;" id="alertLoginGG">
+                    This email is already used for signing up with Email.
+                </button>
+            }
+            <div class="form-container sign-up-container">
+                <form action="#">
+                    <h1>Sign up</h1>
+                    <a class="gsi-material-button" href="@ViewBag.response" target="_blank">
+                        <div class="gsi-material-button-state"></div>
+                        <div class="gsi-material-button-content-wrapper">
+                            <div class="gsi-material-button-icon">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
+                                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+                                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+                                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+                                    <path fill="none" d="M0 0h48v48H0z"></path>
+                                </svg>
+                            </div>
+                            <span style="font-size:13px" class="gsi-material-button-contents">Sign up with Google</span>
+                            <span style="display: none;">Sign up with Google</span>
+                        </div>
+                    </a>
+
+                    <input type="text" placeholder="Name" id="userFullName" minlength="8" maxlength="50"
+                           autocomplete="off" />
+                    <div class="valiItem">
+                        <span id="msgFullName" style="color: red;" data-validate="false"></span>
+                    </div>
+                    <input type="text" placeholder="UserName" id="userName" minlength="8" maxlength="50"
+                           autocomplete="off" />
+                    <div class="valiItem">
+                        <span id="msgUserName" style="color: red;" data-validate="false"></span>
+                    </div>
+                    <input type="email" placeholder="Email" id="userEmail" minlength="10" maxlength="50"
+                           autocomplete="off" />
+                    <div class="valiItem">
+                        <span id="msgEmail" style="color: red;" data-validate="false"></span>
+                    </div>
+                    <input type="password" placeholder="Password" id="userPassword" minlength="8" maxlength="100"
+                           autocomplete="off" />
+                    <div class="valiItem">
+                        <span id="msgPassword" style="color: red;" data-validate="false"></span>
+                    </div>
+                    <input type="password" placeholder="Confirm Password" id="confirmPassword" minlength="8" maxlength="100"
+                           autocomplete="off" />
+                    <div class="valiItem">
+                        <span id="msgConfirm" style="color: red;" data-validate="false"></span>
+                    </div>
+                    <input type="text" placeholder="Phone" id="userPhone" minlength="8" maxlength="10" autocomplete="off" />
+                    <div class="valiItem">
+                        <span id="msgPhone" style="color: red;" data-validate="false"></span>
+                    </div>
+                    <input type="text" placeholder="Address" id="userAddress" minlength="10" maxlength="200" autocomplete="off" />
+                    <div class="valiItem">
+                        <span id="msgAddress" style="color: red;" data-validate="false"></span>
+                    </div>
+
+                    <div class="wrapButton">
+                        <button id="signUpButton">Sign Up</button>
+                    </div>
+                </form>
+            </div>
+            <div class="form-container sign-in-container">
+                <form action="#" class="loginForm" id="signInForm">
+                    <h1>Sign in</h1>
+                    <div class="social-container">
+
+                    </div>
+                    <a class="gsi-material-button" href="@ViewBag.response" target="_blank">
+                        <div class="gsi-material-button-state"></div>
+                        <div class="gsi-material-button-content-wrapper">
+                            <div class="gsi-material-button-icon">
+                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
+                                    <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                                    <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"></path>
+                                    <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"></path>
+                                    <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+                                    <path fill="none" d="M0 0h48v48H0z"></path>
+                                </svg>
+                            </div>
+                            <span style="font-size:13px" class="gsi-material-button-contents">Sign in with Google</span>
+                            <span style="display: none;">Sign in with Google</span>
+                        </div>
+                    </a>
+
+                    <div style="border-radius: 3px;height: 32px;background-color: #f8d7da;border-color: #f5c2c7;margin-top: 12px;width: 111%;display: none;color: #842029;" id="alertLogin">
+                        <span style="padding-left: 2px;height: 28px;font-size: 13px;width: 90%;line-height: 30px;">The email or password is incorrect.         </span>
+                        <span style="font-size: 22px;line-height: 33px;width: 5%;cursor: pointer;" class="closebtn" id="closeAlertLogin">×</span>
+                    </div>
+
+                    <input type="email" placeholder="Email" style="width: 111%;margin-top: 20px;" minlength="8" maxlength="50" id="loginUserName" autocomplete="off" />
+                    <div class="valiItem" style="width: 109%;">
+                        <span id="msgLUserName" style="color: red;" data-validate="false"></span>
+                    </div>
+
+                    <input type="password" placeholder="Password" autocomplete="off" style="width: 111%;" minlength="8" maxlength="50" id="loginPassword" />
+                    <div class="valiItem" style="width: 109%;">
+                        <span id="msgLPassword" style="color: red;" data-validate="false"></span>
+                    </div>
+                    <a href="/Signin/ForgotPassword">Forgot your password?</a>
+                    <button id="btnSignIn">Sign In</button>
+                </form>
+            </div>
+            <div class="overlay-container">
+                <div class="overlay">
+                    <div class="overlay-panel overlay-left">
+                        <h1>Welcome Back!</h1>
+                        <p>To keep connected with us please login with your personal info</p>
+                        <button class="ghost" id="signIn">Sign In</button>
+                    </div>
+                    <div class="overlay-panel overlay-right">
+                        <h1>Hello, Friend!</h1>
+                        <p>Enter your personal details and start journey with us</p>
+                        <button class="ghost" id="signUp">Sign Up</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="cotainModal" id="modalAlert" style="z-index: 100;">
+        <div class="cookiesContent" id="cookiesPopup">
+            <button class="close" id="closeModal">✖</button>
+            <!-- 44cd55 -->
+            <img src="https://cdn-icons-png.flaticon.com/128/738/738884.png" alt="cookies-img" class="imgModal"
+                 id="iconModal" />
+            <p class="msgModal" id="messageModal">
+                We use cookies for improving user experience, analytics and marketing.
+            </p>
+            <button class="accept" id="btnAccept">OK</button>
+        </div>
+    </div>
+
+    <div class="cotainModal" id="modalLogin" style="z-index: 100;">
+        <div class="cookiesContent" id="cookiesPopup">
+            <button class="close" id="closeModalLogin">✖</button>
+            <!-- 44cd55 -->
+            <img src="~/Content/assets/images/icons/iconSuccess.png" alt="cookies-img" class="imgModal"
+                 id="iconModalLogin" />
+            <p class="msgModal" id="msgModalLogin">Login Successfully !!! </p>
+            <button class="accept" id="btnAcceptLogin" style="background-color: #44cd55;">OK</button>
+        </div>
+    </div>
+
+    <div class="cotainModal" id="modalLoading" style="z-index: 100;">
+        <div class="cookiesContent" id="cookiesPopup">
+            <!-- 44cd55 -->
+            <p></p>
+            <img src="~/Content/assets/images/icons/loadingWaiting.gif" alt="cookies-img" class="imgModal"
+                 id="iconModalLoading" />
+        </div>
+    </div>
+
+
+    <script src="https://kit.fontawesome.com/26c19c3070.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+            integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
+    <script src="~/Content/assets/js/errorFieldCheck.js"></script>
+    <script>
+        $("#alertLoginGG").delay(2000).slideUp(200, function () {
+            $(this).alert('close');
+        });
+        const signUpButton = document.getElementById('signUp');
+        const signInButton = document.getElementById('signIn');
+        const container = document.getElementById('container');
+        const fieldCheck = new errorFieldCheck();
+        var buttonAccept = document.getElementById("btnAccept");
+        var modal = document.getElementById("modalAlert");
+        var alertLogin = document.getElementById('alertLogin');
+        var modalLogin = document.getElementById('modalLogin');
+
+        signUpButton.addEventListener('click', () => {
+            container.classList.add("right-panel-active");
+        });
+
+        signInButton.addEventListener('click', () => {
+            container.classList.remove("right-panel-active");
+        });
+        //
+
+        $(document).ready(function () {
+
+            $('#signUpButton').on('click', function (e) {
+                e.preventDefault();
+                multiCheckUserSignUp();
+                checkFieldForSignUp();
+            });
+
+            function checkFieldForSignUp() {
+                var objValidate = {
+                    userFName: $('#msgFullName').attr('data-validate'),
+                    userName: $('#msgUserName').attr('data-validate'),
+                    userEmail: $('#msgEmail').attr('data-validate'),
+                    userPhone: $('#msgPhone').attr('data-validate'),
+                    userAddress: $('#msgAddress').attr('data-validate'),
+                    userPassword: $('#msgPassword').attr('data-validate'),
+                    confirmPass: $('#msgConfirm').attr('data-validate')
+                };
+                var modalLoading = document.getElementById("modalLoading");
+                var flagSubmit = Object.values(objValidate).includes("false");
+                if (!flagSubmit) {
+                    $.ajax({
+                        cache: false,
+                        data: {
+                            name: $('#userFullName').val().trimEnd(),
+                            username: $('#userName').val(),
+                            email: $('#userEmail').val(),
+                            phone: $('#userPhone').val(),
+                            //userAddress: $('#userAddress').val(),
+                            password: $('#userPassword').val()
+                        },
+                        url: "/Signin/SignUpAccount",
+                        beforeSend: function () {
+                            modalLoading.style.display = "flex";
+                        }
+                    }).done(function (data) {
+                        showModalDialog(data);
+                        modalLoading.style.display = "none";
+                    });
+                }
+
+            }
+
+            function showModalDialog(data) {
+                $('#messageModal').text(data.msgRecover);
+                buttonAccept.style.backgroundColor = "#ed6755";
+                if (data.flagSuccess) {
+                    if (data.flagSendding == true) {
+                        $('#iconModal').attr('src', "~/Content/assets/images/icons/iconEmail.png");
+                        buttonAccept.style.backgroundColor = "#44cd55";
+                    } else {
+                        $('#iconModal').attr('src', "~/Content/assets/images/icons/errorIcon.png");
+                    }
+                } else {
+                    $('#iconModal').attr('src', "~/Content/assets/images/icons/errorIcon.png");
+                    $('#messageModal').text("There Are Some Errors Please Try Back");
+                }
+                $('#modalAlert').fadeIn(500);
+                modal.style.display = "flex";
+            }
+
+            function multiCheckUserSignUp() {
+                checkUserFullNameInput();
+                checkUserIsUserNameInput();
+                checkUserEmailInput();
+                checkUserPhoneInput();
+                checkUserAddressInput();
+                checkUserPassword();
+                checkInputConfirmPassword();
+            }
+
+            $('#userFullName').on('input blur', function (e) {
+                e.preventDefault();
+                checkUserFullNameInput();
+            });
+
+            $('#userName').on('input blur', function (e) {
+                e.preventDefault();
+                checkUserIsUserNameInput();
+            });
+
+            $('#userEmail').on('input blur', function (e) {
+                e.preventDefault();
+                checkUserEmailInput();
+            });
+
+            $('#userPhone').on('input blur', function (e) {
+                e.preventDefault();
+                checkUserPhoneInput();
+            });
+
+            $('#userAddress').on('input blur', function (e) {
+                e.preventDefault();
+                checkUserAddressInput();
+            })
+
+            $('#userPassword').on('input blur', function (e) {
+                e.preventDefault();
+                var flagValidate = checkUserPassword();
+                var lengthConfirm = $('#confirmPassword').val().length;
+                //
+                if (flagValidate && lengthConfirm != 0) {
+                    checkInputConfirmPassword();
+                }
+            });
+
+            $('#confirmPassword').on('input blur', function (e) {
+                e.preventDefault();
+                checkInputConfirmPassword();
+            });
+
+
+        });
+
+        /**
+         * checkUserFullName
+         */
+        function checkUserFullNameInput() {
+            fieldCheck.checkEmptyFields($('#userFullName'), $('#msgFullName'));
+        }
+        /**
+         * checkUserName
+         */
+        function checkUserIsUserNameInput() {
+            var flagValiate = true;
+            fieldCheck.checkSpecialInputDsSpace($('#userName'));
+            flagValiate == true ? flagValiate = fieldCheck.checkEmptyFields($('#userName'), $('#msgUserName')) : flagValiate = false;
+            flagValiate == true ? checkExistsUserName() : flagValiate = false;
+        }
+
+        function checkExistsUserName() {
+            var userName = $('#userName').val();
+            $.ajax({
+                async: false,
+                cache: false,
+                data: {
+                    username: userName
+                },
+                url: "/Signin/CheckAccountExistUsername",
+            }).done(function (data) {
+                if (data == "True") {
+                    $('#msgUserName').attr('data-validate', false);
+                    $('#msgUserName').text('This username is already exists');
+                } else {
+                    $('#msgUserName').attr('data-validate', true);
+                    $('#msgUserName').text('');
+                }
+            });
+        }
+
+        /**
+         * checkUser Email
+         */
+        function ValidateEmail(input) {
+            var validRegex = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+            if (input.match(validRegex)) {
+                document.getElementById('userEmail').setCustomValidity("");
+                return true;
+            } else {
+                document.getElementById('userEmail').setCustomValidity("Invalid email address.");
+                document.getElementById('userEmail').reportValidity();
+                return false;
+            }
+        }
+
+        function checkUserEmailInput() {
+            var flagValiate = true;
+            flagValiate = fieldCheck.checkInputEmail($('#userEmail'), $('#msgEmail'));
+            flagValiate == true ? checkExistsUserEmail() : flagValiate = false;
+        }
+
+        function checkExistsUserEmail() {
+            var userEmail = $('#userEmail').val();
+            $.ajax({
+                async: false,
+                cache: false,
+                data: {
+                    email: userEmail
+                },
+                url: "/Signin/CheckAccountExistEmail",
+            }).done(function (data) {
+                if (data == "True") {
+                    $('#msgEmail').attr('data-validate', false);
+                    $('#msgEmail').text('This email has already been taken');
+                } else {
+                    $('#msgEmail').attr('data-validate', true);
+                    $('#msgEmail').text('');
+                }
+            });
+        }
+
+        /**
+         * checkUser Phone
+         */
+        function checkUserPhoneInput() {
+            var flagValiate = true;
+            fieldCheck.checkInputNumbers($('#userPhone'));
+            flagValiate == fieldCheck.checkEmptyFields($('#userPhone'), $('#msgPhone'));
+        }
+
+        /**
+         *
+         */
+        function checkUserAddressInput() {
+            fieldCheck.checkEmptyFields($('#userAddress'), $('#msgAddress'));
+        }
+        /**
+         * checkUser Password
+         */
+        function checkUserPassword() {
+            const minLength = $('#userPassword').attr('minlength');
+            var valueOfItem = $('#userPassword').val();
+            var lengthItem = valueOfItem.length;
+            var flagValiate = true;
+            $("#msgPassword").attr('data-validate', false);
+            if (lengthItem == 0) {
+                $("#msgPassword").text("Please Input This Fields");
+                flagValiate = false;
+            } else if (lengthItem < minLength) {
+                $("#msgPassword").text(`Please Input At Least ${minLength} Chacracters`);
+                flagValiate = false;
+            } else {
+                $("#msgPassword").text("");
+                $("#msgPassword").attr('data-validate', true);
+            }
+            return flagValiate;
+        }
+
+        /**
+         * checkUser Confirm Password
+         */
+
+        function checkInputConfirmPassword() {
+            var valueOfItem = $('#confirmPassword').val();
+            var valueOfPassword = $('#userPassword').val();
+            const minLength = $('#confirmPassword').attr('minlength');
+            var lengthItem = valueOfItem.length;
+            $("#msgConfirm").attr('data-validate', false);
+            if (lengthItem == 0) {
+                $("#msgConfirm").text("Please Input This Fields");
+            } else if (lengthItem < minLength) {
+                $("#msgConfirm").text(`Please Input At Least ${minLength} Chacracters`);
+            }
+            else if (valueOfItem != valueOfPassword) {
+                $("#msgConfirm").text(`Confirm Password Is Not Valid`);
+            } else {
+                $("#msgConfirm").text("");
+                $("#msgConfirm").attr('data-validate', true);
+            }
+        }
+
+        $('#closeModal').on('click', function (e) {
+            e.preventDefault();
+            eventUnDisplayModal();
+        });
+
+        $('#btnAccept').on('click', function (e) {
+            e.preventDefault();
+            eventUnDisplayModal();
+        });
+
+        window.onclick = function (e) {
+            if (e.target == modal) {
+                eventUnDisplayModal();
+            } else if (e.target == modalLogin) {
+                eventRedirectHomePage();
+            }
+        }
+
+        function eventUnDisplayModal() {
+            modal.style.display = "none";
+        }
+
+        $('#btnSignIn').on('click', function (e) {
+            e.preventDefault();
+            multiCheckUserSignIn();
+            checkFieldForSignIn();
+        });
+
+        function checkFieldForSignIn() {
+            var objValidate = {
+                username: $('#msgLUserName').attr('data-validate'),
+                password: $('#msgLPassword').attr('data-validate')
+            };
+            var flagSubmit = Object.values(objValidate).includes("false");
+            if (!flagSubmit) {
+                $.ajax({
+                    async: false,
+                    cache: false,
+                    data: {
+                        email: $('#loginUserName').val(),
+                        password: $('#loginPassword').val()
+                    },
+                    url: "/Signin/SignInAccount",
+                }).done(function (data) {
+                    if (data == "True") {
+                        //handleSubmitLogin();
+                        showModalLogin();
+                    } else {
+                        alertLogin.style.display = "flex";
+                    }
+                });
+            }
+        }
+
+        $('#closeModalLogin').on('click', function (e) {
+            e.preventDefault();
+            eventRedirectHomePage();
+        });
+
+        $('#btnAcceptLogin').on('click', function (e) {
+            e.preventDefault();
+            eventRedirectHomePage();
+        });
+
+        function eventRedirectHomePage() {
+            window.location.assign("http://localhost:52519");
+        }
+
+        function showModalLogin() {
+            $('#modalLogin').fadeIn(500);
+            modalLogin.style.display = "flex";
+        }
+
+        function multiCheckUserSignIn() {
+            checkUserLoginUserName();
+            checkUserLoginPassword();
+        }
+
+        $('#closeAlertLogin').on('click', function (e) {
+            e.preventDefault();
+            alertLogin.style.display = "none";
+        });
+
+        $('#loginUserName').on('input blur', function (e) {
+            e.preventDefault();
+            checkUserLoginUserName();
+        });
+
+        $('#loginPassword').on('input blur', function (e) {
+            e.preventDefault();
+            checkUserLoginPassword();
+        })
+
+        function checkUserLoginUserName() {
+            //fieldCheck.checkSpecialInputDsSpace($('#loginUserName'));
+            fieldCheck.checkEmptyFields($('#loginUserName'), $('#msgLUserName'));
+        }
+
+        function checkUserLoginPassword() {
+            const minLength = $('#loginPassword').attr('minlength');
+            var valueOfItem = $('#loginPassword').val();
+            var lengthItem = valueOfItem.length;
+            var flagValiate = true;
+            $("#msgLPassword").attr('data-validate', false);
+            if (lengthItem == 0) {
+                $("#msgLPassword").text("Please Input This Fields");
+                flagValiate = false;
+            } else if (lengthItem < minLength) {
+                $("#msgLPassword").text(`Please Input At Least ${minLength} Chacracters`);
+                flagValiate = false;
+            } else {
+                $("#msgLPassword").text("");
+                $("#msgLPassword").attr('data-validate', true);
+            }
+        }
+
+        function handleSubmitLogin() {
+            let strWPKey = localStorage.getItem("wProduct");
+            //$.ajax({
+            //    async: false,
+            //    cache: false,
+            //    data: {
+            //        lsProducts: strWPKey
+            //    },
+            //    url: "/WatchList/userLoginAddWList",
+            //}).done(function (data) {
+            //    localStorage.removeItem("wProduct");
+            //});
+        }
+    </script>
+</body>
+
+</html>

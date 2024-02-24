@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-8 col-lg-8">
+                    <div class="col-xl-8 col-lg-8" id="componentProducts">
                         <div class="tab-content" id="shop-tabContent">
                             <div class="tab-pane fade show mt-none-30 active" id="shop-tab-1" role="tabpanel" aria-labelledby="shop-tab-1-tab">
                                 <div class="row">
@@ -128,10 +128,10 @@
                         <div class="blog__sidebar blog__sidebar--shop mt-none-30">
                             <div class="widget mt-30">
                                 <h2 class="title">Search Here</h2>
-                                <form action="https://xpressrow.com/html/cafena/cafena/index.html" class="search-widget">
-                                    <input type="search" name="search" id="search" placeholder="Serach Product">
-                                    <button type="submit"><i class="fal fa-search"></i></button>
-                                </form>
+                                <div class="search-widget">
+                                    <input id="searchKeyWord" placeholder="Search Product" autocomplete="off">
+                                    <button type="button" id="btnSearch"><i class="fal fa-search"></i></button>
+                                </div>
                             </div>
                             <div class="widget mt-30">
                                 <h2 class="title">Categories</h2>
@@ -321,5 +321,42 @@
                 }
             });
         });
+        $("#btnSearch").click(function () {
+            var keyword = $("#searchKeyWord").val();
+            $.ajax({
+                type: "get",
+                url: "/Products/SearchProductsByKeyWord",
+                data: {
+                    keyword: keyword
+                },
+                success: function (res) {
+                    $("#componentProducts").html(res);
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        });
+        $('#searchKeyWord').keypress(function (event) {
+            var keyword = $("#searchKeyWord").val();
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if (keycode == '13') {
+                $.ajax({
+                    type: "get",
+                    url: "/Products/SearchProductsByKeyWord",
+                    data: {
+                        keyword: keyword
+                    },
+                    success: function (res) {
+                        $("#componentProducts").html(res);
+                    },
+                    error: function (response) {
+                        console.log(response.responseText);
+                    }
+                });
+            }
+        });
+
+
     });
 </script>

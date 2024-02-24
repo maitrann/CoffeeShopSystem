@@ -47,5 +47,17 @@ namespace WebMVC_CoffeeShopSystem.Controllers
             ViewBag.detailsProd = details;
             return PartialView();
         }
+    
+        public ActionResult SearchProductsByKeyWord(string keyword)
+        {
+            ViewBag.lstProdSearch = callProductDao.SearchProductsByKeyWord(keyword);
+            return PartialView();
+        }
+        public ActionResult SearchProductsByCategory(string lsIdCategory)
+        {
+            ViewBag.lstProdSearch = callProductDao.SearchProductsByCategory(lsIdCategory);
+            return PartialView("SearchProductsByKeyWord");
+        }
+
     }
 }
