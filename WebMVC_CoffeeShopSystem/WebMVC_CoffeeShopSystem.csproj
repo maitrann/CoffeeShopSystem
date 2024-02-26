@@ -183,6 +183,7 @@
     <Compile Include="BaseURL\accountUrl.cs" />
     <Compile Include="BaseURL\blogUrl.cs" />
     <Compile Include="BaseURL\cartUrl.cs" />
+    <Compile Include="BaseURL\categoryUrl.cs" />
     <Compile Include="BaseURL\googleAuthUrl.cs" />
     <Compile Include="BaseURL\invoiceUrl.cs" />
     <Compile Include="BaseURL\productUrl.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="CallRESTful\AccountCall.cs" />
     <Compile Include="CallRESTful\BlogCall.cs" />
     <Compile Include="CallRESTful\CartCall.cs" />
+    <Compile Include="CallRESTful\CategoryCall.cs" />
     <Compile Include="CallRESTful\GoogleAuthCall.cs" />
     <Compile Include="CallRESTful\InvoiceCall.cs" />
     <Compile Include="CallRESTful\ProductsCall.cs" />
@@ -206,6 +208,7 @@
     <Compile Include="Controllers\SigninController.cs" />
     <Compile Include="Controllers\VoucherController.cs" />
     <Compile Include="Dao\AccountDao.cs" />
+    <Compile Include="Dao\CategoryDao.cs" />
     <Compile Include="Dao\GoogleAuthDao.cs" />
     <Compile Include="Dao\InvoiceDao.cs" />
     <Compile Include="Dao\WatchListDao.cs" />

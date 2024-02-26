@@ -1,6 +1,8 @@
 ﻿@{
     ViewBag.Title = "Products";
     IEnumerable<WebAPI_CoffeeShop.Models.ModelView.ProductView> lstProd = ViewBag.lstProd;
+    IEnumerable<WebAPI_CoffeeShop.Models.ModelView.CategoryView> menuCate = ViewBag.menuCate;
+
 }
 
 <main>
@@ -58,9 +60,10 @@
                                     </div>
                                 </nav>
                                 <div class="sort-wrapper ml-45">
-                                    <select name="select" id="select">
-                                        <option value="1">Short By New</option>
-                                        <option value="2">Short By New</option>
+                                    <select name="select" id="selectPrice">
+                                        <option value="0" id="defaultPrice">Prices</option>
+                                        <option value="1">Prices range from High to Low</option>
+                                        <option value="2">Prices range from Low to High</option>
                                     </select>
                                 </div>
                             </div>
@@ -133,16 +136,19 @@
                                     <button type="button" id="btnSearch"><i class="fal fa-search"></i></button>
                                 </div>
                             </div>
-                            <div class="widget mt-30">
-                                <h2 class="title">Categories</h2>
-                                <ul>
-                                    <li class="cat-item"><a href="#0">Burger</a> <span>04</span></li>
-                                    <li class="cat-item"><a href="#0">2x Pizza</a> <span>06</span></li>
-                                    <li class="cat-item"><a href="#0">Cold Drinks</a> <span>08</span></li>
-                                    <li class="cat-item"><a href="#0">Chicken</a> <span>10</span></li>
-                                    <li class="cat-item"><a href="#0">Stuck Dish</a> <span>12</span></li>
-                                </ul>
-                            </div>
+                            @if (menuCate != null)
+                            {
+                                <div class="widget mt-30">
+                                    <h2 class="title">Categories</h2>
+                                    <ul>
+                                        @foreach (var item in menuCate)
+                                        {
+                                            <li style="cursor:pointer" name="menuCate" id="menuCate-@item.id" data-id="@item.id" class="cat-item"><a>@item.title</a> <span>@item.amountProductOfCate</span></li>
+                                        }
+                                    </ul>
+                                </div>
+                            }
+
                             <div class="widget mt-30">
                                 <h2 class="title">top Product</h2>
                                 <div class="recent-posts top-products">
@@ -346,6 +352,13 @@
             });
         });
         $("#btnSearch").click(function () {
+            document.getElementById("defaultPrice").selected = "true";
+            var menuIdCate = document.querySelectorAll(`[id^="menuCate-"]`);
+            menuIdCate.forEach(item => {
+                if (document.getElementById(item.id).style.borderColor == "black") {
+                    document.getElementById(item.id).style.borderColor = "";
+                }
+            });
             var keyword = $("#searchKeyWord").val();
             $.ajax({
                 type: "get",
@@ -365,6 +378,13 @@
             var keyword = $("#searchKeyWord").val();
             var keycode = (event.keyCode ? event.keyCode : event.which);
             if (keycode == '13') {
+                document.getElementById("defaultPrice").selected = "true";
+                var menuIdCate = document.querySelectorAll(`[id^="menuCate-"]`);
+                menuIdCate.forEach(item => {
+                    if (document.getElementById(item.id).style.borderColor == "black") {
+                        document.getElementById(item.id).style.borderColor = "";
+                    }
+                });
                 $.ajax({
                     type: "get",
                     url: "/Products/SearchProductsByKeyWord",
@@ -381,6 +401,64 @@
             }
         });
 
+        $("li[name='menuCate']").click(function (e) {
+            document.getElementById("defaultPrice").selected = "true";
+            $("#searchKeyWord").val("");
+            var idCate = e.target.getAttribute('data-id');
+            if (document.getElementById("menuCate-" + idCate).style.borderColor == "black") {
+                document.getElementById("menuCate-" + idCate).style.borderColor = "";
+            } else {
+                document.getElementById("menuCate-" + idCate).style.borderColor = "black";
+            }
+            var lstIdCate = "";
+            var menuIdCate = document.querySelectorAll(`[id^="menuCate-"]`);
+            menuIdCate.forEach(item => {
+                if (document.getElementById(item.id).style.borderColor == "black") {
+                    var idCateTemp = item.id.slice(9);
+                    if (lstIdCate == "") {
+                        lstIdCate = lstIdCate + idCateTemp;
+                    } else {
+                        lstIdCate = lstIdCate + "," + idCateTemp;
+                    }
+                }
+            });
+            $.ajax({
+                type: "get",
+                url: "/Products/SearchProductsByCategory",
+                data: {
+                    lsIdCategory: lstIdCate
+                },
+                success: function (res) {
+                    $("#componentProducts").html(res);
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
 
+        });
+
+        $("#selectPrice").change(function () {
+            $("#searchKeyWord").val("");
+            var menuIdCate = document.querySelectorAll(`[id^="menuCate-"]`);
+            menuIdCate.forEach(item => {
+                if (document.getElementById(item.id).style.borderColor == "black") {
+                    document.getElementById(item.id).style.borderColor = "";
+                }
+            });
+            $.ajax({
+                type: "get",
+                url: "/Products/SearchProductsByPrice",
+                data: {
+                    typePrice: $("#selectPrice").val()
+                },
+                success: function (res) {
+                    $("#componentProducts").html(res);
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        });
     });
 </script>

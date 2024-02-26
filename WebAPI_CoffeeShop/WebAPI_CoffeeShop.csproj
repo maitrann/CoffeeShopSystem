@@ -110,6 +110,7 @@
     <Compile Include="Controllers\AccountAPIController.cs" />
     <Compile Include="Controllers\BlogAPIController.cs" />
     <Compile Include="Controllers\CartAPIController.cs" />
+    <Compile Include="Controllers\CategoryAPIController.cs" />
     <Compile Include="Controllers\CommentAPIController.cs" />
     <Compile Include="Controllers\GoogleAccountAPIController.cs" />
     <Compile Include="Controllers\InvoiceAPIController.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Interface\IAccountRepository.cs" />
     <Compile Include="Interface\IBlogRepository.cs" />
     <Compile Include="Interface\ICartRepository.cs" />
+    <Compile Include="Interface\ICategoryRepository.cs" />
     <Compile Include="Interface\ICommentRepository.cs" />
     <Compile Include="Interface\IInvoiceRepository.cs" />
     <Compile Include="Interface\IProductRepository.cs" />
@@ -131,6 +133,7 @@
     <Compile Include="Models\ModelView\AccountView.cs" />
     <Compile Include="Models\ModelView\BlogView.cs" />
     <Compile Include="Models\ModelView\CartView.cs" />
+    <Compile Include="Models\ModelView\CategoryView.cs" />
     <Compile Include="Models\ModelView\CommentBlogView.cs" />
     <Compile Include="Models\ModelView\InvoiceDetailsView.cs" />
     <Compile Include="Models\ModelView\InvoiceView.cs" />
@@ -142,6 +145,7 @@
     <Compile Include="Repositories\AccountRepository.cs" />
     <Compile Include="Repositories\BlogRepository.cs" />
     <Compile Include="Repositories\CartRepository.cs" />
+    <Compile Include="Repositories\CategoryRepository.cs" />
     <Compile Include="Repositories\CommentBlogRepository.cs" />
     <Compile Include="Repositories\GoogleAccountRepository.cs" />
     <Compile Include="Repositories\InvoiceRepository.cs" />

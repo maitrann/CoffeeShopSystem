@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using WebAPI_CoffeeShop.Models.ModelView;
 using WebMVC_CoffeeShopSystem.Repositories;
+using WebMVC_CoffeeShopSystem.Dao;
 
 namespace WebMVC_CoffeeShopSystem.Controllers
 {
@@ -16,9 +17,11 @@ namespace WebMVC_CoffeeShopSystem.Controllers
     {
         // GET: Products
         dynamic callProductDao = ProductDao.Instance;
+        dynamic callCategoryDao = CategoryDao.Instance;
         public ActionResult Index()
         {
             ViewBag.lstProd = callProductDao.getProducts();
+            ViewBag.menuCate = callCategoryDao.GetMenuCategory();
             return View();
         }
         public ActionResult Details(int? idProd)
@@ -47,7 +50,7 @@ namespace WebMVC_CoffeeShopSystem.Controllers
             ViewBag.detailsProd = details;
             return PartialView();
         }
-    
+
         public ActionResult SearchProductsByKeyWord(string keyword)
         {
             ViewBag.lstProdSearch = callProductDao.SearchProductsByKeyWord(keyword);
@@ -58,6 +61,10 @@ namespace WebMVC_CoffeeShopSystem.Controllers
             ViewBag.lstProdSearch = callProductDao.SearchProductsByCategory(lsIdCategory);
             return PartialView("SearchProductsByKeyWord");
         }
-
+        public ActionResult SearchProductsByPrice(int typePrice)
+        {
+            ViewBag.lstProdSearch = callProductDao.SearchProductsByPrice(typePrice);
+            return PartialView("SearchProductsByKeyWord");
+        }
     }
 }
