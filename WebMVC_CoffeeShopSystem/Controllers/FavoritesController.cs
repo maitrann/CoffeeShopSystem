@@ -14,20 +14,38 @@ namespace WebMVC_CoffeeShopSystem.Controllers
         // GET: Favorites
         public ActionResult Index(string idAccount = null)
         {
-            idAccount = "7";
-            ViewBag.lstFv = WatchListDao.Instance.GetWatchList(idAccount.AsInt());
-            return View();
+            HttpCookie reqCookies = Request.Cookies["userInfo"];
+            if (reqCookies != null)
+            {
+                idAccount = reqCookies["userId"].ToString();
+                ViewBag.lstFv = WatchListDao.Instance.GetWatchList(idAccount.AsInt());
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Signin");
+            }
+
         }
         public string AddToWatchList(int idProduct)
         {
-            int idAccount = 7;
-            WatchList model = new WatchList();
-            model.idProduct = idProduct;
-            model.idAccount = idAccount;
-            model.createDate = DateTime.Now;
-            bool add = WatchListDao.Instance.InsertWatchList(model);
-            string res =add.ToString();
-            return res;
+            HttpCookie reqCookies = Request.Cookies["userInfo"];
+            if (reqCookies != null)
+            {
+                int idAccount = reqCookies["userId"].ToString().AsInt();
+                WatchList model = new WatchList();
+                model.idProduct = idProduct;
+                model.idAccount = idAccount;
+                model.createDate = DateTime.Now;
+                bool add = WatchListDao.Instance.InsertWatchList(model);
+                string res = add.ToString();
+                return res;
+            }
+            else
+            {
+                return "NotSignin";
+            }
+
         }
         public void RemoveToWatchList(int id)
         {

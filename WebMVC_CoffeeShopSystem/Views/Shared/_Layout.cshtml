@@ -1,5 +1,4 @@
 ﻿@{
-    var quantityCart = WebMVC_CoffeeShopSystem.Repositories.CartDao.Instance.quantityCartOfUser(7);
     string userId = string.Empty;
     string userName = string.Empty;
     HttpCookie reqCookies = Request.Cookies["userInfo"];
@@ -8,6 +7,7 @@
         userId = reqCookies["userId"].ToString();
         userName = reqCookies["userName"].ToString();
     }
+    var quantityCart = WebMVC_CoffeeShopSystem.Repositories.CartDao.Instance.quantityCartOfUser(userId.AsInt());
 }
 <!doctype html>
 <html class="no-js" lang="zxx">

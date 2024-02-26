@@ -1117,16 +1117,27 @@
         }
         onloadCommentBlog(idBlog);
         replyButtonSubmit(idBlog);
+        function checkUsersLogin() {
+            @{
+                HttpCookie reqCookies = Request.Cookies["userInfo"];
+                var userId = 0;
+                if (reqCookies != null)
+                {
+                    userId = reqCookies["userId"].ToString().AsInt();
+                }
+            }
+            if (@userId != 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
         $("#btnSubmit").on('click', function (e) {
             e.preventDefault();
-            //if (checkUsersLogin() == false) {
-            //    window.location.assign("http://localhost:8080/UsersLogin");
-            //    return "";
-            //};
-            //if (checkStatusOfAccount() == false) {
-            //    displayToastMessage(true, "Your Account Has Been Restricted");
-            //    return "";
-            //}
+            if (checkUsersLogin() == false) {
+                window.location.assign("http://localhost:52519/Signin");
+                //return "";
+            };
             var contentComment = $("textarea#comment").val();
             if (contentComment.trim().length == 0) {
                 $("textarea#comment").get(0).setCustomValidity('Please Input This Field');
@@ -1170,10 +1181,10 @@
             $(document).on('click', function (e) {
                 if (e.target.className == "submitReply") {
                     e.preventDefault();
-                    //if (checkUsersLogin() == false) {
-                    //    window.location.assign("http://localhost:8080/UsersLogin");
-                    //    return "";
-                    //};
+                    if (checkUsersLogin() == false) {
+                        window.location.assign("http://localhost:52519/Signin");
+                        return "";
+                    };
                     //if (checkStatusOfAccount() == false) {
                     //    displayToastMessage(true, "Your Account Has Been Restricted");
                     //    return "";
@@ -1252,7 +1263,7 @@
                     e.preventDefault();
                     var dataID = e.target.getAttribute("data-id");
                     var currentTag = $(`details[data-id=${dataID}]`);
-                    alert("ajax Delete");                    
+                    alert("ajax Delete");
                     //$.ajax({
                     //    async: false,
                     //    cache: false,

@@ -18,12 +18,6 @@ namespace WebMVC_CoffeeShopSystem.Controllers
                 ViewBag.shortMessageSignin = "true";
                 TempData.Remove("shortMessageSignin");
             }
-            //if (Request.Cookies["userId"].Value == "")
-            //{
-            //    Response.Cookies["userId"].Value = "";
-            //    Response.Cookies["userName"].Value = "";
-            //}
-
             return View();
         }
 

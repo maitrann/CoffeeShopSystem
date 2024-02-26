@@ -25,20 +25,29 @@ namespace WebMVC_CoffeeShopSystem.Controllers
         // GET: Checkout
         public ActionResult Index(string lsCartCheckout, string lsIdVoucherSupp, string idVoucherCafe, string priceTotal)
         {
-            if (lsCartCheckout != null)
+            HttpCookie reqCookies = Request.Cookies["userInfo"];
+            if (reqCookies != null)
             {
-                int idAccount = 7;
-                ViewBag.lsCartCheckout = callCartDao.GetCartCheckout(idAccount, lsCartCheckout);
-                ViewBag.lsVoucherOfSupp = callVoucherDao.GetVoucherByMulIdVoucher(lsIdVoucherSupp);
-                ViewBag.voucherCafe = callVoucherDao.GetVoucherByMulIdVoucher(idVoucherCafe);
-                ViewBag.strIdCart = lsCartCheckout;
-                ViewBag.priceTotal = priceTotal;
-                return View();
+                if (lsCartCheckout != null)
+                {
+                    int idAccount = reqCookies["userId"].ToString().AsInt();
+                    ViewBag.lsCartCheckout = callCartDao.GetCartCheckout(idAccount, lsCartCheckout);
+                    ViewBag.lsVoucherOfSupp = callVoucherDao.GetVoucherByMulIdVoucher(lsIdVoucherSupp);
+                    ViewBag.voucherCafe = callVoucherDao.GetVoucherByMulIdVoucher(idVoucherCafe);
+                    ViewBag.strIdCart = lsCartCheckout;
+                    ViewBag.priceTotal = priceTotal;
+                    return View();
+                }
+                else
+                {
+                    return Redirect("/Cart");
+                }
             }
             else
             {
-                return Redirect("/Cart");
+                return RedirectToAction("Index", "Signin");
             }
+
         }
         //ObjectInvoice callHandle = new ObjectInvoice();
         public ActionResult PaymentWithPaypal(string priceTotal, string address, string idVoucherS, string idVoucherA, string quantity, string lsIdCart,
@@ -158,11 +167,12 @@ namespace WebMVC_CoffeeShopSystem.Controllers
             this.payment = new Payment() { id = paymentId };
             return this.payment.Execute(apiContext, paymentExecution);
         }
-        private ObjectInvoice handleObjectInvoice(string priceTotal, string address, string idVoucherS, string idVoucherA,string quantity, string lsIdCart,
+        private ObjectInvoice handleObjectInvoice(string priceTotal, string address, string idVoucherS, string idVoucherA, string quantity, string lsIdCart,
             string lsIdSupplier, string priceSupp, string priceAdmin, string fee)
         {
+            HttpCookie reqCookies = Request.Cookies["userInfo"];
             ObjectInvoice objectInvoice = new ObjectInvoice();
-            objectInvoice.modelInvoice.idAccount = 7;
+            objectInvoice.modelInvoice.idAccount = reqCookies["userId"].ToString().AsInt();
             objectInvoice.modelInvoice.address = address;
             objectInvoice.modelInvoice.totalPrice = priceTotal.AsDecimal();
             objectInvoice.modelInvoice.idVoucherS = idVoucherS;

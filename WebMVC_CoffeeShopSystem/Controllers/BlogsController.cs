@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using WebAPI_CoffeeShop.Utilities;
 using WebMVC_CoffeeShopSystem.Repositories;
 
@@ -22,7 +23,14 @@ namespace WebMVC_CoffeeShopSystem.Controllers
             {
                 ViewBag.idBlog = id;
                 ViewBag.detailsBlog = BlogDao.Instance.GetBlogById(id);
-                return View();
+                if (BlogDao.Instance.GetBlogById(id) != null)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
             }
             else
             {
@@ -34,7 +42,16 @@ namespace WebMVC_CoffeeShopSystem.Controllers
         {
             if (id != null)
             {
-                var idUser = 7;
+                int idUser = 0;
+                HttpCookie reqCookies = Request.Cookies["userInfo"];
+                if (reqCookies != null)
+                {
+                    idUser = reqCookies["userId"].ToString().AsInt();
+                }
+                else
+                {
+                    idUser = -1;
+                }
                 ViewBag.idBlog = id;
                 ViewBag.commentsBlog = BlogDao.Instance.GetCommentBlogById(id);
                 ViewBag.crrUser = idUser;
@@ -47,11 +64,13 @@ namespace WebMVC_CoffeeShopSystem.Controllers
         }
         public ActionResult InsertMainCommentBlog(int idBlog, string content)
         {
-            var idUser = 7;
-            Comment_SubC_Type_Result subC =  new Comment_SubC_Type_Result();
-            subC.idAccount=idUser.ToString();
-            subC.idBlog=idBlog;
-            subC.comment=content;
+            HttpCookie reqCookies = Request.Cookies["userInfo"];
+
+            var idUser = reqCookies["userId"].ToString().AsInt();
+            Comment_SubC_Type_Result subC = new Comment_SubC_Type_Result();
+            subC.idAccount = idUser.ToString();
+            subC.idBlog = idBlog;
+            subC.comment = content;
             subC.userType = 2;
 
             subC = BlogDao.Instance.InsertCommentBlog(subC);
@@ -59,15 +78,17 @@ namespace WebMVC_CoffeeShopSystem.Controllers
             ViewBag.crrUser = idUser;
             return PartialView();
         }
-        public ActionResult InsertSubCommentBlog(int idBlog,int idReply,string content, int idMainB)
+        public ActionResult InsertSubCommentBlog(int idBlog, int idReply, string content, int idMainB)
         {
-            var idUser = 7;
+            HttpCookie reqCookies = Request.Cookies["userInfo"];
+
+            var idUser = reqCookies["userId"].ToString().AsInt();
             Comment_SubC_Type_Result subC = new Comment_SubC_Type_Result();
             subC.idAccount = idUser.ToString();
-            subC.idBlog= idBlog;
-            subC.idReply=idReply;
-            subC.comment=content;
-            subC.idMainComment=idMainB;
+            subC.idBlog = idBlog;
+            subC.idReply = idReply;
+            subC.comment = content;
+            subC.idMainComment = idMainB;
             subC.userType = 2;
 
             subC = BlogDao.Instance.InsertCommentBlog(subC);

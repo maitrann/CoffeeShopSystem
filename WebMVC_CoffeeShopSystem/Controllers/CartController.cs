@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 using WebAPI_CoffeeShop.Utilities;
 using WebMVC_CoffeeShopSystem.Repositories;
 
@@ -14,19 +15,35 @@ namespace WebMVC_CoffeeShopSystem.Controllers
         // GET: Cart
         public ActionResult Index()
         {
-            int idAccount = 7;
-            ViewBag.lstCart = CartDao.Instance.getCart(idAccount);
-            return View();
+            HttpCookie reqCookies = Request.Cookies["userInfo"];
+            if (reqCookies != null)
+            {
+                var userId = reqCookies["userId"].ToString();
+                ViewBag.lstCart = CartDao.Instance.getCart(userId.AsInt());
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Signin");
+            }
         }
-        public void AddToCart(int idProduct, int Amount, decimal Price)
+        public string AddToCart(int idProduct, int Amount, decimal Price)
         {
-            Cart model = new Cart();
-            model.idAccount = 7;
-            model.idProduct = idProduct;
-            model.Amount = Amount;
-            model.Price = Price;
-            model.Status = true;
-            CartDao.Instance.UpdateInsertCart(model);
+            HttpCookie reqCookies = Request.Cookies["userInfo"];
+            if (reqCookies != null)
+            {
+                Cart model = new Cart();
+                model.idAccount = reqCookies["userId"].ToString().AsInt();
+                model.idProduct = idProduct;
+                model.Amount = Amount;
+                model.Price = Price;
+                model.Status = true;
+                CartDao.Instance.UpdateInsertCart(model);
+                return "True";
+            } else
+            {
+                return "False";
+            }
         }
         public void UpdateCart(int idCart, int amount, decimal? price)
         {

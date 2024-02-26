@@ -3,6 +3,8 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
     WebAPI_CoffeeShop.Models.ModelView.ProductView detailsProd = ViewBag.detailsProd;
+    HttpCookie reqCookies = Request.Cookies["userInfo"];
+    var userId = reqCookies["userId"].ToString();
 }
 <main>
     <!-- breadcrumb area start -->
@@ -373,17 +375,27 @@
                     Price: Price
                 },
                 success: function (res) {
-                    Swal.fire({
-                        title: "Add to Cart!",
-                        text: "The product has been added to cart",
-                        icon: "success",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    @{
-                        var quantityCart = WebMVC_CoffeeShopSystem.Repositories.CartDao.Instance.quantityCartOfUser(7);
+                    if (res == "True") {
+                        Swal.fire({
+                            title: "Add to Cart!",
+                            text: "The product has been added to cart",
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        @{
+                            var quantityCart = WebMVC_CoffeeShopSystem.Repositories.CartDao.Instance.quantityCartOfUser(userId.AsInt());
+                        }
+                        $("#quantityCartLayout").text('@quantityCart');
+                    } else {
+                        Swal.fire({
+                            title: "Add to Cart!",
+                            text: "Please signin to add products to cart",
+                            icon: "error",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
                     }
-                    $("#quantityCartLayout").text('@quantityCart');
                 },
                 error: function (response) {
                     console.log(response.responseText);

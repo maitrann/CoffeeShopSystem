@@ -273,17 +273,33 @@
                     Price: Price
                 },
                 success: function (res) {
-                    Swal.fire({
-                        title: "Add to Cart!",
-                        text: "The product has been added to cart",
-                        icon: "success",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                    @{
-                        var quantityCart = WebMVC_CoffeeShopSystem.Repositories.CartDao.Instance.quantityCartOfUser(7);
+                    if (res == "True") {
+                        Swal.fire({
+                            title: "Add to Cart!",
+                            text: "The product has been added to cart",
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                        @{
+                            HttpCookie reqCookies = Request.Cookies["userInfo"];
+                            var userId = 0;
+                            if (reqCookies != null)
+                            {
+                                userId = reqCookies["userId"].ToString().AsInt();
+                            }
+                            var quantityCart = WebMVC_CoffeeShopSystem.Repositories.CartDao.Instance.quantityCartOfUser(userId);
+                        }
+                        $("#quantityCartLayout").text('@quantityCart');
+                    } else {
+                        Swal.fire({
+                            title: "Add to Cart!",
+                            text: "Please signin to add products to cart",
+                            icon: "error",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
                     }
-                    $("#quantityCartLayout").text('@quantityCart');
                 },
                 error: function (response) {
                     console.log(response.responseText);
@@ -306,11 +322,19 @@
                             showConfirmButton: false,
                             timer: 1500
                         });
-                    } else {
+                    } else if (res == "False") {
                         Swal.fire({
                             title: "Remove to Favorites list!",
                             text: "The product has been removed to favorites list",
                             icon: "info",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Add to Favorites list!",
+                            text: "Please signin to add products to favorites list",
+                            icon: "error",
                             showConfirmButton: false,
                             timer: 1500
                         });

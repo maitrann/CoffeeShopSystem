@@ -52,10 +52,11 @@ namespace WebAPI_CoffeeShop.Repositories
         {
             using (var context = new CoffeeShopSystemEntities())
             {
-                var cart = context.Carts.Where(c => c.idProduct == model.idProduct & c.Status == true).FirstOrDefault();
-                var cartAmountOld = cart.Amount;
+                var cart = context.Carts.Where(c => c.idAccount==model.idAccount & c.idProduct == model.idProduct & c.Status == true).FirstOrDefault();
                 if (cart != null)
                 {
+                    var cartAmountOld = cart.Amount;
+                    //update cart
                     cart.Amount += model.Amount;
                     if (cart.Amount >= 50)
                     {
@@ -70,6 +71,7 @@ namespace WebAPI_CoffeeShop.Repositories
                 }
                 else
                 {
+                    //insert cart
                     context.Carts.Add(model);
                     context.SaveChanges();
                 }
