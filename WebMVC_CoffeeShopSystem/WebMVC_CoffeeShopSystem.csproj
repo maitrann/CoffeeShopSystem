@@ -187,6 +187,7 @@
     <Compile Include="BaseURL\googleAuthUrl.cs" />
     <Compile Include="BaseURL\invoiceUrl.cs" />
     <Compile Include="BaseURL\productUrl.cs" />
+    <Compile Include="BaseURL\reviewUrl.cs" />
     <Compile Include="BaseURL\voucherUrl.cs" />
     <Compile Include="BaseURL\watchListUrl.cs" />
     <Compile Include="CallRESTful\AccountCall.cs" />
@@ -196,6 +197,7 @@
     <Compile Include="CallRESTful\GoogleAuthCall.cs" />
     <Compile Include="CallRESTful\InvoiceCall.cs" />
     <Compile Include="CallRESTful\ProductsCall.cs" />
+    <Compile Include="CallRESTful\ReviewCall.cs" />
     <Compile Include="CallRESTful\VoucherCall.cs" />
     <Compile Include="CallRESTful\WatchListCall.cs" />
     <Compile Include="Controllers\BlogsController.cs" />
@@ -211,6 +213,7 @@
     <Compile Include="Dao\CategoryDao.cs" />
     <Compile Include="Dao\GoogleAuthDao.cs" />
     <Compile Include="Dao\InvoiceDao.cs" />
+    <Compile Include="Dao\ReviewDao.cs" />
     <Compile Include="Dao\WatchListDao.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

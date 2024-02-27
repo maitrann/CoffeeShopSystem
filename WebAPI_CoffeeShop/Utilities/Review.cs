@@ -20,5 +20,6 @@ namespace WebAPI_CoffeeShop.Utilities
         public Nullable<int> review1 { get; set; }
         public Nullable<System.DateTime> createDate { get; set; }
         public Nullable<int> invoiceDetail { get; set; }
+        public string content1 { get; set; }
     }
 }

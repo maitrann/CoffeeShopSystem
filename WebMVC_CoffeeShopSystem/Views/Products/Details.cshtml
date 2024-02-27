@@ -87,13 +87,19 @@
                             <h2 class="title">@detailsProd.title</h2>
                             <div class="rating-wrapper d-flex align-items-center justify-content-center">
                                 <div class="rattings d-flex align-items-center">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fal fa-star"></i>
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        if (i <= ViewBag.avgReview || (i - ViewBag.avgReview < 0.5))
+                                        {
+                                            <i class="fas fa-star"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fal fa-star"></i>
+                                        }
+                                    }
                                 </div>
-                                <span class="rt-number">04 - Customar Review</span>
+                                <span class="rt-number"><span style="color:black" id="avgReview">@ViewBag.avgReview</span>/5 -- 2 Customer Review</span>
                             </div>
                         </div>
                         <p>@detailsProd.description</p>
@@ -140,7 +146,7 @@
                                 Product Details
                             </a>
                             <a class="nav-link" id="pinfo-3-tab" data-bs-toggle="tab" href="#pinfo-3" role="tab" aria-controls="pinfo-3" aria-selected="true">
-                                (04) Review
+                                (2) Review
                             </a>
                         </div>
                     </nav>
@@ -151,52 +157,48 @@
                     </div>
                     <div class="tab-pane fade" id="pinfo-3" role="tabpanel" aria-labelledby="pinfo-3-tab">
                         <div class="pp-comments">
-                            <div class="comment d-flex">
-                                <div class="thumb">
-                                    <img src="~/Content/assets/images/author/c-author-1.png" alt="img">
-                                </div>
-                                <div class="content pl-20">
-                                    <h5 class="name">Roger West -<span class="date">June 5, 2021</span></h5>
-                                    <div class="review d-flex">
-                                        <i class="fal fa-star"></i>
-                                        <i class="fal fa-star"></i>
-                                        <i class="fal fa-star"></i>
-                                        <i class="fal fa-star"></i>
-                                        <i class="fal fa-star"></i>
+                            @if (ViewBag.lstReview != null)
+                            {
+                                foreach (var item in ViewBag.lstReview)
+                                {
+                                    <div class="comment d-flex">
+                                        <div class="thumb">
+                                            <img src="~/Content/assets/images/author/c-author-1.png" alt="img">
+                                        </div>
+                                        <div class="content pl-20">
+                                            <h5 class="name">Roger West -<span class="date">@item.createDate</span></h5>
+                                            <div class="review d-flex">
+                                                @for (int i = 1; i <= 5; i++)
+                                                {
+                                                    if (i <= item.review1)
+                                                    {
+                                                        <i class="fas fa-star"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fal fa-star"></i>
+                                                    }
+                                                }
+                                            </div>
+                                            <p>@item.content1</p>
+                                        </div>
                                     </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-                                </div>
-                            </div>
-                            <div class="comment d-flex">
-                                <div class="thumb">
-                                    <img src="~/Content/assets/images/author/c-author-2.png" alt="img">
-                                </div>
-                                <div class="content pl-20">
-                                    <h5 class="name">Aayat West -<span class="date">June 9, 2021</span></h5>
-                                    <div class="review d-flex">
-                                        <i class="fal fa-star"></i>
-                                        <i class="fal fa-star"></i>
-                                        <i class="fal fa-star"></i>
-                                        <i class="fal fa-star"></i>
-                                        <i class="fal fa-star"></i>
+                                }
+                            }
+                        </div>
+                        @*<div class="pp-comments-form mt-50">
+                                <h4 class="title">Add a Review</h4>
+                                <div class="rev-top d-flex align-items-center mb-40">
+                                    <span>Your Rating:</span>
+                                    <div class="review d-flex align-items-center">
+                                        <a href="#0"><i class="fal fa-star"></i></a>
+                                        <a href="#0"><i class="fal fa-star"></i></a>
+                                        <a href="#0"><i class="fal fa-star"></i></a>
+                                        <a href="#0"><i class="fal fa-star"></i></a>
+                                        <a href="#0"><i class="fal fa-star"></i></a>
                                     </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="pp-comments-form mt-50">
-                            <h4 class="title">Add a Review</h4>
-                            <div class="rev-top d-flex align-items-center mb-40">
-                                <span>Your Rating:</span>
-                                <div class="review d-flex align-items-center">
-                                    <a href="#0"><i class="fal fa-star"></i></a>
-                                    <a href="#0"><i class="fal fa-star"></i></a>
-                                    <a href="#0"><i class="fal fa-star"></i></a>
-                                    <a href="#0"><i class="fal fa-star"></i></a>
-                                    <a href="#0"><i class="fal fa-star"></i></a>
-                                </div>
-                            </div>
-                        </div>
+                            </div>*@
                     </div>
                 </div>
             </div>
@@ -353,6 +355,16 @@
 </main>
 <script src="~/Content/assets/js/jquery-2.2.4.min.js"></script>
 <script>
+    function roundToTwo(num) {
+        return +(Math.round(num + "e+2") + "e-2");
+    };
+    var avgReview = '@ViewBag.avgReview';
+    if (Number.isInteger(avgReview)) {
+        $("#avgReview").text(avgReview);
+
+    } else {
+        $("#avgReview").text(roundToTwo(avgReview));
+    }
     $(document).ready(function () {
         $("#quantity").on("blur", function () {
             var checkQuanti = $("#quantity").val();

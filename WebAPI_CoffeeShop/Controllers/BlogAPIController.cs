@@ -24,6 +24,11 @@ namespace WebAPI_CoffeeShop.Controllers
         {
             return _blogRepository.GetBlogById(idBlog);
         }
+        [HttpGet]
+        public IEnumerable<BlogView> SearchBlogByKeyword(string keyword)
+        {
+            return _blogRepository.SearchBlogByKeyword(keyword);
+        }
 
     }
 }

@@ -183,6 +183,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <Property Name="idAccount" Type="int" />
           <Property Name="idProduct" Type="int" />
           <Property Name="review" Type="int" />
+          <Property Name="content" Type="varchar" MaxLength="100" />
           <Property Name="createDate" Type="date" />
           <Property Name="invoiceDetail" Type="int" />
         </EntityType>
@@ -749,6 +750,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <Property Name="review1" Type="Int32" />
           <Property Name="createDate" Type="DateTime" Precision="0" />
           <Property Name="invoiceDetail" Type="Int32" />
+          <Property Name="content1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Supplier">
           <Key>
@@ -1360,6 +1362,7 @@ warning 6002: The table/view 'coffee_shop_system.dbo.Admin' does not have a prim
           <EntitySetMapping Name="Reviews">
             <EntityTypeMapping TypeName="CoffeeShopSystemModel.Review">
               <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="content1" ColumnName="content" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="idAccount" ColumnName="idAccount" />
                 <ScalarProperty Name="idProduct" ColumnName="idProduct" />

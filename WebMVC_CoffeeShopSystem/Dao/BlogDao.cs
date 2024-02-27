@@ -34,6 +34,10 @@ namespace WebMVC_CoffeeShopSystem.Repositories
         {
             return BlogCall.Instance.GetAllBlog();
         }
+        public IEnumerable<BlogView> SearchBlogByKeyword(string keyword)
+        {
+            return BlogCall.Instance.SearchBlogByKeyword(keyword);
+        }
         public BlogView GetBlogById(int? idBlog)
         {
             return BlogCall.Instance.GetBlogById(idBlog);

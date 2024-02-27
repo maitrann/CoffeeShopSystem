@@ -43,6 +43,22 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
                 return prodInfo;
             }
         }
+        public IEnumerable<BlogView> SearchBlogByKeyword(string keyword)
+        {
+            List<BlogView> prodInfo = new List<BlogView>();
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = client.GetAsync(blogUrl.SearchBlogByKeyword + "?keyword=" + keyword).GetAwaiter().GetResult();
+                if (Res.IsSuccessStatusCode)
+                {
+                    var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    prodInfo = JsonConvert.DeserializeObject<List<BlogView>>(prodResponse);
+                }
+                return prodInfo;
+            }
+        }
         public BlogView GetBlogById(int? idBlog)
         {
             BlogView prodInfo = new BlogView();
@@ -82,7 +98,7 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
             {
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = client.PostAsJsonAsync(blogUrl.InsertCommentBlog,model).GetAwaiter().GetResult();
+                HttpResponseMessage Res = client.PostAsJsonAsync(blogUrl.InsertCommentBlog, model).GetAwaiter().GetResult();
                 if (Res.IsSuccessStatusCode)
                 {
                     var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();

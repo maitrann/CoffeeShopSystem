@@ -130,10 +130,11 @@
                     <div class="col-xl-6 col-lg-12  align-self-center">
                         <div class="header-top__right header-top__right--2 d-flex justify-content-xl-end justify-content-center align-items-center">
                             <div class="search__form">
-                                <form role="search" method="get" action="https://xpressrow.com/html/cafena/cafena/index.html">
-                                    <input type="search" name="s" value="" placeholder="Search Keywords" autocomplete="off">
+                                <div style=" position: relative;">
+                                    <input type="search" id="searchLayout" placeholder="Search Keywords" autocomplete="off">
                                     <button type="submit"><i class="far fa-search"></i></button>
-                                </form>
+                                </div>
+
                             </div>
                             <div class="menu-area__right menu-area__right--2 d-flex justify-content-end align-items-center">
                                 <div class="hamburger-trigger item">
@@ -345,7 +346,10 @@
         </div>
     </aside>
     <div class="overlay"></div>
-    @RenderBody()
+    <div id="componentLayout">
+        @RenderBody()
+
+    </div>
     <footer class="site-footer dark-bg pt-125 position-relative">
         <div class="footer__top">
             <a href="#" class="go-top go-top__white position-absolute d-flex align-items-center justify-content-center">
@@ -433,7 +437,6 @@
             </div>
         </div>
     </footer>
-
     <!--========= JS Here =========-->
     <script src="~/Content/assets/js/jquery-2.2.4.min.js"></script>
     <script>
@@ -458,6 +461,40 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfpGBFn5yRPvJrvAKoGIdj1O1aO9QisgQ"></script>
     <script src="~/Content/assets/js/jquery-ui-slider-range.js"></script>
     <script src="~/Content/assets/js/main.js"></script>
+    <script>
+        $('#searchLayout').keypress(function (event) {
+            var keyword = $("#searchLayout").val();
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if (keycode == '13') {
+                //document.getElementById("defaultPrice").selected = "true";
+                //var menuIdCate = document.querySelectorAll(`[id^="menuCate-"]`);
+                //menuIdCate.forEach(item => {
+                //    if (document.getElementById(item.id).style.borderColor == "black") {
+                //        document.getElementById(item.id).style.borderColor = "";
+                //    }
+                //});
+                if (keyword != "") {
+                    $.ajax({
+                        type: "get",
+                        url: "/Products/SearchProductsByKeyWord",
+                        data: {
+                            keyword: keyword
+                        },
+                        success: function (res) {
+                            $("#componentLayout").html('<div class="container">' + res + '</div>'
+                                + '<br /> <br /> <br />');
+                        },
+                        error: function (response) {
+                            console.log(response.responseText);
+                        }
+                    });
+                } else {
+                    window.location.href = "http://localhost:52519/";
+                }
+
+            }
+        });
+    </script>
 </body>
 
 

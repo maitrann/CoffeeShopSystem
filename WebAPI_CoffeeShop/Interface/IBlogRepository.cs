@@ -11,5 +11,6 @@ namespace WebAPI_CoffeeShop.Interface
     {
         IEnumerable<BlogView> GetAllBlog();
         BlogView GetBlogById(int idBlog);
+        IEnumerable<BlogView> SearchBlogByKeyword(string keyword);
     }
 }

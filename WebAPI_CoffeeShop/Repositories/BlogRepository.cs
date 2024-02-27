@@ -53,5 +53,26 @@ namespace WebAPI_CoffeeShop.Repositories
             }
             return query;
         }
+        public IEnumerable<BlogView> SearchBlogByKeyword(string keyword)
+        {
+            IEnumerable<BlogView> query;
+            using (var context = new CoffeeShopSystemEntities())
+            {
+                query = context.Blogs.Where(b => b.title == keyword & b.isStatus == 1)
+                    .Select(b => new BlogView()
+                    {
+                        id = b.id,
+                        userCreate = b.userCreate,
+                        titleUserCreate = b.userCreate != 0 ? context.Suppliers.Where(s => s.id == b.userCreate).Select(s => s.title).FirstOrDefault() : "Cafena",
+                        title = b.title,
+                        image = b.image,
+                        description = b.description,
+                        createDate = b.createDate.ToString(),
+                        countCmt = context.CommentBlogs.Where(c => c.idBlog == b.id & c.status == 1).Count(),
+                        isStatus = b.isStatus,
+                    }).OrderByDescending(b => b.id).ToList();
+            }
+            return query;
+        }
     }
 }

@@ -18,6 +18,8 @@ namespace WebMVC_CoffeeShopSystem.Controllers
         // GET: Products
         dynamic callProductDao = ProductDao.Instance;
         dynamic callCategoryDao = CategoryDao.Instance;
+        dynamic callReviewDao = ReviewDao.Instance;
+
         public ActionResult Index()
         {
             ViewBag.lstProd = callProductDao.getProducts();
@@ -32,6 +34,8 @@ namespace WebMVC_CoffeeShopSystem.Controllers
                 if (details != null)
                 {
                     ViewBag.detailsProd = details;
+                    ViewBag.avgReview = callReviewDao.avgReviewOfProduct(idProd);
+                    ViewBag.lstReview = callReviewDao.GetReviewsOfProduct(idProd);
                     return View();
                 }
                 else
