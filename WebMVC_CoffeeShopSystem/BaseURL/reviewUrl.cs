@@ -9,6 +9,7 @@ namespace WebMVC_CoffeeShopSystem.BaseURL
     {
         public static string GetReviewsOfProduct = "http://localhost:63566/api/ReviewAPI/GetReviewsOfProduct";
         public static string avgReviewOfProduct = "http://localhost:63566/api/ReviewAPI/avgReviewOfProduct";
+        public static string countReviewOfProduct = "http://localhost:63566/api/ReviewAPI/countReviewOfProduct";
 
 
     }

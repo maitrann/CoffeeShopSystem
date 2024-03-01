@@ -25,5 +25,10 @@ namespace WebAPI_CoffeeShop.Controllers
         {
             return _reviewRepository.avgReviewOfProduct(idProduct);
         }
+        [HttpGet]
+        public int countReviewOfProduct(int? idProduct)
+        {
+            return _reviewRepository.countReviewOfProduct(idProduct);
+        }
     }
 }

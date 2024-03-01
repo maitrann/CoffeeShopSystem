@@ -59,5 +59,21 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
                 return avgReview;
             }
         }
+        public int countReviewOfProduct(int? idProduct)
+        {
+            int avgReview = 0;
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = client.GetAsync(reviewUrl.countReviewOfProduct + "?idProduct=" + idProduct).GetAwaiter().GetResult();
+                if (Res.IsSuccessStatusCode)
+                {
+                    var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    avgReview = JsonConvert.DeserializeObject<int>(prodResponse);
+                }
+                return avgReview;
+            }
+        }
     }
 }

@@ -37,5 +37,9 @@ namespace WebMVC_CoffeeShopSystem.Dao
         {
             return ReviewCall.Instance.avgReviewOfProduct(idProduct);
         }
+        public int countReviewOfProduct(int? idProduct)
+        {
+            return ReviewCall.Instance.countReviewOfProduct(idProduct);
+        }
     }
 }

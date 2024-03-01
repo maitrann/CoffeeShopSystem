@@ -3,8 +3,12 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
     WebAPI_CoffeeShop.Models.ModelView.ProductView detailsProd = ViewBag.detailsProd;
+    var userId = "0";
     HttpCookie reqCookies = Request.Cookies["userInfo"];
-    var userId = reqCookies["userId"].ToString();
+    if (reqCookies != null)
+    {
+        userId = reqCookies["userId"].ToString();
+    }
 }
 <main>
     <!-- breadcrumb area start -->
@@ -99,7 +103,7 @@
                                         }
                                     }
                                 </div>
-                                <span class="rt-number"><span style="color:black" id="avgReview">@ViewBag.avgReview</span>/5 -- 2 Customer Review</span>
+                                <span class="rt-number"><span style="color:black" id="avgReview">@ViewBag.avgReview</span>/5 -- @ViewBag.countReview Customer Review</span>
                             </div>
                         </div>
                         <p>@detailsProd.description</p>
@@ -146,7 +150,7 @@
                                 Product Details
                             </a>
                             <a class="nav-link" id="pinfo-3-tab" data-bs-toggle="tab" href="#pinfo-3" role="tab" aria-controls="pinfo-3" aria-selected="true">
-                                (2) Review
+                                (@ViewBag.countReview) Review
                             </a>
                         </div>
                     </nav>
@@ -240,7 +244,7 @@
                                 </div>
                             </div>
                             <h4 class="pp__title pp__title--2">
-                                <a href="product-details.html">vicaragua Coffee Beans</a>
+                                <a href="#">vicaragua Coffee Beans</a>
                             </h4>
                             <div class="pp__price pp__price--2 d-flex align-items-center justify-content-center">
                                 <h6 class="label">Price - </h6>
@@ -273,7 +277,7 @@
                                 </div>
                             </div>
                             <h4 class="pp__title pp__title--2">
-                                <a href="product-details.html">CAFFÈ LATTE</a>
+                                <a href="#">CAFFÈ LATTE</a>
                             </h4>
                             <div class="pp__price pp__price--2 d-flex align-items-center justify-content-center">
                                 <h6 class="label">Price - </h6>
@@ -306,7 +310,7 @@
                                 </div>
                             </div>
                             <h4 class="pp__title pp__title--2">
-                                <a href="product-details.html">JAPANIS COFFEE GRED</a>
+                                <a href="#">JAPANIS COFFEE GRED</a>
                             </h4>
                             <div class="pp__price pp__price--2 d-flex align-items-center justify-content-center">
                                 <h6 class="label">Price - </h6>
@@ -339,7 +343,7 @@
                                 </div>
                             </div>
                             <h4 class="pp__title pp__title--2">
-                                <a href="product-details.html">AMERICANO COFFEE</a>
+                                <a href="#">AMERICANO COFFEE</a>
                             </h4>
                             <div class="pp__price pp__price--2 d-flex align-items-center justify-content-center">
                                 <h6 class="label">Price - </h6>

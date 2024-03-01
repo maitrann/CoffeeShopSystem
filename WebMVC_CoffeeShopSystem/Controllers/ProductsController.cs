@@ -35,6 +35,7 @@ namespace WebMVC_CoffeeShopSystem.Controllers
                 {
                     ViewBag.detailsProd = details;
                     ViewBag.avgReview = callReviewDao.avgReviewOfProduct(idProd);
+                    ViewBag.countReview =callReviewDao.countReviewOfProduct(idProd);
                     ViewBag.lstReview = callReviewDao.GetReviewsOfProduct(idProd);
                     return View();
                 }
