@@ -188,6 +188,7 @@
     <Compile Include="BaseURL\invoiceUrl.cs" />
     <Compile Include="BaseURL\productUrl.cs" />
     <Compile Include="BaseURL\reviewUrl.cs" />
+    <Compile Include="BaseURL\supplierUrl.cs" />
     <Compile Include="BaseURL\voucherUrl.cs" />
     <Compile Include="BaseURL\watchListUrl.cs" />
     <Compile Include="CallRESTful\AccountCall.cs" />
@@ -198,8 +199,10 @@
     <Compile Include="CallRESTful\InvoiceCall.cs" />
     <Compile Include="CallRESTful\ProductsCall.cs" />
     <Compile Include="CallRESTful\ReviewCall.cs" />
+    <Compile Include="CallRESTful\SupplierCall.cs" />
     <Compile Include="CallRESTful\VoucherCall.cs" />
     <Compile Include="CallRESTful\WatchListCall.cs" />
+    <Compile Include="Controllers\BecomeSellerController.cs" />
     <Compile Include="Controllers\BlogsController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
@@ -214,6 +217,7 @@
     <Compile Include="Dao\GoogleAuthDao.cs" />
     <Compile Include="Dao\InvoiceDao.cs" />
     <Compile Include="Dao\ReviewDao.cs" />
+    <Compile Include="Dao\SupplierDao.cs" />
     <Compile Include="Dao\WatchListDao.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -493,6 +497,7 @@
     <Content Include="Views\Favorites\Index.cshtml" />
     <Content Include="Views\Products\SearchProductsByKeyWord.cshtml" />
     <Content Include="Views\Signin\Index.cshtml" />
+    <Content Include="Views\BecomeSeller\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

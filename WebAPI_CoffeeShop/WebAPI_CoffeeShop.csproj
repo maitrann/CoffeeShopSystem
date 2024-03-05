@@ -116,6 +116,7 @@
     <Compile Include="Controllers\InvoiceAPIController.cs" />
     <Compile Include="Controllers\ProductAPIController.cs" />
     <Compile Include="Controllers\ReviewAPIController.cs" />
+    <Compile Include="Controllers\SupplierAPIController.cs" />
     <Compile Include="Controllers\VoucherAPIController.cs" />
     <Compile Include="Controllers\WatchListAPIController.cs" />
     <Compile Include="Global.asax.cs">
@@ -129,6 +130,7 @@
     <Compile Include="Interface\IInvoiceRepository.cs" />
     <Compile Include="Interface\IProductRepository.cs" />
     <Compile Include="Interface\IReviewRepository.cs" />
+    <Compile Include="Interface\ISupplierRepository.cs" />
     <Compile Include="Interface\IVoucherRepository.cs" />
     <Compile Include="Interface\IWatchListRepository.cs" />
     <Compile Include="Models\GoogleAccount.cs" />
@@ -153,6 +155,7 @@
     <Compile Include="Repositories\InvoiceRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\ReviewRepository.cs" />
+    <Compile Include="Repositories\SupplierRepository.cs" />
     <Compile Include="Repositories\VoucherRepository.cs" />
     <Compile Include="Repositories\WatchListRepository.cs" />
     <Compile Include="Utilities\Account.cs">
@@ -197,6 +200,7 @@
     <Compile Include="Utilities\Comment_SubC_Type_Result.cs">
       <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\ConvertToUnSign.cs" />
     <Compile Include="Utilities\Discount.cs">
       <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
