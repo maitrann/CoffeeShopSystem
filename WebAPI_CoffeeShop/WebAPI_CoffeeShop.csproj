@@ -228,6 +228,7 @@
     <Compile Include="Utilities\Product.cs">
       <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\RandomString.cs" />
     <Compile Include="Utilities\Review.cs">
       <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>

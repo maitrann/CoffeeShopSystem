@@ -14,7 +14,7 @@ namespace WebAPI_CoffeeShop.Controllers
     {
 		ISupplierRepository _supplierRepository = new SupplierRepository();
 		[HttpPost]
-		public bool RegiterSupplier(Supplier model)
+		public Supplier RegiterSupplier(Supplier model)
 		{
 			return _supplierRepository.RegiterSupplier(model);
 		}

@@ -26,9 +26,9 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
                 return instance;
             }
         }
-        public bool RegiterSupplier(Supplier model)
+        public Supplier RegiterSupplier(Supplier model)
         {
-            bool prodInfo = false;
+            Supplier prodInfo = new Supplier();
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Clear();
@@ -37,7 +37,7 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
                 if (Res.IsSuccessStatusCode)
                 {
                     var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                    prodInfo = JsonConvert.DeserializeObject<bool>(prodResponse);
+                    prodInfo = JsonConvert.DeserializeObject<Supplier>(prodResponse);
                 }
                 return prodInfo;
             }

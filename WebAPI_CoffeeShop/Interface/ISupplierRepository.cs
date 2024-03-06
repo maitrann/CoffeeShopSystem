@@ -9,7 +9,7 @@ namespace WebAPI_CoffeeShop.Interface
 {
 	internal interface ISupplierRepository
 	{
-        bool RegiterSupplier(Supplier model);
+        Supplier RegiterSupplier(Supplier model);
 		bool checkExistEmail(string emailRegis);
 		bool checkExistPhone(string phoneRegis);
 	}

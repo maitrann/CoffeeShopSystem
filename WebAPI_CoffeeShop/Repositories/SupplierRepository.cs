@@ -9,18 +9,24 @@ namespace WebAPI_CoffeeShop.Repositories
 {
     public class SupplierRepository : ISupplierRepository
     {
-        public bool RegiterSupplier(Supplier model)
+        public Supplier RegiterSupplier(Supplier model)
         {
-            bool flag = false;
+            model.avatar = "BLANK";
+            model.image = "No Image";
             model.title = ConvertToUnSign.convert(model.title);
             model.address = ConvertToUnSign.convert(model.address);
+            model.username = "BLANK";
+            model.password = RandomString.randomString(12);
+            model.requestDate = DateTime.Now;
+            model.createDate = DateTime.Now;
+            model.isActive = 1;
+            model.saltKey = "BLANK";
             using (var context = new CoffeeShopSystemEntities())
             {
                 context.Suppliers.Add(model);
                 context.SaveChanges();
-                flag = true;
             }
-            return flag;
+            return model;
         }
         public bool checkExistEmail(string emailRegis)
         {

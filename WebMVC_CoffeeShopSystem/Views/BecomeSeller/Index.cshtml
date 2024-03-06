@@ -19,7 +19,7 @@
                                 <a href="index.html"><span>Home</span></a>
                             </li>
                             <li class="cafenabcrumb-item duxinbcrumb-end">
-                                <span>contact</span>
+                                <span>Become As A Seller</span>
                             </li>
                         </ul>
                     </div>
@@ -57,21 +57,8 @@
                                     <div class="content">
                                         <h3 class="title">Our Location</h3>
                                         <p>
-                                            Hera Road 2344-78 Australia
-                                            897- South Side Melbon
+                                            Thu Duc City, Ho Chi Minh City
                                         </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 mt-30">
-                                <div class="contact-info d-flex align-items-center justify-content-center">
-                                    <div class="icon d-flex align-items-center justify-content-center">
-                                        <img src="~/Content/assets/images/icons/ci-3.png" alt="">
-                                    </div>
-                                    <div class="content">
-                                        <h3 class="title">Opening HOurs</h3>
-                                        <p>Mon - Sat (8:00 - 6:00)</p>
-                                        <p>Sunday - Closed</p>
                                     </div>
                                 </div>
                             </div>
@@ -83,24 +70,25 @@
                                         <div class="row">
                                             <div class="col-xl-6 mt-30">
                                                 <div class="form-group">
-                                                    <input type="text" name="name" id="name" autocomplete="off" placeholder="Your Brand:" required>
+                                                    <input type="text" name="name" minlength="10" maxlength="100" id="name" autocomplete="off" placeholder="Your Brand:" required>
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 mt-30">
                                                 <div class="form-group">
-                                                    <input type="email" name="email" id="email" autocomplete="off" placeholder="Your Mail:" required>
+                                                    <input type="email" name="email" id="email" minlength="10" maxlength="100" autocomplete="off" placeholder="Your Mail:" required>
                                                 </div>
                                             </div>
                                             <div class="col-xl-12 mt-30">
                                                 <div class="form-group">
-                                                    <input type="text" name="phone" id="phone" autocomplete="off" placeholder="Your Phone:" required>
+                                                    <input type="text" id="phone" name="phone" minlength="9" maxlength="10" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" autocomplete="off" placeholder="Your Phone:" required>
                                                 </div>
                                             </div>
                                             <div class="col-xl-12 mt-30">
                                                 <div class="form-group">
-                                                    <input type="text" name="address" id="address" autocomplete="off" placeholder="Your Address:" required>
+                                                    <input type="text" name="address" id="address" minlength="10" maxlength="100" autocomplete="off" placeholder="Your Address:" required>
                                                 </div>
                                             </div>
+                                            <span hidden id="sttCheck">True</span>
                                             <div class="col-xl-12 mt-20 text-center">
                                                 <button type="submit" class="site-btn" id="btnRegisterSeller">Register</button>
                                             </div>
@@ -118,7 +106,150 @@
 </main>
 <script src="~/Content/assets/js/jquery-2.2.4.min.js"></script>
 <script>
+    function checkInputNumbers() {
+        //var c = $(current)[0].selectionStart,
+        var r = /[a-z `~!@@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/$]/gi,
+            v = $("#phone").val();
+        if (r.test(v)) {
+            $("#phone").val(v.replace(r, ''));
+            return false;
+        }
+        return true;
+    }
+    checkInputNumbers();
     $("#btnRegisterSeller").click(function () {
-
+        if ($("#name").val().trim() != "" && $("#email").val().trim() != ""
+            && $("#phone").val().trim() != "" && $("#address").val().trim() != "") {
+            checkExistEmail();
+            checkExistPhone();
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please fill in complete information!",
+                showConfirmButton: false,
+                timer: 1300
+            });
+            $("#sttCheck").text("True");
+        }
+        if ($("#sttCheck").text() == "False") {
+            RegiterSupplier();
+        }
     });
+    $("#email").blur(function () {
+        if ($("#email").val().trim() != "") {
+            checkExistEmail();
+        }
+        ValidateEmail($("#email").val().trim());
+        checkExistPhone();
+    });
+    $("#phone").blur(function () {
+        if ($("#phone").val().trim() != "") {
+            checkInputNumbers();
+            checkExistPhone();
+        }
+        checkExistEmail();
+    });
+    function ValidateEmail(input) {
+        var validRegex = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+        if (input.match(validRegex)) {
+            document.getElementById('email').setCustomValidity("");
+            return true;
+        } else {
+            document.getElementById('email').setCustomValidity("Invalid email address.");
+            document.getElementById('email').reportValidity();
+            return false;
+        }
+    }
+    function checkExistEmail() {
+        $.ajax({
+            type: "get",
+            url: "/BecomeSeller/checkExistEmail",
+            data: {
+                emailRegis: $("#email").val().trim()
+            },
+            success: function (res) {
+                if (res == "True") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "This email already exists!",
+                        showConfirmButton: false,
+                        timer: 1300
+                    });
+                    $("#sttCheck").text("True");
+                } else {
+                    $("#sttCheck").text("False");
+                }
+            },
+            error: function (response) {
+                console.log(response.responseText);
+            }
+        });
+    }
+    function checkExistPhone() {
+        $.ajax({
+            type: "get",
+            url: "/BecomeSeller/checkExistPhone",
+            data: {
+                phoneRegis: $("#phone").val().trim()
+            },
+            success: function (res) {
+                if (res == "True") {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "This phone already exists!",
+                        showConfirmButton: false,
+                        timer: 1300
+                    });
+                    $("#sttCheck").text("True");
+                } else {
+                    $("#sttCheck").text("False");
+                }
+            },
+            error: function (response) {
+                console.log(response.responseText);
+            }
+        });
+    }
+    function RegiterSupplier() {
+        $.ajax({
+            type: "get",
+            url: "/BecomeSeller/RegiterSupplier",
+            data: {
+                title: $("#name").val().trim(),
+                email: $("#email").val().trim(),
+                phone: $("#phone").val().trim(),
+                address: $("#address").val().trim()
+            },
+            success: function (res) {
+                if (res == "True") {
+                    Swal.fire({
+                        title: "Become as a seller success",
+                        text: "Thanks for contacting us. Please go to your email to check!",
+                        //icon: "success",
+                        imageUrl: "Content/assets/images/icons/iconEmail.png",
+                        imageWidth: 110,
+                        imageHeight: 100,
+                        imageAlt: "Custom image"
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Error?",
+                        text: "An error has occurred. Please reload the page and register again!",
+                        icon: "warning",
+                    });
+                }
+                $("#name").val("");
+                $("#email").val("");
+                $("#phone").val("");
+                $("#address").val("");
+            },
+            error: function (response) {
+                console.log(response.responseText);
+            }
+        });
+    }
 </script>

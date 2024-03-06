@@ -31,7 +31,7 @@ namespace WebMVC_CoffeeShopSystem.Dao
                 return instance;
             }
         }
-        public bool RegiterSupplier(Supplier model)
+        public Supplier RegiterSupplier(Supplier model)
         {
             return SupplierCall.Instance.RegiterSupplier(model);
         }
