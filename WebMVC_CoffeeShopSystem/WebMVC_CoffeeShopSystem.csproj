@@ -197,6 +197,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Supplier\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Supplier\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Supplier\Controllers\OrdersManagementController.cs" />
+    <Compile Include="Areas\Supplier\Controllers\RevenuesController.cs" />
     <Compile Include="Areas\Supplier\SupplierAreaRegistration.cs" />
     <Compile Include="BaseURL\accountUrl.cs" />
     <Compile Include="BaseURL\blogUrl.cs" />
@@ -952,6 +954,7 @@
     <Content Include="Content\assetsSeller\sass\atlantis\_responsive.scss" />
     <Content Include="Content\assetsSeller\sass\atlantis\_typography.scss" />
     <Content Include="Content\assetsSeller\sass\atlantis\_variables.scss" />
+    <Content Include="Areas\Supplier\Views\OrdersManagement\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -998,6 +1001,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Supplier\Data\" />
+    <Folder Include="Areas\Supplier\Views\Orders\" />
+    <Folder Include="Areas\Supplier\Views\Revenues\" />
     <Folder Include="Views\Voucher\" />
   </ItemGroup>
   <ItemGroup>
