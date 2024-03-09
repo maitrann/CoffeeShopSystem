@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Web;
 using WebAPI_CoffeeShop.Interface;
+using WebAPI_CoffeeShop.Models.ModelView;
 using WebAPI_CoffeeShop.Utilities;
 
 namespace WebAPI_CoffeeShop.Repositories
@@ -57,6 +59,45 @@ namespace WebAPI_CoffeeShop.Repositories
                     return false;
                 }
             }
+        }
+        public bool checkPasswordWithEmail(string email, string password)
+        {
+            using (var context = new CoffeeShopSystemEntities())
+            {
+                var supplier = context.Suppliers.Where(s => s.email == email & s.password == password).FirstOrDefault();
+                if (supplier != null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public SupplierView getSupplierLog(string email, string password)
+        {
+            SupplierView supplier = new SupplierView();
+            using (var context = new CoffeeShopSystemEntities())
+            {
+                supplier = context.Suppliers.Where(s => s.email == email & s.password == password & s.isActive == 1)
+                    .Select(s => new SupplierView()
+                    {
+                        id = s.id,
+                        avatar = s.avatar,
+                        image = s.image,
+                        title = s.title,
+                        phone = s.phone,
+                        email = s.email,
+                        address = s.address,
+                        username = s.username,
+                        password = s.password,
+                        createDate = s.createDate,
+                        isActive = s.isActive,
+                    }).FirstOrDefault();
+            }
+            return supplier;
         }
     }
 }

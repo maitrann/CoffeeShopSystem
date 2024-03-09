@@ -8,6 +8,7 @@ using System.Web;
 using WebMVC_CoffeeShopSystem.BaseURL;
 using WebAPI_CoffeeShop.Utilities;
 using System.Reflection;
+using WebAPI_CoffeeShop.Models.ModelView;
 
 namespace WebMVC_CoffeeShopSystem.CallRESTful
 {
@@ -70,6 +71,38 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
                 {
                     var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
                     prodInfo = JsonConvert.DeserializeObject<bool>(prodResponse);
+                }
+                return prodInfo;
+            }
+        }
+        public bool checkPasswordWithEmail(string email, string password)
+        {
+            bool prodInfo = false;
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = client.GetAsync(supplierUrl.checkPasswordWithEmail + "?email=" + email + "&password=" + password).GetAwaiter().GetResult();
+                if (Res.IsSuccessStatusCode)
+                {
+                    var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    prodInfo = JsonConvert.DeserializeObject<bool>(prodResponse);
+                }
+                return prodInfo;
+            }
+        }
+        public SupplierView getSupplierLog(string email, string password)
+        {
+            SupplierView prodInfo = new SupplierView();
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = client.GetAsync(supplierUrl.getSupplierLog + "?email=" + email + "&password=" + password).GetAwaiter().GetResult();
+                if (Res.IsSuccessStatusCode)
+                {
+                    var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    prodInfo = JsonConvert.DeserializeObject<SupplierView>(prodResponse);
                 }
                 return prodInfo;
             }

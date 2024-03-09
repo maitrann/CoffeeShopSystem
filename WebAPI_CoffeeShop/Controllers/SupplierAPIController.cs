@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using WebAPI_CoffeeShop.Interface;
+using WebAPI_CoffeeShop.Models.ModelView;
 using WebAPI_CoffeeShop.Repositories;
 using WebAPI_CoffeeShop.Utilities;
 
@@ -28,6 +29,15 @@ namespace WebAPI_CoffeeShop.Controllers
 		{
 			return _supplierRepository.checkExistPhone(phoneRegis);
 		}
-
-	}
+        [HttpGet]
+        public bool checkPasswordWithEmail(string email, string password)
+        {
+            return _supplierRepository.checkPasswordWithEmail(email,password);
+        }
+		[HttpGet]
+        public SupplierView getSupplierLog(string email, string password)
+		{
+			return _supplierRepository.getSupplierLog(email,password);
+		}
+    }
 }

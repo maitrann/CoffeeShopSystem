@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebAPI_CoffeeShop.Models.ModelView;
 using WebAPI_CoffeeShop.Repositories;
 using WebAPI_CoffeeShop.Utilities;
 using WebMVC_CoffeeShopSystem.CallRESTful;
@@ -42,6 +43,14 @@ namespace WebMVC_CoffeeShopSystem.Dao
         public bool checkExistPhone(string phoneRegis)
         {
             return SupplierCall.Instance.checkExistPhone(phoneRegis);
+        }
+        public bool checkPasswordWithEmail(string email, string password)
+        {
+            return SupplierCall.Instance.checkPasswordWithEmail(email, password);
+        }
+        public SupplierView getSupplierLog(string email, string password)
+        {
+            return SupplierCall.Instance.getSupplierLog(email, password);
         }
     }
 }

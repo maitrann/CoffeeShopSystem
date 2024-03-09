@@ -195,6 +195,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Supplier\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Supplier\Controllers\LoginController.cs" />
     <Compile Include="Areas\Supplier\SupplierAreaRegistration.cs" />
     <Compile Include="BaseURL\accountUrl.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="BaseURL\invoiceUrl.cs" />
     <Compile Include="BaseURL\productUrl.cs" />
     <Compile Include="BaseURL\reviewUrl.cs" />
+    <Compile Include="BaseURL\stringUrl.cs" />
     <Compile Include="BaseURL\supplierUrl.cs" />
     <Compile Include="BaseURL\voucherUrl.cs" />
     <Compile Include="BaseURL\watchListUrl.cs" />
@@ -248,6 +250,21 @@
     <Compile Include="Utilities\SendMailKit.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\assetsLoginSeller\css\bootstrap.min.css" />
+    <Content Include="Content\assetsLoginSeller\css\owl.carousel.min.css" />
+    <Content Include="Content\assetsLoginSeller\css\style.css" />
+    <Content Include="Content\assetsLoginSeller\fonts\icomoon\demo-files\demo.css" />
+    <Content Include="Content\assetsLoginSeller\fonts\icomoon\demo-files\demo.js" />
+    <Content Include="Content\assetsLoginSeller\fonts\icomoon\demo.html" />
+    <Content Include="Content\assetsLoginSeller\fonts\icomoon\fonts\icomoon.svg" />
+    <Content Include="Content\assetsLoginSeller\fonts\icomoon\Read Me.txt" />
+    <Content Include="Content\assetsLoginSeller\fonts\icomoon\style.css" />
+    <Content Include="Content\assetsLoginSeller\images\bg_1.jpg" />
+    <Content Include="Content\assetsLoginSeller\js\bootstrap.min.js" />
+    <Content Include="Content\assetsLoginSeller\js\jquery-3.3.1.min.js" />
+    <Content Include="Content\assetsLoginSeller\js\main.js" />
+    <Content Include="Content\assetsLoginSeller\js\owl.carousel.min.js" />
+    <Content Include="Content\assetsLoginSeller\js\popper.min.js" />
     <Content Include="Content\assetsSeller\css\atlantis.css" />
     <Content Include="Content\assetsSeller\css\atlantis.min.css" />
     <Content Include="Content\assetsSeller\css\bootstrap.min.css" />
@@ -877,6 +894,17 @@
     <Content Include="Content\assetsSeller\fonts\summernote\summernote.ttf" />
     <Content Include="Content\assetsSeller\fonts\summernote\summernote.woff" />
     <Content Include="Content\assetsSeller\img\img-shadow.gvdesign" />
+    <Content Include="Areas\Supplier\Views\web.config" />
+    <Content Include="Areas\Supplier\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Supplier\Views\Login\Index.cshtml" />
+    <Content Include="Content\assetsLoginSeller\css\.DS_Store" />
+    <Content Include="Content\assetsLoginSeller\css\bootstrap.min.css.map" />
+    <Content Include="Content\assetsLoginSeller\fonts\.DS_Store" />
+    <Content Include="Content\assetsLoginSeller\fonts\icomoon\fonts\icomoon.eot" />
+    <Content Include="Content\assetsLoginSeller\fonts\icomoon\fonts\icomoon.ttf" />
+    <Content Include="Content\assetsLoginSeller\fonts\icomoon\fonts\icomoon.woff" />
+    <Content Include="Content\assetsLoginSeller\fonts\icomoon\selection.json" />
+    <Content Include="Content\assetsLoginSeller\images\.DS_Store" />
     <Content Include="Content\assetsSeller\sass\atlantis.scss" />
     <Content Include="Content\assetsSeller\sass\atlantis\components\_activityfeed.scss" />
     <Content Include="Content\assetsSeller\sass\atlantis\components\_alerts.scss" />
@@ -924,8 +952,6 @@
     <Content Include="Content\assetsSeller\sass\atlantis\_responsive.scss" />
     <Content Include="Content\assetsSeller\sass\atlantis\_typography.scss" />
     <Content Include="Content\assetsSeller\sass\atlantis\_variables.scss" />
-    <Content Include="Areas\Supplier\Views\web.config" />
-    <Content Include="Areas\Supplier\Views\Login\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -972,7 +998,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Supplier\Data\" />
-    <Folder Include="Models\" />
     <Folder Include="Views\Voucher\" />
   </ItemGroup>
   <ItemGroup>
@@ -1024,9 +1049,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52519</DevelopmentServerPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52519/</IISUrl>
+          <IISUrl>http://localhost:49844/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

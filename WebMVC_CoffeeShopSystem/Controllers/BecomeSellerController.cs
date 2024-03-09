@@ -53,7 +53,7 @@ namespace WebMVC_CoffeeShopSystem.Controllers
                 address = address
             };
             Supplier flag = SupplierDao.Instance.RegiterSupplier(model);
-            SendMail(title, email, phone, address, flag.password);
+            //SendMail(title, email, phone, address, flag.password);
             return "True";
         }
         private void SendMail(string title, string mailTo, string phone, string address, string password)

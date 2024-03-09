@@ -16,7 +16,7 @@ namespace WebAPI_CoffeeShop.Repositories
     public class GoogleAccountRepository
     {
         static string clientId = "112758736944-noum7ab9b6vkqshmagsnbn85u13houei.apps.googleusercontent.com";
-        static string url = "http://localhost:52519/Signin/GoogleLoginCallBack";
+        static string url = "http://localhost:49844/Signin/GoogleLoginCallBack";
         static string clientSecret = "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";
 
         public static string connectGoogleAuth()

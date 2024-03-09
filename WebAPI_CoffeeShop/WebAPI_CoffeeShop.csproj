@@ -143,6 +143,7 @@
     <Compile Include="Models\ModelView\InvoiceView.cs" />
     <Compile Include="Models\ModelView\ProductView.cs" />
     <Compile Include="Models\ModelView\SubCommentBlogView.cs" />
+    <Compile Include="Models\ModelView\SupplierView.cs" />
     <Compile Include="Models\ModelView\WatchListView.cs" />
     <Compile Include="Models\ObjectInvoice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
