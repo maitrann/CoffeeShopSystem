@@ -14,5 +14,7 @@ namespace WebAPI_CoffeeShop.Interface
         List<InvoiceView> GetAllInvoice(int idAccount);
         InvoiceView GetInvoiceDetails(int idAccount, int idInvoice);
         void InsertInvoice(ObjectInvoice objectInvoice);
+
+        
     }
 }

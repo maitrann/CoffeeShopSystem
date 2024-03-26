@@ -15,6 +15,7 @@ namespace WebAPI_CoffeeShop.Controllers
     public class InvoiceAPIController : ApiController
     {
         private IInvoiceRepository _invoiceRepository = new InvoiceRepository();
+        private IInvoiceSupplierRepository _invoiceSupplierRepository= new InvoiceSupplierRepository();
         [HttpGet]
         public List<InvoiceView> GetAllInvoice(int idAccount)
         {
@@ -29,6 +30,12 @@ namespace WebAPI_CoffeeShop.Controllers
         public void InsertInvoice([FromBody]ObjectInvoice objectInvoice)
         {
             _invoiceRepository.InsertInvoice(objectInvoice);
+        }
+
+        [HttpGet]
+        public List<InvoiceSupplierView> GetInvoiceOfSupplier(int idSupplier)
+        {
+            return _invoiceSupplierRepository.GetInvoiceOfSupplier(idSupplier);
         }
     }
 }

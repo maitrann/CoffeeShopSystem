@@ -12,7 +12,15 @@ namespace WebMVC_CoffeeShopSystem.Areas.Supplier.Controllers
         // GET: Supplier/Login
         public ActionResult Index()
         {
-            return View();
+            HttpCookie supplierInfo = new HttpCookie("supplierInfo");
+            if (supplierInfo.Value != null)
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
+            else
+            {
+                return View();
+            }
         }
         public string CheckEmailSupplier(string email)
         {
@@ -38,7 +46,7 @@ namespace WebMVC_CoffeeShopSystem.Areas.Supplier.Controllers
                 return "False";
             }
         }
-        public string GetSupplierLogin(string email,string password)
+        public string GetSupplierLogin(string email, string password)
         {
             var log = SupplierDao.Instance.getSupplierLog(email, password);
             if (log != null)

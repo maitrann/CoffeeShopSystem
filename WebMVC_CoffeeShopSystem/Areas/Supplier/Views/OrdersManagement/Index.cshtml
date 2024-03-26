@@ -2,7 +2,9 @@
 @{
     ViewBag.Title = "Orders Management";
     Layout = "~/Areas/Supplier/Views/Shared/_LayoutSeller.cshtml";
+    List<WebAPI_CoffeeShop.Models.ModelView.InvoiceSupplierView> lstOrder = ViewBag.lstOrder;
 }
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 <div class="content">
     <div class="page-inner">
         <div class="page-header">
@@ -27,10 +29,10 @@
                     <div class="card-header">
                         <ul class="nav nav-pills nav-secondary" id="pills-tab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true">All</a>
+                                <a class="nav-link" id="pills-all-tab" data-toggle="pill" href="#pills-all" role="tab" aria-controls="pills-all" aria-selected="true">All</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="pills-waitConfirm-tab" data-toggle="pill" href="#pills-waitConfirm" role="tab" aria-controls="pills-waitConfirm" aria-selected="false">Wait for confirmation</a>
+                                <a class="nav-link active" id="pills-waitConfirm-tab" data-toggle="pill" href="#pills-waitConfirm" role="tab" aria-controls="pills-waitConfirm" aria-selected="false">Wait for confirmation</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="pills-delivering-tab" data-toggle="pill" href="#pills-delivering" role="tab" aria-controls="pills-delivering" aria-selected="false">Delivering</a>
@@ -43,12 +45,18 @@
                             </li>
                         </ul>
                     </div>
+
                     <div class="card-body">
                         <div class="tab-content mt-2 mb-3" id="pills-tabContent">
-
-                            <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
+                            <div class="tab-pane fade" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">
                                 <div class="col-md-6 col-lg-12">
                                     <div class="form-group">
+                                        <div class="input-group" style=" margin-left: 43rem; width: 40%;">
+                                            <label for="dateRangeAll" style="margin-right:10px">Order Date</label>
+                                            <input type="text" class="form-control" id="dateRangeAll" name="dates" style=" margin-right: 1rem; text-align: center">
+                                            <button class="btn btn-outline-success">Print Excel</button>
+                                        </div>
+                                        <br />
                                         <div class="input-group">
                                             <select class="form-control" id="exampleFormControlSelect1" style=" width: 10rem !important; flex: unset;">
                                                 <option>Code Invoice</option>
@@ -66,46 +74,326 @@
                                         </div>
                                     </div>
                                 </div>
-                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
 
-                                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="d-flex align-items-center">
+                                            <h4 class="card-title">Orders All</h4>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id="add-row-all" name="add-row" class="display table table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Code Invoice</th>
+                                                        <th>Customer</th>
+                                                        <th>Create Date</th>
+                                                        <th>Status</th>
+                                                        <th style="width: 8%">Details</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Code Invoice</th>
+                                                        <th>Customer</th>
+                                                        <th>Create Date</th>
+                                                        <th>Status</th>
+                                                        <th>Details</th>
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                    @if (lstOrder != null)
+                                                    {
+                                                        foreach (var item in lstOrder)
+                                                        {
+                                                            <tr>
+                                                                <td>@item.codeInvoice</td>
+                                                                <td>@item.nameCustomer</td>
+                                                                <td style=" width: 90px;">@item.createDate</td>
+                                                                @switch (item.statusInvSupplier.ToString())
+                                                                {
+                                                                    case "0":
+                                                                        <td style="color:orange">Waiting for confirmation</td>
+                                                                        break;
+                                                                    case "1":
+                                                                        <td style="color:blue"><strong>Delivering</strong></td>
+                                                                        break;
+                                                                    case "2":
+                                                                        <td style="color:green"><strong>Delivered</strong> | Waiting to receive money from Cafena</td>
+                                                                        break;
+                                                                    case "9":
+                                                                        <td style="color:red">Cancelled</td>
+                                                                        break;
+                                                                    default:
+                                                                        break;
+                                                                }
+                                                                <td>
+                                                                    <div class="form-button-action">
+                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-primary btn-lg" data-original-title="Detail Order">
+                                                                            Detail
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="tab-pane fade" id="pills-waitConfirm" role="tabpanel" aria-labelledby="pills-waitConfirm-tab">
+                            <div class="tab-pane fade show active" id="pills-waitConfirm" role="tabpanel" aria-labelledby="pills-waitConfirm-tab">
+                                <div class="col-md-6 col-lg-12">
+                                    <div class="form-group">
+                                        <div class="input-group" style=" margin-left: 43rem; width: 40%;">
+                                            <label for="dateRangeWaitConfirm" style="margin-right:10px">Order Date</label>
+                                            <input type="text" class="form-control" id="dateRangeWaitConfirm" name="dates" style=" margin-right: 1rem; text-align: center">
+                                            <button class="btn btn-outline-success">Print Excel</button>
+                                        </div>
+                                        <br />
+                                        <div class="input-group">
+                                            <select class="form-control" id="exampleFormControlSelect1" style=" width: 10rem !important; flex: unset;">
+                                                <option>Code Invoice</option>
+                                                <option>Customer Name</option>
+                                                <option>Product</option>
+                                            </select>
+                                            <div class="input-icon">
+                                                <input type="text" class="form-control" placeholder="Search for..." style=" width: 30rem;">
+                                                <span class="input-icon-addon">
+                                                    <i class="fa fa-search"></i>
+                                                </span>
+                                            </div>
+                                            &emsp;&emsp;
+                                            <button class="btn">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
                                 <ul class="nav nav-pills nav-secondary nav-pills-no-bd" id="pills-tab-without-border" role="tablist">
                                     <li class="nav-item submenu">
-                                        <a class="nav-link active show" id="pills-home-tab-nobd" data-toggle="pill" href="#pills-home-nobd" role="tab" aria-controls="pills-home-nobd" aria-selected="true">Home</a>
+                                        <a class="nav-link active show" id="pills-home-tab-nobd" data-toggle="pill" href="#pills-home-nobd" role="tab" aria-controls="pills-home-nobd" aria-selected="true">All</a>
                                     </li>
                                     <li class="nav-item submenu">
-                                        <a class="nav-link" id="pills-profile-tab-nobd" data-toggle="pill" href="#pills-profile-nobd" role="tab" aria-controls="pills-profile-nobd" aria-selected="false">Profile</a>
+                                        <a class="nav-link" id="pills-profile-tab-nobd" data-toggle="pill" href="#pills-profile-nobd" role="tab" aria-controls="pills-profile-nobd" aria-selected="false">Wait for processing</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="pills-contact-tab-nobd" data-toggle="pill" href="#pills-contact-nobd" role="tab" aria-controls="pills-contact-nobd" aria-selected="false">Contact</a>
+                                        <a class="nav-link" id="pills-contact-tab-nobd" data-toggle="pill" href="#pills-contact-nobd" role="tab" aria-controls="pills-contact-nobd" aria-selected="false">Processed</a>
                                     </li>
                                 </ul>
                                 <div class="tab-content mt-2 mb-3" id="pills-without-border-tabContent">
                                     <div class="tab-pane fade active show" id="pills-home-nobd" role="tabpanel" aria-labelledby="pills-home-tab-nobd">
-                                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-
-                                        <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</p>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table id="add-row-all" name="add-row" class="display table table-striped table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Position</th>
+                                                                <th>Office</th>
+                                                                <th style="width: 10%">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Position</th>
+                                                                <th>Office</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Tiger Nixon</td>
+                                                                <td>System Architect</td>
+                                                                <td>Edinburgh</td>
+                                                                <td>
+                                                                    <div class="form-button-action">
+                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+                                                                            <i class="fa fa-edit"></i>
+                                                                        </button>
+                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
+                                                                            <i class="fa fa-times"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="pills-profile-nobd" role="tabpanel" aria-labelledby="pills-profile-tab-nobd">
-                                        <p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.</p>
-                                        <p>
-                                            The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way.
-                                        </p>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table id="add-row-all" name="add-row" class="display table table-striped table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Position</th>
+                                                                <th>Office</th>
+                                                                <th style="width: 10%">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Position</th>
+                                                                <th>Office</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Sonya Frost</td>
+                                                                <td>Software Engineer</td>
+                                                                <td>Edinburgh</td>
+                                                                <td>
+                                                                    <div class="form-button-action">
+                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
+                                                                            <i class="fa fa-edit"></i>
+                                                                        </button>
+                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
+                                                                            <i class="fa fa-times"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade" id="pills-contact-nobd" role="tabpanel" aria-labelledby="pills-contact-tab-nobd">
-                                        <p>Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country.</p>
-
-                                        <p> But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their</p>
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="table-responsive">
+                                                    <table id="add-row-all" name="add-row" class="display table table-striped table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Position</th>
+                                                                <th>Office</th>
+                                                                <th style="width: 10%">Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tfoot>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Position</th>
+                                                                <th>Office</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Tiger Nixon</td>
+                                                                <td>System Architect</td>
+                                                                <td>Edinburgh</td>
+                                                                <td>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Sonya Frost</td>
+                                                                <td>Software Engineer</td>
+                                                                <td>Edinburgh</td>
+                                                                <td>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="tab-pane fade" id="pills-delivering" role="tabpanel" aria-labelledby="pills-delivering-tab">
-                                <p>Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country.</p>
+                                <div class="col-md-6 col-lg-12">
+                                    <div class="form-group">
+                                        <div class="input-group" style=" margin-left: 43rem; width: 40%;">
+                                            <label for="dateRangeDelivering" style="margin-right:10px">Order Date</label>
+                                            <input type="text" class="form-control" id="dateRangeDelivering" name="dates" style=" margin-right: 1rem; text-align: center">
+                                            <button class="btn btn-outline-success">Print Excel</button>
+                                        </div>
+                                        <br />
+                                        <div class="input-group">
+                                            <select class="form-control" id="exampleFormControlSelect1" style=" width: 10rem !important; flex: unset;">
+                                                <option>Code Invoice</option>
+                                                <option>Customer Name</option>
+                                                <option>Product</option>
+                                            </select>
+                                            <div class="input-icon">
+                                                <input type="text" class="form-control" placeholder="Search for..." style=" width: 30rem;">
+                                                <span class="input-icon-addon">
+                                                    <i class="fa fa-search"></i>
+                                                </span>
+                                            </div>
+                                            &emsp;&emsp;
+                                            <button class="btn">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="d-flex align-items-center">
+                                            <h4 class="card-title">Orders Delivering</h4>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id="add-row-delivering" name="add-row" class="display table table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Code Invoice</th>
+                                                        <th>Customer</th>
+                                                        <th>Create Date</th>
+                                                        <th>Status</th>
+                                                        <th style="width: 8%">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Code Invoice</th>
+                                                        <th>Customer</th>
+                                                        <th>Create Date</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                    @if (lstOrder != null)
+                                                    {
+                                                        foreach (var item in lstOrder)
+                                                        {
+                                                            if (item.statusInvSupplier == 1)
+                                                            {
+                                                                <tr>
+                                                                    <td>@item.codeInvoice</td>
+                                                                    <td>@item.nameCustomer</td>
+                                                                    <td style=" width: 90px;">@item.createDate</td>
+                                                                    <td style="color:blue"><strong>Delivering</strong></td>
+                                                                    <td>
+                                                                        <div class="form-button-action">
+                                                                            <button type="button" data-toggle="tooltip" title="" class="btn btn-primary btn-lg" data-original-title="Detail Order">
+                                                                                Detail
+                                                                            </button>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            }
 
-                                <p> But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their</p>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="pills-delivered" role="tabpanel" aria-labelledby="pills-delivered-tab">
                                 <p>Delivered. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country.</p>
@@ -124,5 +412,39 @@
         </div>
     </div>
 </div>
+<script src="~/Content/assetsSeller/js/core/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script>
+    $('input[name="dates"]').daterangepicker({
+        startDate: moment().subtract(30, 'days'),
+        endDate: moment(),
+        minYear: 1901,
+        maxDate: moment(),
+        locale: {
+            format: 'YYYY/MM/DD'
+        }
+    });
+    $('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
+        //do something, like clearing an input
+        var startDate = picker.startDate.format('YYYY/MM/DD');
+        //alert(picker.endDate.diff(startDate,'days'));
+        if (picker.endDate.diff(startDate, 'days') > 30) {
+            var endDate = picker.startDate.add(30, 'days').format('YYYY/MM/DD');
+            $(this).val(startDate + ' - ' + endDate);
+        } else {
+            var endDate = picker.endDate.format('YYYY/MM/DD');
+            $(this).val(startDate + ' - ' + endDate);
+        }
+    });
+    $(document).ready(function () {
+        $('table[name="add-row"]').DataTable({
+            "pageLength": 5,
+        });
+        //var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
 
+    });
 
+</script>

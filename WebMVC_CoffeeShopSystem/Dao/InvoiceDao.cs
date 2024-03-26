@@ -42,5 +42,9 @@ namespace WebMVC_CoffeeShopSystem.Dao
         {
             InvoiceCall.Instance.InsertInvoice(model);
         }
+        public List<InvoiceSupplierView> GetInvoiceOfSupplier(int idSupplier)
+        {
+            return InvoiceCall.Instance.GetInvoiceOfSupplier(idSupplier);
+        }
     }
 }

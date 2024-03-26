@@ -128,6 +128,7 @@
     <Compile Include="Interface\ICategoryRepository.cs" />
     <Compile Include="Interface\ICommentRepository.cs" />
     <Compile Include="Interface\IInvoiceRepository.cs" />
+    <Compile Include="Interface\IInvoiceSupplierRepository.cs" />
     <Compile Include="Interface\IProductRepository.cs" />
     <Compile Include="Interface\IReviewRepository.cs" />
     <Compile Include="Interface\ISupplierRepository.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Models\ModelView\CategoryView.cs" />
     <Compile Include="Models\ModelView\CommentBlogView.cs" />
     <Compile Include="Models\ModelView\InvoiceDetailsView.cs" />
+    <Compile Include="Models\ModelView\InvoiceSupplierView.cs" />
     <Compile Include="Models\ModelView\InvoiceView.cs" />
     <Compile Include="Models\ModelView\ProductView.cs" />
     <Compile Include="Models\ModelView\SubCommentBlogView.cs" />
@@ -154,6 +156,7 @@
     <Compile Include="Repositories\CommentBlogRepository.cs" />
     <Compile Include="Repositories\GoogleAccountRepository.cs" />
     <Compile Include="Repositories\InvoiceRepository.cs" />
+    <Compile Include="Repositories\InvoiceSupplierRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Repositories\ReviewRepository.cs" />
     <Compile Include="Repositories\SupplierRepository.cs" />

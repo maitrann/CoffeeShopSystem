@@ -68,5 +68,21 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
                 HttpResponseMessage Res = client.PostAsJsonAsync(invoiceUrl.InsertInvoice, model).GetAwaiter().GetResult();
             }
         }
+        public List<InvoiceSupplierView> GetInvoiceOfSupplier(int idSupplier)
+        {
+            List<InvoiceSupplierView> prodInfo = new List<InvoiceSupplierView>();
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = client.GetAsync(invoiceUrl.GetInvoiceOfSupplier + "?idSupplier=" + idSupplier).GetAwaiter().GetResult();
+                if (Res.IsSuccessStatusCode)
+                {
+                    var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    prodInfo = JsonConvert.DeserializeObject<List<InvoiceSupplierView>>(prodResponse);
+                }
+                return prodInfo;
+            }
+        }
     }
 }
