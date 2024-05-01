@@ -189,36 +189,78 @@
                                                     <table id="add-row-all" name="add-row" class="display table table-striped table-hover">
                                                         <thead>
                                                             <tr>
-                                                                <th>Name</th>
-                                                                <th>Position</th>
-                                                                <th>Office</th>
-                                                                <th style="width: 10%">Action</th>
+                                                                <th>Code Invoice</th>
+                                                                <th>Customer</th>
+                                                                <th>Create Date</th>
+                                                                <th>Status</th>
+                                                                <th style="width: 8%">Details</th>
+                                                                <th>Action</th>
                                                             </tr>
                                                         </thead>
                                                         <tfoot>
                                                             <tr>
-                                                                <th>Name</th>
-                                                                <th>Position</th>
-                                                                <th>Office</th>
+                                                                <th>Code Invoice</th>
+                                                                <th>Customer</th>
+                                                                <th>Create Date</th>
+                                                                <th>Status</th>
+                                                                <th>Details</th>
                                                                 <th>Action</th>
                                                             </tr>
                                                         </tfoot>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>Tiger Nixon</td>
-                                                                <td>System Architect</td>
-                                                                <td>Edinburgh</td>
-                                                                <td>
-                                                                    <div class="form-button-action">
-                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                                                                            <i class="fa fa-edit"></i>
-                                                                        </button>
-                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-                                                                            <i class="fa fa-times"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
+                                                            @if (lstOrder != null)
+                                                            {
+                                                                foreach (var item in lstOrder)
+                                                                {
+
+                                                                    <tr>
+                                                                        <td>@item.codeInvoice</td>
+                                                                        <td>@item.nameCustomer</td>
+                                                                        <td style=" width: 90px;">@item.createDate</td>
+                                                                        @switch (item.statusInvSupplier.ToString())
+                                                                        {
+                                                                            case "0":
+                                                                                <td style="color:orange">Waiting for confirmation</td>
+                                                                                break;
+                                                                            case "1":
+                                                                                <td style="color:blue"><strong>Delivering</strong></td>
+                                                                                break;
+                                                                            case "2":
+                                                                                <td style="color:green"><strong>Delivered</strong> | Waiting to receive money from Cafena</td>
+                                                                                break;
+                                                                            case "9":
+                                                                                <td style="color:red">Cancelled</td>
+                                                                                break;
+                                                                            default:
+                                                                                break;
+                                                                        }
+                                                                        <td>
+                                                                            <div class="form-button-action">
+                                                                                <button type="button" data-toggle="tooltip" title="" class="btn btn-primary btn-lg" data-original-title="Detail Order">
+                                                                                    Detail
+                                                                                </button>
+                                                                            </div>
+                                                                        </td>
+                                                                        @if (item.statusInvSupplier == 0)
+                                                                        {
+                                                                            <td>
+                                                                                <div class="form-button-action">
+                                                                                    <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Confirm Order">
+                                                                                        <i class="fas fa-check"></i>
+                                                                                    </button>
+                                                                                    <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Cancel Order">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </td>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <td>Processed</td>
+                                                                        }
+                                                                    </tr>
+                                                                }
+                                                            }
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -232,36 +274,57 @@
                                                     <table id="add-row-all" name="add-row" class="display table table-striped table-hover">
                                                         <thead>
                                                             <tr>
-                                                                <th>Name</th>
-                                                                <th>Position</th>
-                                                                <th>Office</th>
-                                                                <th style="width: 10%">Action</th>
+                                                                <th>Code Invoice</th>
+                                                                <th>Customer</th>
+                                                                <th>Create Date</th>
+                                                                <th>Status</th>
+                                                                <th style="width: 8%">Details</th>
+                                                                <th>Action</th>
                                                             </tr>
                                                         </thead>
                                                         <tfoot>
                                                             <tr>
-                                                                <th>Name</th>
-                                                                <th>Position</th>
-                                                                <th>Office</th>
+                                                                <th>Code Invoice</th>
+                                                                <th>Customer</th>
+                                                                <th>Create Date</th>
+                                                                <th>Status</th>
+                                                                <th>Details</th>
                                                                 <th>Action</th>
                                                             </tr>
                                                         </tfoot>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>Sonya Frost</td>
-                                                                <td>Software Engineer</td>
-                                                                <td>Edinburgh</td>
-                                                                <td>
-                                                                    <div class="form-button-action">
-                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task">
-                                                                            <i class="fa fa-edit"></i>
-                                                                        </button>
-                                                                        <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove">
-                                                                            <i class="fa fa-times"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
+                                                            @if (lstOrder != null)
+                                                            {
+                                                                foreach (var item in lstOrder)
+                                                                {
+                                                                    if (item.statusInvSupplier == 0)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>@item.codeInvoice</td>
+                                                                            <td>@item.nameCustomer</td>
+                                                                            <td style=" width: 90px;">@item.createDate</td>
+                                                                            <td style="color:orange">Waiting for confirmation</td>
+                                                                            <td>
+                                                                                <div class="form-button-action">
+                                                                                    <button type="button" data-toggle="tooltip" title="" class="btn btn-primary btn-lg" data-original-title="Detail Order">
+                                                                                        Detail
+                                                                                    </button>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="form-button-action">
+                                                                                    <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Confirm Order">
+                                                                                        <i class="fas fa-check"></i>
+                                                                                    </button>
+                                                                                    <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Cancel Order">
+                                                                                        <i class="fa fa-times"></i>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                }
+                                                            }
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -275,35 +338,45 @@
                                                     <table id="add-row-all" name="add-row" class="display table table-striped table-hover">
                                                         <thead>
                                                             <tr>
-                                                                <th>Name</th>
-                                                                <th>Position</th>
-                                                                <th>Office</th>
-                                                                <th style="width: 10%">Action</th>
+                                                                <th>Code Invoice</th>
+                                                                <th>Customer</th>
+                                                                <th>Create Date</th>
+                                                                <th>Status</th>
+                                                                <th style="width: 8%">Details</th>
                                                             </tr>
                                                         </thead>
                                                         <tfoot>
                                                             <tr>
-                                                                <th>Name</th>
-                                                                <th>Position</th>
-                                                                <th>Office</th>
-                                                                <th>Action</th>
+                                                                <th>Code Invoice</th>
+                                                                <th>Customer</th>
+                                                                <th>Create Date</th>
+                                                                <th>Status</th>
+                                                                <th>Details</th>
                                                             </tr>
                                                         </tfoot>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>Tiger Nixon</td>
-                                                                <td>System Architect</td>
-                                                                <td>Edinburgh</td>
-                                                                <td>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Sonya Frost</td>
-                                                                <td>Software Engineer</td>
-                                                                <td>Edinburgh</td>
-                                                                <td>
-                                                                </td>
-                                                            </tr>
+                                                            @if (lstOrder != null)
+                                                            {
+                                                                foreach (var item in lstOrder)
+                                                                {
+                                                                    if (item.statusInvSupplier != 0)
+                                                                    {
+                                                                        <tr>
+                                                                            <td>@item.codeInvoice</td>
+                                                                            <td>@item.nameCustomer</td>
+                                                                            <td style=" width: 90px;">@item.createDate</td>
+                                                                            <td style="color:blue"><strong>Delivering</strong></td>
+                                                                            <td>
+                                                                                <div class="form-button-action">
+                                                                                    <button type="button" data-toggle="tooltip" title="" class="btn btn-primary btn-lg" data-original-title="Detail Order">
+                                                                                        Detail
+                                                                                    </button>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    }
+                                                                }
+                                                            }
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -386,7 +459,6 @@
                                                                     </td>
                                                                 </tr>
                                                             }
-
                                                         }
                                                     }
                                                 </tbody>
@@ -442,6 +514,7 @@
     $(document).ready(function () {
         $('table[name="add-row"]').DataTable({
             "pageLength": 5,
+            "order": [[2, 'desc']]
         });
         //var action = '<td> <div class="form-button-action"> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg" data-original-title="Edit Task"> <i class="fa fa-edit"></i> </button> <button type="button" data-toggle="tooltip" title="" class="btn btn-link btn-danger" data-original-title="Remove"> <i class="fa fa-times"></i> </button> </div> </td>';
 

@@ -44,7 +44,7 @@ namespace WebAPI_CoffeeShop.Repositories
                         profitForAdmin = tenPercent * (invS.price),
                         priceSupplier = invS.price,
                         createDate = invS.createDate,
-                    }).Distinct().ToList();
+                    }).Distinct().OrderByDescending(i => i.createDate).ToList();
             }
             return query;
         }
