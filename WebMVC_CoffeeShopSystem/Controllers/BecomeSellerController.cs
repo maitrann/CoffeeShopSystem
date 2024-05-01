@@ -18,6 +18,7 @@ namespace WebMVC_CoffeeShopSystem.Controllers
         public ActionResult Index()
         {
             return View();
+            //1 vs
         }
         public string checkExistEmail(string emailRegis)
         {
