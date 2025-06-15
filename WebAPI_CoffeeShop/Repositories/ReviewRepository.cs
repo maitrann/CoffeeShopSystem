@@ -7,7 +7,7 @@ using WebAPI_CoffeeShop.Utilities;
 
 namespace WebAPI_CoffeeShop.Repositories
 {
-    public class ReviewRepository: IReviewRepository
+    public class ReviewRepository : IReviewRepository
     {
         public List<Review> GetReviewsOfProduct(int? idProduct)
         {
@@ -23,7 +23,7 @@ namespace WebAPI_CoffeeShop.Repositories
             double? avgReview = 0;
             using (var context = new CoffeeShopSystemEntities())
             {
-                avgReview = context.Reviews.Where(r => r.idProduct == idProduct).Average(r => r.review1);
+                avgReview = context.Reviews.Where(r => r.idProduct == idProduct).Average(r => r.review1) == null ? 0 : context.Reviews.Where(r => r.idProduct == idProduct).Average(r => r.review1);
             }
             return avgReview;
         }

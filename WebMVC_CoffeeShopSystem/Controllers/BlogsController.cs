@@ -16,7 +16,6 @@ namespace WebMVC_CoffeeShopSystem.Controllers
         {
             ViewBag.lstBlog = BlogDao.Instance.GetAllBlog();
             return View();
-            // 1 git
         }
         public ActionResult Details(int? id)
         {

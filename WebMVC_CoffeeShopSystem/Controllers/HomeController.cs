@@ -19,12 +19,6 @@ namespace WebMVC_CoffeeShopSystem.Controllers
                 TempData.Remove("shortMessageSignin");
             }
             return View();
-            //mtrantestvs
-            //mttestgit
-            //2
-            //3
-            //1
-            //4 vs
         }
 
     }

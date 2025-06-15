@@ -468,9 +468,86 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="pills-delivered" role="tabpanel" aria-labelledby="pills-delivered-tab">
-                                <p>Delivered. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country.</p>
-
-                                <p> But nothing the copy said could convince her and so it didn’t take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their</p>
+                                <div class="col-md-6 col-lg-12">
+                                    <div class="form-group">
+                                        <div class="input-group" style=" margin-left: 43rem; width: 40%;">
+                                            <label for="dateRangeDelivering" style="margin-right:10px">Order Date</label>
+                                            <input type="text" class="form-control" id="dateRangeDelivering" name="dates" style=" margin-right: 1rem; text-align: center">
+                                            <button class="btn btn-outline-success">Print Excel</button>
+                                        </div>
+                                        <br />
+                                        <div class="input-group">
+                                            <select class="form-control" id="exampleFormControlSelect1" style=" width: 10rem !important; flex: unset;">
+                                                <option>Code Invoice</option>
+                                                <option>Customer Name</option>
+                                                <option>Product</option>
+                                            </select>
+                                            <div class="input-icon">
+                                                <input type="text" class="form-control" placeholder="Search for..." style=" width: 30rem;">
+                                                <span class="input-icon-addon">
+                                                    <i class="fa fa-search"></i>
+                                                </span>
+                                            </div>
+                                            &emsp;&emsp;
+                                            <button class="btn">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="d-flex align-items-center">
+                                            <h4 class="card-title">Orders Delivered</h4>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id="add-row-delivering" name="add-row" class="display table table-striped table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Code Invoice</th>
+                                                        <th>Customer</th>
+                                                        <th>Create Date</th>
+                                                        <th>Status</th>
+                                                        <th style="width: 8%">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>Code Invoice</th>
+                                                        <th>Customer</th>
+                                                        <th>Create Date</th>
+                                                        <th>Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                    @if (lstOrder != null)
+                                                    {
+                                                        foreach (var item in lstOrder)
+                                                        {
+                                                            if (item.statusInvSupplier == 2)
+                                                            {
+                                                                <tr>
+                                                                    <td>@item.codeInvoice</td>
+                                                                    <td>@item.nameCustomer</td>
+                                                                    <td style=" width: 90px;">@item.createDate</td>
+                                                                    <td style="color:blue"><strong>Delivered</strong></td>
+                                                                    <td>
+                                                                        <div class="form-button-action">
+                                                                            <button type="button" data-toggle="tooltip" title="" class="btn btn-primary btn-lg" data-original-title="Detail Order">
+                                                                                Detail
+                                                                            </button>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="tab-pane fade" id="pills-cancelled" role="tabpanel" aria-labelledby="pills-cancelled-tab">
                                 <p>Cancelled. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word "and" and the Little Blind Text should turn around and return to its own, safe country.</p>
