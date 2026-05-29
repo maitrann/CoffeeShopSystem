@@ -353,6 +353,10 @@ ASALocalRun/
 # BeatPulse healthcheck temp database
 healthchecksdb
 
+# Local secrets/config
+ConnectionStrings.local.config
+WebAPI_CoffeeShop/ConnectionStrings.local.config
+
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
 

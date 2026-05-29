@@ -10,14 +10,15 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using WebAPI_CoffeeShop.Models;
 using WebAPI_CoffeeShop.Utilities;
+using System.Configuration;
 
 namespace WebAPI_CoffeeShop.Repositories
 {
     public class GoogleAccountRepository
     {
-        static string clientId = "112758736944-noum7ab9b6vkqshmagsnbn85u13houei.apps.googleusercontent.com";
-        static string url = "http://localhost:49844/Signin/GoogleLoginCallBack";
-        static string clientSecret = "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";
+        static string clientId = ConfigurationManager.AppSettings["GoogleClientId"];
+        static string url = ConfigurationManager.AppSettings["GoogleRedirectUrl"];
+        static string clientSecret = ConfigurationManager.AppSettings["GoogleClientSecret"];
 
         public static string connectGoogleAuth()
         {

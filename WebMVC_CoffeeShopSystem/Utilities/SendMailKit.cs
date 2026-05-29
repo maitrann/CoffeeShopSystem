@@ -1,6 +1,7 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
 using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,7 +15,7 @@ namespace WebMVC_CoffeeShopSystem.Utilities
         {
             var email = new MimeMessage();
 
-            email.From.Add(new MailboxAddress("CAFENA Coffee Shop System", "truongquachmaitran@email.com"));
+            email.From.Add(new MailboxAddress(GetSetting("MailFromName"), GetSetting("MailFromAddress")));
             email.To.Add(new MailboxAddress("Seller", mailTo));
 
             email.Subject = "Register Become As A Seller";
@@ -33,14 +34,28 @@ namespace WebMVC_CoffeeShopSystem.Utilities
 
             using (var smtp = new SmtpClient())
             {
-                smtp.Connect("smtp.gmail.com", 587, false);
+                smtp.Connect(
+                    GetSetting("SmtpHost"),
+                    int.Parse(GetSetting("SmtpPort")),
+                    bool.Parse(GetSetting("SmtpUseSsl")));
 
                 // Note: only needed if the SMTP server requires authentication
-                smtp.Authenticate("truongquachmaitran@gmail.com", "wejc ogcp mozs ijgi");
+                smtp.Authenticate(GetSetting("SmtpUsername"), GetSetting("SmtpPassword"));
 
                 smtp.Send(email);
                 smtp.Disconnect(true);
             }
+        }
+
+        private static string GetSetting(string key)
+        {
+            string value = ConfigurationManager.AppSettings[key];
+            if (string.IsNullOrWhiteSpace(value) || value.StartsWith("__SET_", StringComparison.Ordinal))
+            {
+                throw new ConfigurationErrorsException("Missing appSetting: " + key);
+            }
+
+            return value;
         }
     }
 }

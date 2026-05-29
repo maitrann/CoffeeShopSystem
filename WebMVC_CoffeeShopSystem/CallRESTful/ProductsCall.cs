@@ -76,7 +76,7 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
             {
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = client.GetAsync(productUrl.SearchProductsByKeyWord + "?keyword=" + keyword).GetAwaiter().GetResult();
+                HttpResponseMessage Res = client.GetAsync(productUrl.SearchProductsByKeyWord + "?keyword=" + Uri.EscapeDataString(keyword ?? string.Empty)).GetAwaiter().GetResult();
                 if (Res.IsSuccessStatusCode)
                 {
                     var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
@@ -92,7 +92,7 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
             {
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = client.GetAsync(productUrl.SearchProductsByCategory + "?lsIdCategory=" + lsIdCategory).GetAwaiter().GetResult();
+                HttpResponseMessage Res = client.GetAsync(productUrl.SearchProductsByCategory + "?lsIdCategory=" + Uri.EscapeDataString(lsIdCategory ?? string.Empty)).GetAwaiter().GetResult();
                 if (Res.IsSuccessStatusCode)
                 {
                     var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();

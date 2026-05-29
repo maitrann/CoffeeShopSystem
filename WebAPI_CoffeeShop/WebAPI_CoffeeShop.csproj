@@ -229,6 +229,7 @@
     <Compile Include="Utilities\InvoiceSupplier.cs">
       <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\PasswordHasher.cs" />
     <Compile Include="Utilities\Product.cs">
       <DependentUpon>CoffeeShopSystemModel.tt</DependentUpon>
     </Compile>

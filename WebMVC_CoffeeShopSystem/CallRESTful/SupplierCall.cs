@@ -50,7 +50,7 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
             {
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = client.GetAsync(supplierUrl.checkExistEmail + "?emailRegis=" + emailRegis).GetAwaiter().GetResult();
+                HttpResponseMessage Res = client.GetAsync(supplierUrl.checkExistEmail + "?emailRegis=" + Uri.EscapeDataString(emailRegis ?? string.Empty)).GetAwaiter().GetResult();
                 if (Res.IsSuccessStatusCode)
                 {
                     var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
@@ -66,7 +66,7 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
             {
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = client.GetAsync(supplierUrl.checkExistPhone + "?phoneRegis=" + phoneRegis).GetAwaiter().GetResult();
+                HttpResponseMessage Res = client.GetAsync(supplierUrl.checkExistPhone + "?phoneRegis=" + Uri.EscapeDataString(phoneRegis ?? string.Empty)).GetAwaiter().GetResult();
                 if (Res.IsSuccessStatusCode)
                 {
                     var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
@@ -82,7 +82,7 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
             {
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = client.GetAsync(supplierUrl.checkPasswordWithEmail + "?email=" + email + "&password=" + password).GetAwaiter().GetResult();
+                HttpResponseMessage Res = client.GetAsync(supplierUrl.checkPasswordWithEmail + "?email=" + Uri.EscapeDataString(email ?? string.Empty) + "&password=" + Uri.EscapeDataString(password ?? string.Empty)).GetAwaiter().GetResult();
                 if (Res.IsSuccessStatusCode)
                 {
                     var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
@@ -93,12 +93,12 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
         }
         public SupplierView getSupplierLog(string email, string password)
         {
-            SupplierView prodInfo = new SupplierView();
+            SupplierView prodInfo = null;
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = client.GetAsync(supplierUrl.getSupplierLog + "?email=" + email + "&password=" + password).GetAwaiter().GetResult();
+                HttpResponseMessage Res = client.GetAsync(supplierUrl.getSupplierLog + "?email=" + Uri.EscapeDataString(email ?? string.Empty) + "&password=" + Uri.EscapeDataString(password ?? string.Empty)).GetAwaiter().GetResult();
                 if (Res.IsSuccessStatusCode)
                 {
                     var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();

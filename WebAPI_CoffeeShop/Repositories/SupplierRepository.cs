@@ -13,12 +13,13 @@ namespace WebAPI_CoffeeShop.Repositories
     {
         public Supplier RegiterSupplier(Supplier model)
         {
+            string generatedPassword = RandomString.randomString(12);
             model.avatar = "BLANK";
             model.image = "No Image";
             model.title = ConvertToUnSign.convert(model.title);
             model.address = ConvertToUnSign.convert(model.address);
             model.username = "BLANK";
-            model.password = RandomString.randomString(12);
+            model.password = PasswordHasher.HashPassword(generatedPassword);
             model.requestDate = DateTime.Now;
             model.createDate = DateTime.Now;
             model.isActive = 1;
@@ -28,6 +29,7 @@ namespace WebAPI_CoffeeShop.Repositories
                 context.Suppliers.Add(model);
                 context.SaveChanges();
             }
+            model.password = generatedPassword;
             return model;
         }
         public bool checkExistEmail(string emailRegis)
@@ -64,9 +66,14 @@ namespace WebAPI_CoffeeShop.Repositories
         {
             using (var context = new CoffeeShopSystemEntities())
             {
-                var supplier = context.Suppliers.Where(s => s.email == email & s.password == password).FirstOrDefault();
-                if (supplier != null)
+                var supplier = context.Suppliers.FirstOrDefault(s => s.email == email);
+                if (supplier != null && PasswordHasher.VerifyPassword(password, supplier.password))
                 {
+                    if (!PasswordHasher.IsHashed(supplier.password))
+                    {
+                        supplier.password = PasswordHasher.HashPassword(password);
+                        context.SaveChanges();
+                    }
                     return true;
                 }
                 else
@@ -81,21 +88,32 @@ namespace WebAPI_CoffeeShop.Repositories
             SupplierView supplier = new SupplierView();
             using (var context = new CoffeeShopSystemEntities())
             {
-                supplier = context.Suppliers.Where(s => s.email == email & s.password == password & s.isActive == 1)
-                    .Select(s => new SupplierView()
+                var supplierEntity = context.Suppliers.FirstOrDefault(s => s.email == email & s.isActive == 1);
+                if (supplierEntity == null || !PasswordHasher.VerifyPassword(password, supplierEntity.password))
+                {
+                    return null;
+                }
+
+                if (!PasswordHasher.IsHashed(supplierEntity.password))
+                {
+                    supplierEntity.password = PasswordHasher.HashPassword(password);
+                    context.SaveChanges();
+                }
+
+                supplier = new SupplierView()
                     {
-                        id = s.id,
-                        avatar = s.avatar,
-                        image = s.image,
-                        title = s.title,
-                        phone = s.phone,
-                        email = s.email,
-                        address = s.address,
-                        username = s.username,
-                        password = s.password,
-                        createDate = s.createDate,
-                        isActive = s.isActive,
-                    }).FirstOrDefault();
+                        id = supplierEntity.id,
+                        avatar = supplierEntity.avatar,
+                        image = supplierEntity.image,
+                        title = supplierEntity.title,
+                        phone = supplierEntity.phone,
+                        email = supplierEntity.email,
+                        address = supplierEntity.address,
+                        username = supplierEntity.username,
+                        password = string.Empty,
+                        createDate = supplierEntity.createDate,
+                        isActive = supplierEntity.isActive,
+                    };
             }
             return supplier;
         }

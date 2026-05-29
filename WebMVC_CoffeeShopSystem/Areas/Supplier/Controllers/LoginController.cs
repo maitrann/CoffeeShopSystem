@@ -54,6 +54,9 @@ namespace WebMVC_CoffeeShopSystem.Areas.Supplier.Controllers
                 HttpCookie supplierInfo = new HttpCookie("supplierInfo");
                 supplierInfo["supplierId"] = log.id.ToString();
                 supplierInfo["supplierEmail"] = log.email.ToString();
+                supplierInfo.HttpOnly = true;
+                supplierInfo.Secure = Request.IsSecureConnection;
+                supplierInfo.SameSite = SameSiteMode.Lax;
                 Response.Cookies.Add(supplierInfo);
                 return "True";
             }

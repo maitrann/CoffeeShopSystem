@@ -60,9 +60,10 @@ namespace WebAPI_CoffeeShop.Repositories
                 }
                 else
                 {
+                    model.password = PasswordHasher.HashPassword(model.password);
                     context.Accounts.Add(model);
                     context.SaveChanges();
-                    signin = SignInAccount(model.email, model.password);
+                    signin = new AccountView() { id = model.id, name = model.name };
                 }
             }
             return signin;
@@ -74,8 +75,24 @@ namespace WebAPI_CoffeeShop.Repositories
             {
                 if (password != "BLANK")
                 {
-                    query = context.Accounts.Where(a => a.email == email & a.password == password & a.isActive == true)
-                        .Select(a => new AccountView() { id = a.id, name = a.name }).FirstOrDefault();
+                    var account = context.Accounts.FirstOrDefault(a => a.email == email & a.isActive == true);
+                    if (account == null)
+                    {
+                        return null;
+                    }
+
+                    if (!PasswordHasher.VerifyPassword(password, account.password))
+                    {
+                        return null;
+                    }
+
+                    if (!PasswordHasher.IsHashed(account.password))
+                    {
+                        account.password = PasswordHasher.HashPassword(password);
+                        context.SaveChanges();
+                    }
+
+                    query = new AccountView() { id = account.id, name = account.name };
                 }
                 else
                 {

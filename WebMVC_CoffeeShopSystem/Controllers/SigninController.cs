@@ -48,6 +48,9 @@ namespace WebMVC_CoffeeShopSystem.Controllers
                 HttpCookie userInfo = new HttpCookie("userInfo");
                 userInfo["userId"] = signup.id.ToString();
                 userInfo["userName"] = signup.name.ToString();
+                userInfo.HttpOnly = true;
+                userInfo.Secure = Request.IsSecureConnection;
+                userInfo.SameSite = SameSiteMode.Lax;
                 Response.Cookies.Add(userInfo);
 
                 return RedirectToAction("Index", "Home");
@@ -80,6 +83,9 @@ namespace WebMVC_CoffeeShopSystem.Controllers
                 HttpCookie userInfo = new HttpCookie("userInfo");
                 userInfo["userId"] = check.id.ToString();
                 userInfo["userName"] = check.name.ToString();
+                userInfo.HttpOnly = true;
+                userInfo.Secure = Request.IsSecureConnection;
+                userInfo.SameSite = SameSiteMode.Lax;
                 Response.Cookies.Add(userInfo);
                 return "True";
             }
@@ -100,6 +106,9 @@ namespace WebMVC_CoffeeShopSystem.Controllers
             //Here, we are setting the time to a previous time.
             //When the browser detect it next time, it will be deleted automatically.
             myCookie.Expires = DateTime.Now.AddDays(-1d);
+            myCookie.HttpOnly = true;
+            myCookie.Secure = Request.IsSecureConnection;
+            myCookie.SameSite = SameSiteMode.Lax;
             Response.Cookies.Add(myCookie);
             return RedirectToAction("Index", "Home");
         }
