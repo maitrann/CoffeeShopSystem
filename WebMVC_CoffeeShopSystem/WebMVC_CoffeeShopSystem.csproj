@@ -232,6 +232,7 @@
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SigninController.cs" />
+    <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="Controllers\VoucherController.cs" />
     <Compile Include="Dao\AccountDao.cs" />
     <Compile Include="Dao\CategoryDao.cs" />
@@ -979,6 +980,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Supplier\Index.cshtml" />
     <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Products\popupProd.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />

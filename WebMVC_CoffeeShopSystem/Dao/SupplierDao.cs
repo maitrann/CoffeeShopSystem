@@ -52,5 +52,9 @@ namespace WebMVC_CoffeeShopSystem.Dao
         {
             return SupplierCall.Instance.getSupplierLog(email, password);
         }
+        public SupplierView GetSupplierById(int idSupplier)
+        {
+            return SupplierCall.Instance.GetSupplierById(idSupplier);
+        }
     }
 }

@@ -1,8 +1,9 @@
 ﻿@{
-    ViewBag.Title = "Products";
     IEnumerable<WebAPI_CoffeeShop.Models.ModelView.ProductView> lstProd = ViewBag.lstProd;
     IEnumerable<WebAPI_CoffeeShop.Models.ModelView.CategoryView> menuCate = ViewBag.menuCate;
-
+    ViewBag.Title = "Products";
+    var hasProducts = lstProd != null && lstProd.Any();
+    var productCount = hasProducts ? lstProd.Count() : 0;
 }
 
 <main>
@@ -17,7 +18,7 @@
                     <div class="cafena-breadcrumb breadcrumbs">
                         <ul class="list-unstyled d-flex align-items-center justify-content-center">
                             <li class="cafenabcrumb-item duxinbcrumb-begin">
-                                <a href="index.html"><span>Home</span></a>
+                                <a href="/"><span>Home</span></a>
                             </li>
                             <li class="cafenabcrumb-item duxinbcrumb-end">
                                 <span>Products</span>
@@ -29,26 +30,32 @@
         </div>
     </section>
     <!-- breadcrumb area end -->
-    @if (lstProd != null)
-    {
-        <!-- product popup start -->
-        <div class="product-popup product-popup-1">
-            <div class="view-background">
-                <div class="row" id="contentPopup">
+    <!-- product popup start -->
+    <div class="product-popup product-popup-1">
+        <div class="view-background">
+            <div class="row" id="contentPopup">
 
-                </div>
             </div>
         </div>
-        <!-- product popup end -->
-        <!-- blog area start -->
-        <div class="blog-area pt-120 pb-105">
-            <div class="container">
+    </div>
+    <!-- product popup end -->
+    <!-- blog area start -->
+    <div class="blog-area pt-120 pb-105">
+        <div class="container">
+            <div class="row" id="emptyProducts" style="@(hasProducts ? "display:none" : "")">
+                <div class="col-xl-12 text-center">
+                    <h3 class="mb-20">No products found</h3>
+                    <p class="mb-30">Try another search term or clear selected categories.</p>
+                    <a href="/Products" class="site-btn">view all products</a>
+                </div>
+            </div>
+            <div id="productsContent" style="@(!hasProducts ? "display:none" : "")">
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="shop-filter-wrapper d-flex justify-content-between align-items-center mb-30">
                             <div class="sf-left">
                                 <div class="show-text">
-                                    <span>Showing @lstProd.Count() results</span>
+                                    <span>Showing @productCount results</span>
                                 </div>
                             </div>
                             <div class="sf-right d-flex justify-content-end align-items-center">
@@ -75,53 +82,53 @@
                         <div class="tab-content" id="shop-tabContent">
                             <div class="tab-pane fade show mt-none-30 active" id="shop-tab-1" role="tabpanel" aria-labelledby="shop-tab-1-tab">
                                 <div class="row">
-                                    @foreach (var item in lstProd)
+                                    @if (hasProducts)
                                     {
-                                        <div class="col-xl-4 col-lg-6 col-md-6 mt-30 itemlstProd" style="display:none">
-                                            <div class="pp__item pp__item--2 active text-center pt-20 pb-20">
-                                                <div class="pp__action pp__action--2 d-flex align-items-center justify-content-center">
-                                                    <div class="cart d-flex align-items-center justify-content-center">
-                                                        <a name="addToCartFast" data-id="@item.id" data-price="@item.finalPrice"><i class="fal fa-shopping-basket"></i></a>
-                                                    </div>
-                                                    <div class="wishlist d-flex align-items-center justify-content-center">
-                                                        <a name="addToWatchListFast" data-id="@item.id" href="#favorites"><i class="fal fa-heart" id="iconHeart-@item.id"></i></a>
-                                                    </div>
-                                                    @*<div class="view d-flex align-items-center justify-content-center">
-                                                            <a href="#0" value="@item.id" class="classPopup"><i class="fal fa-eye"></i></a>
-                                                        </div>*@
-                                                </div>
-                                                <div class="pp__thumb pp__thumb--2 mt-35">
-                                                    <img class="default" src="@item.image" alt="" style="height:100%">
-                                                    <img class="on-hover" src="@item.image2" alt="" style="height:100%">
-                                                </div>
-                                                <div class="pp__content pp__content--2 mt-25">
-                                                    <div class="pp__c-top d-flex align-items-center justify-content-center">
-                                                        <div class="pp__cat pp__cat--2">
-                                                            <a href="/Products/Details?idProd=@item.id">@item.titleCate</a>
+                                        foreach (var item in lstProd)
+                                        {
+                                            <div class="col-xl-4 col-lg-6 col-md-6 mt-30 itemlstProd" style="display:none">
+                                                <div class="pp__item pp__item--2 active text-center pt-20 pb-20">
+                                                    <div class="pp__action pp__action--2 d-flex align-items-center justify-content-center">
+                                                        <div class="cart d-flex align-items-center justify-content-center">
+                                                            <a name="addToCartFast" data-id="@item.id" data-price="@item.finalPrice"><i class="fal fa-shopping-basket"></i></a>
+                                                        </div>
+                                                        <div class="wishlist d-flex align-items-center justify-content-center">
+                                                            <a name="addToWatchListFast" data-id="@item.id" href="#favorites"><i class="fal fa-heart" id="iconHeart-@item.id"></i></a>
                                                         </div>
                                                     </div>
-                                                    <h4 class="pp__title pp__title--2">
-                                                        <a href="/Products/Details?idProd=@item.id">@item.title</a>
-                                                    </h4>
-                                                    <div class="pp__price pp__price--2 d-flex align-items-center justify-content-center">
-                                                        <h6 class="label">Price - </h6>
-                                                        @if (item.finalPrice != item.price)
-                                                        {
-                                                            <span class="price"> $@item.finalPrice / <span class="regular"><del>$@item.price</del></span></span>
-                                                        }
-                                                        else
-                                                        {
-                                                            <span class="price"> $@item.finalPrice </span>
-                                                        }
+                                                    <div class="pp__thumb pp__thumb--2 mt-35">
+                                                        <img class="default" src="@item.image" alt="@item.title" style="height:100%">
+                                                        <img class="on-hover" src="@item.image2" alt="@item.title" style="height:100%">
+                                                    </div>
+                                                    <div class="pp__content pp__content--2 mt-25">
+                                                        <div class="pp__c-top d-flex align-items-center justify-content-center">
+                                                            <div class="pp__cat pp__cat--2">
+                                                                <a href="/Products/Details?idProd=@item.id">@item.titleCate</a>
+                                                            </div>
+                                                        </div>
+                                                        <h4 class="pp__title pp__title--2">
+                                                            <a href="/Products/Details?idProd=@item.id">@item.title</a>
+                                                        </h4>
+                                                        <div class="pp__price pp__price--2 d-flex align-items-center justify-content-center">
+                                                            <h6 class="label">Price - </h6>
+                                                            @if (item.finalPrice != item.price)
+                                                            {
+                                                                <span class="price"> $@item.finalPrice / <span class="regular"><del>$@item.price</del></span></span>
+                                                            }
+                                                            else
+                                                            {
+                                                                <span class="price"> $@item.finalPrice </span>
+                                                            }
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
                                     }
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" id="productLoadMoreWrap" style="@(productCount > 6 ? "" : "display:none")">
                             <div class="col-xl-12 text-center">
                                 <a href="#load" id="loadMore" class="site-btn mt-60">load more</a>
                             </div>
@@ -150,80 +157,32 @@
                             }
 
                             <div class="widget mt-30">
-                                <h2 class="title">top Product</h2>
+                                <h2 class="title">Top Products</h2>
                                 <div class="recent-posts top-products">
-                                    <div class="item d-flex align-items-center">
-                                        <div class="thumb">
-                                            <img src="~/Content/assets/images/products/t-p-1.png" alt="">
-                                        </div>
-                                        <div class="content">
-                                            <div class="rating d-flex align-items-center justify-content-center">
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                                <a href="#0"><i class="fal fa-star"></i></a>
+                                    @if (hasProducts)
+                                    {
+                                        foreach (var item in lstProd.Take(4))
+                                        {
+                                            <div class="item d-flex align-items-center">
+                                                <div class="thumb">
+                                                    <img src="@item.image" alt="@item.title">
+                                                </div>
+                                                <div class="content">
+                                                    <h5 class="rp-title border-effect"><a href="/Products/Details?idProd=@item.id">@item.title</a></h5>
+                                                    <div class="pp__price">
+                                                        @if (item.finalPrice != item.price)
+                                                        {
+                                                            <span class="price"> $@item.finalPrice / <span class="regular"><del>$@item.price</del></span></span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span class="price"> $@item.finalPrice </span>
+                                                        }
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <h5 class="rp-title border-effect"><a href="product-details.html">Coffe americano</a></h5>
-                                            <div class="pp__price">
-                                                <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item d-flex align-items-center">
-                                        <div class="thumb">
-                                            <img src="~/Content/assets/images/products/t-p-2.png" alt="">
-                                        </div>
-                                        <div class="content">
-                                            <div class="rating d-flex align-items-center justify-content-center">
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                            </div>
-                                            <h5 class="rp-title border-effect"><a href="product-details.html">Coffe americano</a></h5>
-                                            <div class="pp__price">
-                                                <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item d-flex align-items-center">
-                                        <div class="thumb">
-                                            <img src="~/Content/assets/images/products/t-p-3.png" alt="">
-                                        </div>
-                                        <div class="content">
-                                            <div class="rating d-flex align-items-center justify-content-center">
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                            </div>
-                                            <h5 class="rp-title border-effect"><a href="product-details.html">Coffe americano</a></h5>
-                                            <div class="pp__price">
-                                                <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item d-flex align-items-center">
-                                        <div class="thumb">
-                                            <img src="~/Content/assets/images/products/t-p-4.png" alt="">
-                                        </div>
-                                        <div class="content">
-                                            <div class="rating d-flex align-items-center justify-content-center">
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                                <a href="#0"><i class="fal fa-star"></i></a>
-                                            </div>
-                                            <h5 class="rp-title border-effect"><a href="product-details.html">Coffe americano</a></h5>
-                                            <div class="pp__price">
-                                                <span class="price"> $325.00 / <span class="regular"><del>$348</del></span></span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        }
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -231,18 +190,21 @@
                 </div>
             </div>
         </div>
-        <!-- blog area end -->
-    }
+    </div>
+    <!-- blog area end -->
 </main>
 <script src="~/Content/assets/js/jquery-2.2.4.min.js"></script>
 <script>
     $(document).ready(function () {
         $(".itemlstProd").slice(0, 6).show();
+        if ($(".itemlstProd:hidden").length == 0) {
+            $("#productLoadMoreWrap").hide();
+        }
         $("#loadMore").on("click", function (e) {
             e.preventDefault();
             $(".itemlstProd:hidden").slice(0, 6).slideDown();
             if ($(".itemlstProd:hidden").length == 0) {
-                $("#loadMore").hide();
+                $("#productLoadMoreWrap").hide();
             }
         });
         //$(".classPopup").on("click", function () {
@@ -267,48 +229,48 @@
         //        }
         //    });
         //});
-        $("a[name='addToCartFast']").click(function () {
+        $(document).on("click", "a[name='addToCartFast']", function () {
+            var $button = $(this);
+            if ($button.data("loading") === true) {
+                return;
+            }
             var Amount = 1;
-            var Price = parseInt($(this).data("price")) * parseInt(Amount);
+            var Price = parseFloat($button.data("price")) * parseInt(Amount);
+            $button.data("loading", true).addClass("disabled");
             $.ajax({
                 type: "get",
                 url: "/Cart/AddToCart",
+                dataType: "json",
                 data: {
-                    idProduct: $(this).data("id"),
+                    idProduct: $button.data("id"),
                     Amount: Amount,
                     Price: Price
                 },
                 success: function (res) {
-                    if (res == "True") {
+                    if (res.success) {
+                        $("#quantityCartLayout").text(res.quantityCart);
                         Swal.fire({
                             title: "Add to Cart!",
                             text: "The product has been added to cart",
                             icon: "success",
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 900
                         });
-                        @{
-                            HttpCookie reqCookies = Request.Cookies["userInfo"];
-                            var userId = 0;
-                            if (reqCookies != null)
-                            {
-                                userId = reqCookies["userId"].ToString().AsInt();
-                            }
-                            var quantityCart = WebMVC_CoffeeShopSystem.Repositories.CartDao.Instance.quantityCartOfUser(userId);
-                        }
-                        $("#quantityCartLayout").text('@quantityCart');
                     } else {
                         Swal.fire({
                             title: "Add to Cart!",
                             text: "Please signin to add products to cart",
                             icon: "error",
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 900
                         });
                     }
                 },
                 error: function (response) {
                     console.log(response.responseText);
+                },
+                complete: function () {
+                    $button.data("loading", false).removeClass("disabled");
                 }
             });
         });

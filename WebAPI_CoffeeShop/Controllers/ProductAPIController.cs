@@ -39,5 +39,10 @@ namespace WebAPI_CoffeeShop.Controllers
         {
             return _productRepository.SearchProductsByPrice(typePrice);
         }
+        [HttpGet]
+        public List<ProductView> SearchProductsBySupplier(int idSupplier)
+        {
+            return _productRepository.SearchProductsBySupplier(idSupplier);
+        }
     }
 }

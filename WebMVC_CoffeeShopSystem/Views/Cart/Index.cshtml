@@ -3,6 +3,7 @@
     ViewBag.Title = "Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<WebAPI_CoffeeShop.Models.ModelView.CartView> lstCart = ViewBag.lstCart;
+    var hasCart = lstCart != null && lstCart.Any(c => c.cartViews != null && c.cartViews.Any());
 }
 <style>
     .vc_shop-voucher_pc {
@@ -431,7 +432,12 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
-                    @if (lstCart != null)
+                    <div id="emptyCartMessage" class="text-center" style="@(hasCart ? "display:none" : "")">
+                        <h3 class="mb-20">Your cart is empty</h3>
+                        <p class="mb-30">Add products to your cart and they will appear here.</p>
+                        <a href="/Products" class="site-btn">browse products</a>
+                    </div>
+                    @if (hasCart)
                     {
                         foreach (var item in lstCart)
                         {
@@ -492,7 +498,7 @@
                             <br />
                         }
                     }
-                    <div class="cart-wrapper" id="cart-bottom" style="padding: 25px 25px; width: 1176.222px;">
+                    <div class="cart-wrapper" id="cart-bottom" style="padding: 25px 25px; width: 1176.222px; @(!hasCart ? "display:none" : "")">
                         <div style="display: grid; justify-content: space-between;">
                             <div class="CzLyKQ">
                                 <div class="FGs2jP" style="font-size: 20px;">
@@ -523,7 +529,7 @@
                                 {
                                     <button class="site-btn__bghide clear-btn-style" id="selectAllCart">Select All (0)</button>
                                 }
-                                <button class="site-btn site-btn__bghide">Delete</button>
+                                <button class="site-btn site-btn__bghide" id="deleteSelectedCart" type="button">Delete</button>
                             </div>
                             <div class="totalCheck d-flex align-items-center">
                                 <div class="BV92a3" role="region">
@@ -646,8 +652,8 @@
             if ($("#" + item.id).is(':checked')) {
                 countCheckedCart += 1;
             }
-            $("#qttSelect").text(countCheckedCart);
         });
+        $("#qttSelect").text(countCheckedCart);
     }
     function subTotalCheckCart() {
         var sumSubTotal = 0;
@@ -658,8 +664,105 @@
                 var price = $("#price-" + idSuppCart).text();
                 sumSubTotal += parseInt(price);
             }
-            $("#amountSelect").text((sumSubTotal) + ".00");
-            $("#amountFirst").text(sumSubTotal);
+        });
+        $("#amountSelect").text((sumSubTotal) + ".00");
+        $("#amountFirst").text(sumSubTotal);
+    }
+    function refreshCartState(quantityCart) {
+        if (quantityCart !== undefined) {
+            $("#quantityCartLayout").text(quantityCart);
+            $("#cartBarQuantity").text(quantityCart);
+        }
+        var rowCount = document.querySelectorAll(`[id^="tr-"]`).length;
+        if (rowCount === 0) {
+            $("#cart-bottom").removeClass("cart-bottom-fix").hide();
+            $("#emptyCartMessage").show();
+        }
+    }
+    function removeCartRowFromUi(idSuppCart, quantityCart) {
+        var str = idSuppCart.split("-");
+        var idSupp = str[0];
+        $("#tr-" + idSuppCart).remove();
+        var rowCount = document.querySelectorAll(`[id^="tr-` + idSupp + `"]`).length;
+        if (rowCount == 0) {
+            $("#cartTable-" + idSupp).remove();
+        }
+        checkSelectAll();
+        countCheckCart();
+        subTotalCheckCart();
+        autoSelectVoucherSupp(idSupp);
+        refreshCartState(quantityCart);
+    }
+    function deleteCartRequest(idCart) {
+        return $.ajax({
+            type: "get",
+            url: "/Cart/DeleteCart",
+            dataType: "json",
+            data: {
+                idCart: idCart,
+            }
+        });
+    }
+    function deleteCartRow(idSuppCart) {
+        var str = idSuppCart.split("-");
+        var idCart = str[1];
+        return deleteCartRequest(idCart).done(function (res) {
+            if (!res.success) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Delete cart item",
+                    text: "Could not delete this product from cart.",
+                    timer: 1200,
+                    showConfirmButton: false
+                });
+                return;
+            }
+            removeCartRowFromUi(idSuppCart, res.quantityCart);
+        }).fail(function (response) {
+            console.log(response.responseText);
+        });
+    }
+    function deleteSelectedCartRows(selectedItems) {
+        var itemsToDelete = selectedItems.map(function (item) {
+            var idSuppCart = item.id.slice(10);
+            var idCart = idSuppCart.split("-")[1];
+            return {
+                idSuppCart: idSuppCart,
+                request: deleteCartRequest(idCart)
+            };
+        });
+
+        return Promise.all(itemsToDelete.map(function (item) {
+            return new Promise(function (resolve, reject) {
+                item.request.done(function (res) {
+                    if (res.success) {
+                        resolve(item);
+                    } else {
+                        reject();
+                    }
+                }).fail(function () {
+                    reject();
+                });
+            });
+        })).then(function (deletedItems) {
+            deletedItems.forEach(function (item) {
+                var idSupp = item.idSuppCart.split("-")[0];
+                $("#tr-" + item.idSuppCart).remove();
+                var rowCount = document.querySelectorAll(`[id^="tr-` + idSupp + `"]`).length;
+                if (rowCount == 0) {
+                    $("#cartTable-" + idSupp).remove();
+                }
+            });
+            var remainingRows = document.querySelectorAll(`[id^="tr-"]`).length;
+            $("#quantityCartLayout").text(remainingRows);
+            $("#cartBarQuantity").text(remainingRows);
+            checkSelectAll();
+            countCheckCart();
+            subTotalCheckCart();
+            document.querySelectorAll(`[id^="checkAll-"]`).forEach(function (item) {
+                autoSelectVoucherSupp(item.id.slice(9));
+            });
+            refreshCartState(remainingRows);
         });
     }
     function autoSelectVoucherSupp(idSupplierCheck) {
@@ -1094,6 +1197,7 @@
         });
 
         // lazy load menu cartSupplier
+        $(".cart-wrapper-table").slice(0, 1).show();
         $(window).scroll(function () {
             $(".cart-wrapper-table").slice(0, 1).show();
             if ($(this).scrollTop() + $(this).height() > $(document).height() - 600) {
@@ -1105,6 +1209,10 @@
         var bottomFixCart = $("#cart-bottom");
         // dùng sự kiện cuộn chuột để bắt thông tin đã cuộn được chiều dài là bao nhiêu.
         $(window).scroll(function () {
+            if (document.querySelectorAll(`[id^="tr-"]`).length === 0) {
+                $("#cart-bottom").removeClass("cart-bottom-fix").hide();
+                return;
+            }
             // Nếu cuộn được hơn 150px rồi
             if ($(this).scrollTop() > 100) {
                 // Tiến hành show menu ra
@@ -1122,8 +1230,43 @@
         $("#btnSelectV_Cafena").click(function () {
             seeMoreVouchers(0);
         });
+        $("#deleteSelectedCart").click(function () {
+            var selectedItems = Array.from(document.querySelectorAll(`[id^="checkCart-"]`))
+                .filter(item => $("#" + item.id).is(":checked"));
+            if (selectedItems.length === 0) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Delete cart item",
+                    text: "Please select products to delete.",
+                    timer: 1200,
+                    showConfirmButton: false
+                });
+                return;
+            }
+            var $button = $(this);
+            $button.prop("disabled", true).text("Deleting...");
+            deleteSelectedCartRows(selectedItems).then(function () {
+                Swal.fire({
+                    icon: "success",
+                    title: "Delete cart item",
+                    text: "Selected products have been removed from cart.",
+                    timer: 1200,
+                    showConfirmButton: false
+                });
+            }).catch(function () {
+                Swal.fire({
+                    icon: "error",
+                    title: "Delete cart item",
+                    text: "Could not delete all selected products.",
+                    timer: 1200,
+                    showConfirmButton: false
+                });
+            }).finally(function () {
+                $button.prop("disabled", false).text("Delete");
+            });
+        });
 
-        var lst = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(lstCart));
+        var lst = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(lstCart ?? new List<WebAPI_CoffeeShop.Models.ModelView.CartView>()));
         for (var i = 0; i < lst.length; i++) {
             $("#btnSeeVoucherOfSupp-" + lst[i].idSupplier).click(function () {
                 var idSupplier = this.id.slice(20);
@@ -1360,36 +1503,7 @@
 
                 $("#btnDeleteCart-" + lst[i].idSupplier + "-" + cartViews[j].idCart).click(function () {
                     var idSuppCart = this.id.slice(14);
-                    var str = this.id.slice(14).split("-");
-                    var idSupp = 0
-                    var idCart = 0;
-                    for (var k = 0; k < str.length; k++) {
-                        idSupp = str[0];
-                        idCart = str[1];
-                        break;
-                    }
-                    $.ajax({
-                        type: "get",
-                        url: "/Cart/DeleteCart",
-                        data: {
-                            idCart: idCart,
-                        },
-                        success: function (res) {
-                            $("#tr-" + idSuppCart).remove();
-                            var rowCount = document.querySelectorAll(`[id^="tr-` + idSupp + `"]`).length;
-                            if (rowCount == 0) {
-                                $("#cartTable-" + idSupp).remove();
-                            }
-                            checkSelectAll();
-                            countCheckCart();
-                            subTotalCheckCart();
-                            autoSelectVoucherSupp(idSupp);
-                        },
-                        error: function (response) {
-                            console.log(response.responseText);
-                        }
-                    });
-
+                    deleteCartRow(idSuppCart);
                 });
             }
         }

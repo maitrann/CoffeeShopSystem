@@ -86,7 +86,7 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                HttpResponseMessage Res = client.GetAsync(voucherUrl.GetVoucherByMulIdVoucher + "?idVoucher=" + idVoucher).GetAwaiter().GetResult();
+                HttpResponseMessage Res = client.GetAsync(voucherUrl.GetVoucherByMulIdVoucher + "?idVoucher=" + Uri.EscapeDataString(idVoucher ?? string.Empty)).GetAwaiter().GetResult();
                 if (Res.IsSuccessStatusCode)
                 {
                     var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();

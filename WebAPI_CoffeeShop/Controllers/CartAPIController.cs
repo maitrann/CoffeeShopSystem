@@ -26,9 +26,9 @@ namespace WebAPI_CoffeeShop.Controllers
             return _cartRepository.GetCartHover(idAccount);
         }
         [HttpPost]
-        public void UpdateInsertCart([FromBody] Cart model)
+        public int UpdateInsertCart([FromBody] Cart model)
         {
-            _cartRepository.UpdateInsertCart(model);
+            return _cartRepository.UpdateInsertCart(model);
         }
         [HttpGet]
         public void UpdateCart(int idCart, int amount, decimal? price)
@@ -36,9 +36,9 @@ namespace WebAPI_CoffeeShop.Controllers
             _cartRepository.UpdateCart(idCart, amount, price);
         }
         [HttpGet]
-        public void DeleteCart(int idCart)
+        public bool DeleteCart(int idCart)
         {
-            _cartRepository.DeleteCart(idCart);
+            return _cartRepository.DeleteCart(idCart);
         }
         [HttpGet]
         public List<CartView> GetCartCheckout(int idAccount, string lsCartCheckout)

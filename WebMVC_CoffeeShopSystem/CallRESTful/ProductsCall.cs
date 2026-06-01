@@ -117,6 +117,22 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
                 return prodInfo;
             }
         }
+        public List<ProductView> SearchProductsBySupplier(int idSupplier)
+        {
+            List<ProductView> prodInfo = new List<ProductView>();
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage Res = client.GetAsync(productUrl.SearchProductsBySupplier + "?idSupplier=" + idSupplier).GetAwaiter().GetResult();
+                if (Res.IsSuccessStatusCode)
+                {
+                    var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    prodInfo = JsonConvert.DeserializeObject<List<ProductView>>(prodResponse);
+                }
+                return prodInfo;
+            }
+        }
 
     }
 }

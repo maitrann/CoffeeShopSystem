@@ -1,0 +1,508 @@
+@{
+    var supplier = ViewBag.supplier as WebAPI_CoffeeShop.Models.ModelView.SupplierView;
+    IEnumerable<WebAPI_CoffeeShop.Models.ModelView.ProductView> lstProd = ViewBag.lstProd;
+    var hasProducts = lstProd != null && lstProd.Any();
+    var productCount = hasProducts ? lstProd.Count() : 0;
+    var shopName = supplier != null ? supplier.title : "Supplier shop";
+    var avatarImage = supplier != null && !string.IsNullOrWhiteSpace(supplier.avatar) && supplier.avatar != "BLANK"
+        ? supplier.avatar
+        : Url.Content("~/Content/assets/images/logo/logo-black.png");
+    var coverImage = supplier != null && !string.IsNullOrWhiteSpace(supplier.image) && supplier.image != "No Image"
+        ? supplier.image
+        : Url.Content("~/Content/assets/images/bg/breadcrumb-bg-1.jpeg");
+    ViewBag.Title = shopName;
+}
+
+<style>
+    .supplier-hero {
+        position: relative;
+        min-height: 460px;
+        display: flex;
+        align-items: flex-end;
+        background-position: center;
+        background-size: cover;
+        color: #fff;
+        overflow: hidden;
+    }
+
+    .supplier-hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, rgba(16, 13, 10, 0.82), rgba(16, 13, 10, 0.48) 52%, rgba(16, 13, 10, 0.18));
+    }
+
+    .supplier-hero__inner {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        padding: 135px 0 68px;
+    }
+
+    .supplier-hero__profile {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        max-width: 820px;
+    }
+
+    .supplier-hero__avatar {
+        width: 116px;
+        height: 116px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 5px solid rgba(255, 255, 255, 0.94);
+        background: #fff;
+        flex: 0 0 auto;
+    }
+
+    .supplier-hero__eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 11px;
+        color: #c7a17a;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0;
+        text-transform: uppercase;
+    }
+
+    .supplier-hero__title {
+        color: #fff;
+        font-size: 54px;
+        line-height: 1.08;
+        margin-bottom: 16px;
+    }
+
+    .supplier-hero__meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .supplier-hero__meta span,
+    .supplier-hero__meta a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 38px;
+        padding: 8px 13px;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.13);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 8px;
+    }
+
+    .supplier-hero__stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 26px;
+        margin-top: 36px;
+    }
+
+    .supplier-hero__stat strong {
+        display: block;
+        color: #fff;
+        font-size: 30px;
+        line-height: 1;
+        margin-bottom: 7px;
+    }
+
+    .supplier-hero__stat span {
+        color: rgba(255, 255, 255, 0.76);
+        font-size: 14px;
+    }
+
+    .supplier-shop {
+        padding: 95px 0 115px;
+        background: #fff;
+    }
+
+    .supplier-shop__toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 22px;
+        margin-bottom: 34px;
+    }
+
+    .supplier-shop__heading h2 {
+        margin-bottom: 8px;
+        font-size: 34px;
+    }
+
+    .supplier-shop__heading p {
+        margin-bottom: 0;
+        color: #777;
+    }
+
+    .supplier-shop__tools {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex: 0 0 auto;
+    }
+
+    .supplier-shop__search {
+        position: relative;
+        width: 280px;
+    }
+
+    .supplier-shop__search input {
+        width: 100%;
+        height: 50px;
+        padding: 0 42px 0 16px;
+        border: 1px solid #e6ded6;
+        border-radius: 8px;
+        color: #222;
+    }
+
+    .supplier-shop__search i {
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        transform: translateY(-50%);
+        color: #c7a17a;
+    }
+
+    .supplier-shop__tools select {
+        height: 50px;
+        min-width: 178px;
+        border: 1px solid #e6ded6;
+        border-radius: 8px;
+        padding: 0 13px;
+    }
+
+    .supplier-empty {
+        padding: 70px 20px;
+        text-align: center;
+        background: #fffaf5;
+        border-radius: 8px;
+    }
+
+    .supplier-empty h3 {
+        margin-bottom: 12px;
+    }
+
+    .supplier-product-card {
+        height: 100%;
+    }
+
+    .supplier-product-card .pp__thumb {
+        min-height: 210px;
+    }
+
+    .supplier-product-card .pp__thumb img {
+        object-fit: contain;
+    }
+
+    @@media (max-width: 991px) {
+        .supplier-hero__profile,
+        .supplier-shop__toolbar,
+        .supplier-shop__tools {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .supplier-hero__title {
+            font-size: 40px;
+        }
+
+        .supplier-shop__search,
+        .supplier-shop__tools,
+        .supplier-shop__tools select {
+            width: 100%;
+        }
+    }
+</style>
+
+<main>
+    <section class="supplier-hero" style="background-image: url('@coverImage')">
+        <div class="supplier-hero__inner">
+            <div class="container">
+                <div class="supplier-hero__profile">
+                    <img class="supplier-hero__avatar" src="@avatarImage" alt="@shopName">
+                    <div>
+                        <span class="supplier-hero__eyebrow"><i class="fal fa-store"></i> Seller shop</span>
+                        <h1 class="supplier-hero__title">@shopName</h1>
+                        <div class="supplier-hero__meta">
+                            @if (supplier != null && !string.IsNullOrWhiteSpace(supplier.address))
+                            {
+                                <span><i class="fal fa-map-marker-alt"></i> @supplier.address</span>
+                            }
+                            @if (supplier != null && !string.IsNullOrWhiteSpace(supplier.phone))
+                            {
+                                <a href="tel:@supplier.phone"><i class="fal fa-phone"></i> @supplier.phone</a>
+                            }
+                            @if (supplier != null && !string.IsNullOrWhiteSpace(supplier.email))
+                            {
+                                <a href="mailto:@supplier.email"><i class="fal fa-envelope"></i> @supplier.email</a>
+                            }
+                        </div>
+                        <div class="supplier-hero__stats">
+                            <div class="supplier-hero__stat">
+                                <strong>@productCount</strong>
+                                <span>Products available</span>
+                            </div>
+                            <div class="supplier-hero__stat">
+                                <strong>@(supplier != null && supplier.createDate.HasValue ? supplier.createDate.Value.ToString("yyyy") : "New")</strong>
+                                <span>Joined Cafena</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="supplier-shop">
+        <div class="container">
+            <div class="supplier-shop__toolbar">
+                <div class="supplier-shop__heading">
+                    <h2>Products from @shopName</h2>
+                    <p>Showing @productCount product@(productCount == 1 ? "" : "s") from this supplier.</p>
+                </div>
+                <div class="supplier-shop__tools">
+                    <div class="supplier-shop__search">
+                        <input id="supplierProductSearch" type="search" placeholder="Search this shop" autocomplete="off">
+                        <i class="fal fa-search"></i>
+                    </div>
+                    <select id="supplierProductSort">
+                        <option value="default">Default</option>
+                        <option value="priceAsc">Price low to high</option>
+                        <option value="priceDesc">Price high to low</option>
+                    </select>
+                </div>
+            </div>
+
+            @if (!hasProducts)
+            {
+                <div class="supplier-empty">
+                    <h3>No products yet</h3>
+                    <p class="mb-30">This supplier does not have active products at the moment.</p>
+                    <a href="/Products" class="site-btn">view all products</a>
+                </div>
+            }
+            else
+            {
+                <div class="row mt-none-30" id="supplierProductGrid">
+                    @{ var productIndex = 0; }
+                    @foreach (var item in lstProd)
+                    {
+                        <div class="col-xl-3 col-lg-4 col-md-6 mt-30 supplierProductItem"
+                             data-name="@item.title"
+                             data-category="@item.titleCate"
+                             data-price="@item.finalPrice"
+                             data-order="@productIndex"
+                             style="display:none">
+                            <div class="pp__item pp__item--2 active text-center pt-20 pb-20 supplier-product-card">
+                                <div class="pp__action pp__action--2 d-flex align-items-center justify-content-center">
+                                    <div class="cart d-flex align-items-center justify-content-center">
+                                        <a name="addToCartFast" data-id="@item.id" data-price="@item.finalPrice"><i class="fal fa-shopping-basket"></i></a>
+                                    </div>
+                                    <div class="wishlist d-flex align-items-center justify-content-center">
+                                        <a name="addToWatchListFast" data-id="@item.id" href="#favorites"><i class="fal fa-heart" id="iconHeart-@item.id"></i></a>
+                                    </div>
+                                    <div class="view d-flex align-items-center justify-content-center">
+                                        <a href="/Products/Details?idProd=@item.id"><i class="fal fa-eye"></i></a>
+                                    </div>
+                                </div>
+                                <a class="pp__thumb pp__thumb--2 mt-35 d-block" href="/Products/Details?idProd=@item.id">
+                                    <img class="default" src="@item.image" alt="@item.title" style="height:100%">
+                                    <img class="on-hover" src="@item.image2" alt="@item.title" style="height:100%">
+                                </a>
+                                <div class="pp__content pp__content--2 mt-25">
+                                    <div class="pp__c-top d-flex align-items-center justify-content-center">
+                                        <div class="pp__cat pp__cat--2">
+                                            <a href="/Products/Details?idProd=@item.id">@item.titleCate</a>
+                                        </div>
+                                    </div>
+                                    <h4 class="pp__title pp__title--2">
+                                        <a href="/Products/Details?idProd=@item.id">@item.title</a>
+                                    </h4>
+                                    <div class="pp__price pp__price--2 d-flex align-items-center justify-content-center">
+                                        <h6 class="label">Price - </h6>
+                                        @if (item.finalPrice != item.price)
+                                        {
+                                            <span class="price"> $@item.finalPrice / <span class="regular"><del>$@item.price</del></span></span>
+                                        }
+                                        else
+                                        {
+                                            <span class="price"> $@item.finalPrice </span>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        productIndex++;
+                    }
+                </div>
+                <div class="supplier-empty mt-30" id="supplierNoMatch" style="display:none">
+                    <h3>No matching products</h3>
+                    <p>Try another keyword in this shop.</p>
+                </div>
+                <div class="row" id="supplierLoadMoreWrap" style="@(productCount > 8 ? "" : "display:none")">
+                    <div class="col-xl-12 text-center">
+                        <a href="#load" id="supplierLoadMore" class="site-btn mt-60">load more</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+</main>
+
+<script src="~/Content/assets/js/jquery-2.2.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var visibleCount = 8;
+
+        function getProductItems() {
+            return $(".supplierProductItem");
+        }
+
+        function renderProducts(resetCount) {
+            if (resetCount) {
+                visibleCount = 8;
+            }
+
+            var visibleItems = getProductItems().not(".is-filtered");
+            getProductItems().hide();
+            visibleItems.slice(0, visibleCount).show();
+            $("#supplierNoMatch").toggle(visibleItems.length === 0);
+            $("#supplierLoadMoreWrap").toggle(visibleItems.length > visibleCount);
+        }
+
+        function applySupplierSearch() {
+            var keyword = ($("#supplierProductSearch").val() || "").toLowerCase().trim();
+
+            getProductItems().each(function () {
+                var $item = $(this);
+                var searchable = (($item.data("name") || "") + " " + ($item.data("category") || "")).toLowerCase();
+                $item.toggleClass("is-filtered", keyword.length > 0 && searchable.indexOf(keyword) === -1);
+            });
+
+            renderProducts(true);
+        }
+
+        $("#supplierProductSearch").on("input", applySupplierSearch);
+
+        $("#supplierProductSort").on("change", function () {
+            var sortType = $(this).val();
+            var $grid = $("#supplierProductGrid");
+            var items = getProductItems().get();
+
+            items.sort(function (a, b) {
+                if (sortType === "priceAsc" || sortType === "priceDesc") {
+                    var priceA = Number($(a).data("price")) || 0;
+                    var priceB = Number($(b).data("price")) || 0;
+                    return sortType === "priceAsc" ? priceA - priceB : priceB - priceA;
+                }
+
+                return (Number($(a).data("order")) || 0) - (Number($(b).data("order")) || 0);
+            });
+
+            $.each(items, function (_, item) {
+                $grid.append(item);
+            });
+
+            renderProducts(true);
+        });
+
+        $("#supplierLoadMore").on("click", function (e) {
+            e.preventDefault();
+            visibleCount += 8;
+            renderProducts(false);
+        });
+
+        $(document).on("click", "a[name='addToCartFast']", function () {
+            var $button = $(this);
+            if ($button.data("loading") === true) {
+                return;
+            }
+
+            var amount = 1;
+            var price = Number($button.data("price")) * amount;
+            $button.data("loading", true).addClass("disabled");
+
+            $.ajax({
+                type: "get",
+                url: "/Cart/AddToCart",
+                dataType: "json",
+                data: {
+                    idProduct: $button.data("id"),
+                    Amount: amount,
+                    Price: price
+                },
+                success: function (res) {
+                    if (res.success) {
+                        $("#quantityCartLayout").text(res.quantityCart);
+                        Swal.fire({
+                            title: "Add to Cart!",
+                            text: "The product has been added to cart",
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 900
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Add to Cart!",
+                            text: "Please signin to add products to cart",
+                            icon: "error",
+                            showConfirmButton: false,
+                            timer: 900
+                        });
+                    }
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                },
+                complete: function () {
+                    $button.data("loading", false).removeClass("disabled");
+                }
+            });
+        });
+
+        $(document).on("click", "a[name='addToWatchListFast']", function () {
+            $.ajax({
+                type: "get",
+                url: "/Favorites/AddToWatchList",
+                data: {
+                    idProduct: $(this).data("id")
+                },
+                success: function (res) {
+                    if (res == "True") {
+                        Swal.fire({
+                            title: "Add to Favorites list!",
+                            text: "The product has been added to favorites list",
+                            icon: "success",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else if (res == "False") {
+                        Swal.fire({
+                            title: "Remove to Favorites list!",
+                            text: "The product has been removed to favorites list",
+                            icon: "info",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Add to Favorites list!",
+                            text: "Please signin to add products to favorites list",
+                            icon: "error",
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    }
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        });
+
+        renderProducts(true);
+    });
+</script>

@@ -50,7 +50,7 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
             {
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = client.GetAsync(blogUrl.SearchBlogByKeyword + "?keyword=" + keyword).GetAwaiter().GetResult();
+                HttpResponseMessage Res = client.GetAsync(blogUrl.SearchBlogByKeyword + "?keyword=" + Uri.EscapeDataString(keyword ?? string.Empty)).GetAwaiter().GetResult();
                 if (Res.IsSuccessStatusCode)
                 {
                     var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
@@ -61,7 +61,7 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
         }
         public BlogView GetBlogById(int? idBlog)
         {
-            BlogView prodInfo = new BlogView();
+            BlogView prodInfo = null;
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Clear();
@@ -93,7 +93,7 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
         }
         public Comment_SubC_Type_Result InsertCommentBlog(Comment_SubC_Type_Result model)
         {
-            Comment_SubC_Type_Result comment = new Comment_SubC_Type_Result();
+            Comment_SubC_Type_Result comment = null;
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Clear();

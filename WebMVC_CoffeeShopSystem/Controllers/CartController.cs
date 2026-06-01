@@ -27,7 +27,7 @@ namespace WebMVC_CoffeeShopSystem.Controllers
                 return RedirectToAction("Index", "Signin");
             }
         }
-        public string AddToCart(int idProduct, int Amount, decimal Price)
+        public JsonResult AddToCart(int idProduct, int Amount, decimal Price)
         {
             HttpCookie reqCookies = Request.Cookies["userInfo"];
             if (reqCookies != null)
@@ -38,20 +38,29 @@ namespace WebMVC_CoffeeShopSystem.Controllers
                 model.Amount = Amount;
                 model.Price = Price;
                 model.Status = true;
-                CartDao.Instance.UpdateInsertCart(model);
-                return "True";
+                var quantityCart = CartDao.Instance.UpdateInsertCart(model);
+                return Json(new { success = true, quantityCart }, JsonRequestBehavior.AllowGet);
             } else
             {
-                return "False";
+                return Json(new { success = false, quantityCart = 0 }, JsonRequestBehavior.AllowGet);
             }
         }
         public void UpdateCart(int idCart, int amount, decimal? price)
         {
             CartDao.Instance.UpdateCart(idCart, amount, price);
         }
-        public void DeleteCart(int idCart)
+        public JsonResult DeleteCart(int idCart)
         {
-            CartDao.Instance.DeleteCart(idCart);
+            HttpCookie reqCookies = Request.Cookies["userInfo"];
+            if (reqCookies == null)
+            {
+                return Json(new { success = false, quantityCart = 0 }, JsonRequestBehavior.AllowGet);
+            }
+
+            var success = CartDao.Instance.DeleteCart(idCart);
+            var userId = reqCookies["userId"].ToString().AsInt();
+            var quantityCart = CartDao.Instance.quantityCartOfUser(userId);
+            return Json(new { success, quantityCart }, JsonRequestBehavior.AllowGet);
         }
         public JsonResult CartIntroVoucherToSelect(int userCreate, decimal? priceCartSupp)
         {

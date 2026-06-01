@@ -117,5 +117,27 @@ namespace WebAPI_CoffeeShop.Repositories
             }
             return supplier;
         }
+        public SupplierView GetSupplierById(int idSupplier)
+        {
+            using (var context = new CoffeeShopSystemEntities())
+            {
+                return context.Suppliers.Where(s => s.id == idSupplier && s.isActive == 1)
+                    .Select(s => new SupplierView()
+                    {
+                        id = s.id,
+                        avatar = s.avatar,
+                        image = s.image,
+                        title = s.title,
+                        phone = s.phone,
+                        email = s.email,
+                        address = s.address,
+                        username = s.username,
+                        password = string.Empty,
+                        createDate = s.createDate,
+                        isActive = s.isActive,
+                        productCount = s.Products.Count(p => p.isActive == 1)
+                    }).FirstOrDefault();
+            }
+        }
     }
 }

@@ -20,5 +20,6 @@ namespace WebAPI_CoffeeShop.Models.ModelView
         public Nullable<System.DateTime> createDate { get; set; }
         public Nullable<int> isActive { get; set; }
         public string saltKey { get; set; }
+        public int productCount { get; set; }
     }
 }

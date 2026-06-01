@@ -12,8 +12,9 @@ namespace WebAPI_CoffeeShop.Interface
 	{
         Supplier RegiterSupplier(Supplier model);
 		bool checkExistEmail(string emailRegis);
-		bool checkExistPhone(string phoneRegis);
+        bool checkExistPhone(string phoneRegis);
 		bool checkPasswordWithEmail(string email, string password);
         SupplierView getSupplierLog(string email, string password);
+        SupplierView GetSupplierById(int idSupplier);
     }
 }

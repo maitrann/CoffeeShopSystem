@@ -53,5 +53,9 @@ namespace WebMVC_CoffeeShopSystem.Repositories
             return ProductsCall.Instance.SearchProductsByPrice(typePrice);
 
         }
+        public List<ProductView> SearchProductsBySupplier(int idSupplier)
+        {
+            return ProductsCall.Instance.SearchProductsBySupplier(idSupplier);
+        }
     }
 }

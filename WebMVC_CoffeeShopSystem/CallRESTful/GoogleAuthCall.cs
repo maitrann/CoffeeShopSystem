@@ -49,7 +49,7 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
             {
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage Res = await client.GetAsync(googleAuthUrl.GoogleLoginCallBack+"?code="+code);
+                HttpResponseMessage Res = await client.GetAsync(googleAuthUrl.GoogleLoginCallBack + "?code=" + Uri.EscapeDataString(code ?? string.Empty));
                 if (Res.IsSuccessStatusCode)
                 {
                     var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();

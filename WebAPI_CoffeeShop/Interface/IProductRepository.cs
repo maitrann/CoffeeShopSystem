@@ -14,6 +14,7 @@ namespace WebAPI_CoffeeShop.Interface
         List<ProductView> SearchProductsByKeyWord(string keyword);
         List<ProductView> SearchProductsByCategory(string lsIdCategory);
         List<ProductView> SearchProductsByPrice(int typePrice);
+        List<ProductView> SearchProductsBySupplier(int idSupplier);
 
     }
 }

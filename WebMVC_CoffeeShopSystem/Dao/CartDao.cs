@@ -34,17 +34,17 @@ namespace WebMVC_CoffeeShopSystem.Repositories
         {
             return CartCall.Instance.getCart(idAccount);
         }
-        public void UpdateInsertCart(Cart model)
+        public int UpdateInsertCart(Cart model)
         {
-            CartCall.Instance.UpdateInsertCart(model);
+            return CartCall.Instance.UpdateInsertCart(model);
         }
         public void UpdateCart(int idCart, int amount, decimal? price)
         {
             CartCall.Instance.UpdateCart(idCart, amount, price);
         }
-        public void DeleteCart(int idCart)
+        public bool DeleteCart(int idCart)
         {
-            CartCall.Instance.DeleteCart(idCart);
+            return CartCall.Instance.DeleteCart(idCart);
         }
         public List<CartView> GetCartCheckout(int idAccount, string lsCartCheckout)
         {

@@ -12,9 +12,9 @@ namespace WebAPI_CoffeeShop.Interface
     {
         List<CartView> GetCart(int idAccount);
         List<CartView> GetCartHover(int idAccount);
-        void UpdateInsertCart(Cart model);
+        int UpdateInsertCart(Cart model);
         void UpdateCart(int idCart, int amount, decimal? price);
-        void DeleteCart(int idCart);
+        bool DeleteCart(int idCart);
         List<CartView> GetCartCheckout(int idAccount, string lsCartCheckout);
         int quantityCartOfUser(int idAccount);
         void UpdateCartCheckout(string lsIdCart);

@@ -866,7 +866,7 @@
 </style>
 <main>
     <!-- breadcrumb area start -->
-    <section class="breadcrumb-area pt-140 pb-140 bg_img" data-background="assets/images/bg/breadcrumb-bg-1.jpeg" data-overlay="dark" data-opacity="5">
+    <section class="breadcrumb-area pt-140 pb-140 bg_img" data-background="~/Content/assets/images/bg/breadcrumb-bg-1.jpeg" data-overlay="dark" data-opacity="5">
         <div class="shape shape__1"><img src="~/Content/assets/images/shape/breadcrumb-shape-1.png" alt=""></div>
         <div class="shape shape__2"><img src="~/Content/assets/images/shape/breadcrumb-shape-2.png" alt=""></div>
         <div class="container">
@@ -900,9 +900,8 @@
                                 <img src="@detailsBlog.image" alt="" style="min-width:100%">
                             </div>
                             <ul class="meta mt-20 list-unstyled d-flex align-items-center">
-                                <li><a href="#0"><i class="fal fa-file"></i> Coffee</a></li>
-                                <li><a href="#0"><i class="fal fa-comments"></i> @detailsBlog.countCmt Comments</a></li>
-                                <li><a href="#0"><i class="fal fa-calendar-alt"></i> @detailsBlog.createDate</a></li>
+                                <li><span><i class="fal fa-comments"></i> @detailsBlog.countCmt Comments</span></li>
+                                <li><span><i class="fal fa-calendar-alt"></i> @detailsBlog.createDate</span></li>
                             </ul>
                             <div class="content mt-10">
                                 <h2 class="title mb-10">@detailsBlog.title</h2>
@@ -913,84 +912,7 @@
                                     <p>@detailsBlog.description</p>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="navigation-border pt-45 mt-45"></div>
-                                </div>
-                                <div class="col-xl-5 col-md-5">
-                                    <div class="cafena-navigation b-next-post text-start">
-                                        <a href="#0"><span>Prev Post</span></a>
-                                        <h4><a href="#0">Tips On Minimalist</a></h4>
-                                    </div>
-                                </div>
-                                <div class="col-xl-2 col-md-2 my-auto">
-                                    <div class="blog-filter text-left text-md-center">
-                                        <a href="#0"><img src="assets/images/icons/filter.png" alt=""></a>
-                                    </div>
-                                </div>
-                                <div class="col-xl-5 col-md-5">
-                                    <div class="cafena-navigation b-next-post text-end">
-                                        <a href="#0"><span>Next Post</span></a>
-                                        <h4><a href="#0">Less Is More</a></h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="navigation-border pt-45 mt-45"></div>
-                                </div>
-                                <div class="col-xl-12">
-                                    <div class="row">
-                                        <div class="col-xl-12">
-                                            <h2 class="releted-post-heading mb-40">Releted Post</h2>
-                                        </div>
-                                    </div>
-                                    <div class="row releted-post mt-none-30">
-                                        <div class="col-xl-6">
-                                            <article class="blog__post blog__post--releted border-0 p-0 format format-image mt-30">
-                                                <div class="thumb border-0">
-                                                    <img src="assets/images/blog/r-post-1.jpg" alt="">
-                                                </div>
-                                                <div class="content">
-                                                    <ul class="meta list-unstyled d-flex align-items-center">
-                                                        <li><a href="#0"><i class="fal fa-calendar-alt"></i> 04th March 2019</a></li>
-                                                    </ul>
-                                                    <h2 class="title border-effect mb-15">
-                                                        <a href="blog-details.html">
-                                                            Watch: 10 Days Later: What
-                                                            Italians Wish They Had Known
-                                                        </a>
-                                                    </h2>
-                                                    <p>
-                                                        A supermarket worker was spat at by a customer to stockpile..
-                                                    </p>
-                                                </div>
-                                            </article>
-                                        </div>
-                                        <div class="col-xl-6">
-                                            <article class="blog__post blog__post--releted border-0 p-0 format format-image mt-30">
-                                                <div class="thumb border-0">
-                                                    <img src="~/Content/assets/images/blog/r-post-2.jpg" alt="">
-                                                </div>
-                                                <div class="content">
-                                                    <ul class="meta list-unstyled d-flex align-items-center">
-                                                        <li><a href="blog-details.html"><i class="fal fa-calendar-alt"></i> 04th March 2019</a></li>
-                                                    </ul>
-                                                    <h2 class="title border-effect mb-15">
-                                                        <a href="blog-details.html">
-                                                            See all the best advice of
-                                                            Bangladeshy.
-                                                        </a>
-                                                    </h2>
-                                                    <p>
-                                                        A supermarket worker was spat at by a customer to stockpile..
-                                                    </p>
-                                                </div>
-                                            </article>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="navigation-border pt-45 mt-45"></div>
                             <div class="author-box mt-50 mb-40 d-flex align-items-center justify-content-center">
                                 <div class="ath-content">
                                     <span>Written by</span>
@@ -1018,74 +940,6 @@
 
                                     </div>
                                 </div>
-                                @*<div class="latest__comments">
-                                        <ul class="list-unstyled mb-0">
-                                            <li>
-                                                <div class="comments-box">
-                                                    <div class="comments-avatar">
-                                                        <img src="~/Content/assets/images/author/c-author-1.png" alt="">
-                                                    </div>
-                                                    <div class="comments-text">
-                                                        <div class="avatar-name">
-                                                            <h5>Rosalina Kelian</h5>
-                                                            <span><i class="fal fa-calendar-alt"></i> 19th May 2018</span>
-                                                            <a class="reply" href="#0"><i class="fal fa-reply"></i>Reply</a>
-                                                        </div>
-                                                        <p>
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                            tempor incididunt
-                                                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                                            exercitation
-                                                            ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="children">
-                                                <div class="comments-box">
-                                                    <div class="comments-avatar">
-                                                        <img src="~/Content/assets/images/author/c-author-2.png" alt="">
-                                                    </div>
-                                                    <div class="comments-text">
-                                                        <div class="avatar-name">
-                                                            <h5>Rosalina Kelian</h5>
-                                                            <span><i class="fal fa-calendar-alt"></i> 19th May 2018</span>
-                                                            <a class="reply" href="#0"><i class="fal fa-reply"></i>Reply</a>
-                                                        </div>
-                                                        <p>
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                            tempor incididunt
-                                                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                                            exercitation
-                                                            ullamco laboris nisi ut aliquip.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="comments-box">
-                                                    <div class="comments-avatar">
-                                                        <img src="assets/images/author/c-author-3.png" alt="">
-                                                    </div>
-                                                    <div class="comments-text">
-                                                        <div class="avatar-name">
-                                                            <h5>Arista Williamson</h5>
-                                                            <span><i class="fal fa-calendar-alt"></i> 19th May 2018</span>
-                                                            <a class="reply" href="#0"><i class="fal fa-reply"></i>Reply</a>
-                                                        </div>
-                                                        <p>
-                                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                                            tempor incididunt
-                                                            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                                            exercitation
-                                                            ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>*@
-
                             </div>
                         </article>
 
@@ -1135,7 +989,7 @@
         $("#btnSubmit").on('click', function (e) {
             e.preventDefault();
             if (checkUsersLogin() == false) {
-                window.location.assign("http://localhost:52519/Signin");
+                window.location.assign("/Signin");
                 //return "";
             };
             var contentComment = $("textarea#comment").val();
@@ -1182,7 +1036,7 @@
                 if (e.target.className == "submitReply") {
                     e.preventDefault();
                     if (checkUsersLogin() == false) {
-                        window.location.assign("http://localhost:52519/Signin");
+                        window.location.assign("/Signin");
                         return "";
                     };
                     //if (checkStatusOfAccount() == false) {

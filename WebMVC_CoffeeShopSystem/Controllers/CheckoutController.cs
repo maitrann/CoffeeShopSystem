@@ -124,13 +124,13 @@ namespace WebMVC_CoffeeShopSystem.Controllers
                     //If executed payment failed then we will show payment failure message to user
                     if (executedPayment.state.ToLower() != "approved")
                     {
-                        return Redirect("http://localhost:52519");
+                        return RedirectToAction("Index", "Home");
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return Redirect("http://localhost:52519");
+                return RedirectToAction("Index", "Home");
             }
             //on successful payment, show success page to user.
             var priceTotalSs = Session.Contents["priceTotalSs"] as string;

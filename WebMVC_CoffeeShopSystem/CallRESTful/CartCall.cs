@@ -43,13 +43,19 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
                 return prodInfo;
             }
         }
-        public void UpdateInsertCart(Cart model)
+        public int UpdateInsertCart(Cart model)
         {
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 HttpResponseMessage Res = client.PostAsJsonAsync(cartUrl.UpdateInsertCart, model).GetAwaiter().GetResult();
+                if (Res.IsSuccessStatusCode)
+                {
+                    var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    return JsonConvert.DeserializeObject<int>(prodResponse);
+                }
+                return 0;
             }
         }
         public void UpdateCart(int idCart, int amount, decimal? price)
@@ -62,7 +68,7 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
                     + "&amount=" + amount + "&price=" + price).GetAwaiter().GetResult();
             }
         }
-        public void DeleteCart(int idCart)
+        public bool DeleteCart(int idCart)
         {
             using (var client = new HttpClient())
             {
@@ -72,7 +78,9 @@ namespace WebMVC_CoffeeShopSystem.CallRESTful
                 if (Res.IsSuccessStatusCode)
                 {
                     var prodResponse = Res.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                    return JsonConvert.DeserializeObject<bool>(prodResponse);
                 }
+                return false;
             }
         }
         public List<CartView> GetCartCheckout(int idAccount, string lsCartCheckout)

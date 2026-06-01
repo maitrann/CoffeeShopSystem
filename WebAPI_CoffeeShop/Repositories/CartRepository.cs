@@ -48,7 +48,7 @@ namespace WebAPI_CoffeeShop.Repositories
             }
             return query;
         }
-        public void UpdateInsertCart(Cart model)
+        public int UpdateInsertCart(Cart model)
         {
             using (var context = new CoffeeShopSystemEntities())
             {
@@ -75,6 +75,7 @@ namespace WebAPI_CoffeeShop.Repositories
                     context.Carts.Add(model);
                     context.SaveChanges();
                 }
+                return context.Carts.Count(c => c.idAccount == model.idAccount & c.Status == true);
             }
         }
         public void UpdateCart(int idCart, int amount, decimal? price)
@@ -87,13 +88,18 @@ namespace WebAPI_CoffeeShop.Repositories
                 context.SaveChanges();
             }
         }
-        public void DeleteCart(int idCart)
+        public bool DeleteCart(int idCart)
         {
             using (var context = new CoffeeShopSystemEntities())
             {
                 var cart = context.Carts.Where(c => c.id == idCart).FirstOrDefault();
+                if (cart == null)
+                {
+                    return false;
+                }
                 context.Carts.Remove(cart);
                 context.SaveChanges();
+                return true;
             }
         }
         public List<CartView> GetCartCheckout(int idAccount, string lsCartCheckout)

@@ -39,5 +39,10 @@ namespace WebAPI_CoffeeShop.Controllers
 		{
 			return _supplierRepository.getSupplierLog(email,password);
 		}
+        [HttpGet]
+        public SupplierView GetSupplierById(int idSupplier)
+        {
+            return _supplierRepository.GetSupplierById(idSupplier);
+        }
     }
 }

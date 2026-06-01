@@ -19,6 +19,7 @@ namespace WebMVC_CoffeeShopSystem.Controllers
         dynamic callProductDao = ProductDao.Instance;
         dynamic callCategoryDao = CategoryDao.Instance;
         dynamic callReviewDao = ReviewDao.Instance;
+        dynamic callSupplierDao = SupplierDao.Instance;
 
         public ActionResult Index()
         {
@@ -34,6 +35,14 @@ namespace WebMVC_CoffeeShopSystem.Controllers
                 if (details != null)
                 {
                     ViewBag.detailsProd = details;
+                    ViewBag.relatedProducts = ((List<ProductView>)callProductDao.getProducts())
+                        .Where(p => p.id != details.id)
+                        .Take(4)
+                        .ToList();
+                    if (details.idSupplier.HasValue)
+                    {
+                        ViewBag.supplierProfile = callSupplierDao.GetSupplierById(details.idSupplier.Value);
+                    }
                     ViewBag.avgReview = callReviewDao.avgReviewOfProduct(idProd);
                     ViewBag.countReview =callReviewDao.countReviewOfProduct(idProd);
                     ViewBag.lstReview = callReviewDao.GetReviewsOfProduct(idProd);
@@ -41,12 +50,12 @@ namespace WebMVC_CoffeeShopSystem.Controllers
                 }
                 else
                 {
-                    return Redirect("http://localhost:52519");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             else
             {
-                return Redirect("http://localhost:52519");
+                return RedirectToAction("Index", "Home");
             }
         }
         public ActionResult popupProd(int? idProd)
